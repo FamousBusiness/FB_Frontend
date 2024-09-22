@@ -66,7 +66,7 @@ function HandlePayment({ id, amount }) {
                 Cookies.set('merchant_id', merchant_id, {expires: intenMinutes });  // Set the UPI value in Cookie
                 setShowPaymentPage(true)
 
-                router.push('/plan/phonepe/')
+                router.push(`/plan/phonepe/?id=${amount}`)
                 
             }
             catch (error) {

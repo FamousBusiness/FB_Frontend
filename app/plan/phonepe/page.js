@@ -45,6 +45,9 @@ export default function PhonePeAutoPay() {
     const [errorMessage, setErrorMessage] = useState('');     // Error message for wrong UPI ID
     const [upiId, setUpiId]               = useState('');     // UPI ID
 
+    const router =  useRouter();
+    const { id } = router.query;
+
 
     // UPI ID validation
     const isValidUpiId = (upi) => {
@@ -53,7 +56,6 @@ export default function PhonePeAutoPay() {
     };
 
 
-    const router =  useRouter();
 
     const token = Cookies.get('accessToken')
     const qrCode = Cookies.get('QrCode')
@@ -183,7 +185,7 @@ export default function PhonePeAutoPay() {
             </Box>
 
             <Typography variant="h6" fontWeight="bold">
-              ₹12,000
+              {id}
             </Typography>
           </Box>
 
