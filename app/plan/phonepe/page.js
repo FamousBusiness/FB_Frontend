@@ -46,7 +46,7 @@ export default function PhonePeAutoPay() {
     const [upiId, setUpiId]               = useState('');     // UPI ID
 
     const router =  useRouter();
-    const { id } = router.query;
+    // const { id } = router.query;
 
 
     // UPI ID validation
@@ -185,7 +185,7 @@ export default function PhonePeAutoPay() {
             </Box>
 
             <Typography variant="h6" fontWeight="bold">
-              {id}
+              100
             </Typography>
           </Box>
 
