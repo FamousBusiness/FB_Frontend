@@ -6,16 +6,16 @@ const ServerMmode = process.env.NEXT_IS_DEVELOPMENT;
 let apiURL = '';
 
 if (ServerMmode === 'True') {
-    apiURL = 'http://127.0.0.1:8000'
+  apiURL = 'http://127.0.0.1:8000'
 } else {
-    apiURL = 'https://api.famousbusiness.in'
+  apiURL = 'https://api.famousbusiness.in'
 };
 
 
 export const GetAllPlans = async () => {
   try {
     const res = await fetch(
-      `${apiURL}/premium-plan-api/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/`,
       {
         method: "GET",
         headers: {

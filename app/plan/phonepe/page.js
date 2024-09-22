@@ -72,7 +72,7 @@ export default function PhonePeAutoPay() {
       if (isValidUpiId(upiId)) {
           setErrorMessage('');
            
-          axios.post(`${apiURL}/premium-plan-api/autopay/upi/payment/`, {
+          axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/upi/payment/`, {
             merchantUserId: decodedMerchantId,
             upi_id: upiId
           }, {
@@ -129,7 +129,7 @@ export default function PhonePeAutoPay() {
     // Send API Requests
     const sendRequest = async () => {
       try {
-            const response = await axios.get(`${apiURL}/premium-plan-api/autopay/payment/status/`,{
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
             merchantUserId: decodedMerchantId
           },{
             headers: {

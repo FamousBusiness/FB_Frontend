@@ -64,7 +64,7 @@ const TimerPage = () => {
     /// Send API Request
     const sendRequest = async () => {
       try {
-           await axios.post(`${apiURL}/premium-plan-api/autopay/payment/status/`, {
+           await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`, {
                 merchantUserId: decodedMerchantId
         }, {
             headers: {

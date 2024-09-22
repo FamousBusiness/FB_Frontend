@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
 	const registerUser = async (values) => {
 		try {
 			setUseloading(true);
-			const response = await fetch(`${apiURL}/register/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const AuthProvider = ({ children }) => {
 		try {
 			setUseloading(true);
 
-			const response = await fetch(`${apiURL}/client-register/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/client-register/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const AuthProvider = ({ children }) => {
 		try {
 			setUseloading(true);
 
-			const response = await fetch(`${apiURL}/login/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ const AuthProvider = ({ children }) => {
 	const logoutUser = useCallback(async () => {
 		try {
 			const refreshToken = authTokens?.refresh; // replace with your method of obtaining the refresh token
-			const response = await fetch(`${apiURL}/logout/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -250,7 +250,7 @@ const AuthProvider = ({ children }) => {
 		// console.log('updatetoken function running');
 		
 		try {
-			const response = await fetch(`${apiURL}/token/refresh/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/token/refresh/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

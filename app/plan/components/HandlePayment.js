@@ -20,6 +20,7 @@ if (ServerMmode === 'True') {
 };
 
 
+
 // Phonepe Payment
 function HandlePayment({ id, amount }) {
     const { user, authTokens, userdata } = useAuth()
@@ -46,7 +47,7 @@ function HandlePayment({ id, amount }) {
             try {
 
                 setCheckOut(false);
-                const { data } = await Axios.post(`${apiURL}/premium-plan-api/premium-plan-payment/`, bodyData, {
+                const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/premium-plan-payment/`, bodyData, {
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "multipart/form-data",

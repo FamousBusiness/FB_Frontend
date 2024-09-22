@@ -1,4 +1,5 @@
 "use client";
+
 import { Player } from '@lottiefiles/react-lottie-player'
 import { Badge, Col, Row, Skeleton } from 'antd'
 import Link from 'next/link'
@@ -42,7 +43,7 @@ function Top() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const leadsData = await get_all_leads(`${apiURL}/lead-api/all-leads/${city}/${state}/`);
+        const leadsData = await get_all_leads(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/all-leads/${city}/${state}/`);
         const results = await leadsData.results;
         if (user) {
           const total = results.Leads.length + results.Individual_Leads.length + results.Other_Category_Leads.length
