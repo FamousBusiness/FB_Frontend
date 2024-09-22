@@ -1,9 +1,9 @@
 module.exports = {
     apps : [
         {
-          name: "myapp",
+          name: "FB_Frontend",
           script: "npm start",
-          port: 3001
+          port: 3000
         }
     ]
   }
