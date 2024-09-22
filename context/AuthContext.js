@@ -9,10 +9,11 @@ import { message } from 'antd';
 const ServerMmode = process.env.NEXT_IS_DEVELOPMENT;
 let apiURL = '';
 
+
 if (ServerMmode === 'True') {
-    apiURL = 'https://api.famousbusiness.in/api'
+    apiURL = 'http://127.0.0.1:8000'
 } else {
-    apiURL = 'http://127.0.0.1:8000/api'
+    apiURL = 'https://api.famousbusiness.in'
 };
 
 

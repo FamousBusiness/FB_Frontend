@@ -28,9 +28,9 @@ let apiURL = '';
 
 
 if (ServerMode === 'True') {
-    apiURL = 'https://api.famousbusiness.in'
-} else {
     apiURL = 'http://127.0.0.1:8000'
+} else {
+    apiURL = 'https://api.famousbusiness.in'
 };
 
 
