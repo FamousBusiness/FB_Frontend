@@ -48,7 +48,7 @@ export default function LoginOTPPaga() {
                 Famous Business
                 </Typography>
                 <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                India's Largest B2B And B2C Business Portal
+                Indias Largest B2B And B2C Business Portal
                 </Typography>
                 <Typography variant="h4" gutterBottom>
                 Welcome

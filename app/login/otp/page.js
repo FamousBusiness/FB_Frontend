@@ -14,7 +14,7 @@ export default function LoginOptionPage() {
           <Grid item md={6}>
             <Box sx={{ textAlign: 'center', mb: 2, color:'green' }}>
               <Typography variant="h5" gutterBottom>
-                  <b>India's Largest B2B and B2C Business Portal</b>
+                  <b>Indias Largest B2B and B2C Business Portal</b>
               </Typography>
             </Box>
 
