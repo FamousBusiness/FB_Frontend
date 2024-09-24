@@ -3,8 +3,13 @@ import LoginForm from '@/components/users/auth/LoginForm'
 import {  Col, Flex, Row } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
+
+
+
+
 function page() {
+  
   return (
     <Row justify='center' gutter={[0, 24]}>
       <Col xl={23} xxl={23} sm={23} xs={24} lg={23} >
