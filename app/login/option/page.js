@@ -79,7 +79,7 @@ export default function LoginOTPPaga() {
                 {/* Resend OTP Section */}
                 <Typography variant="body2" sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
                 <TimerIcon fontSize="small" sx={{ mr: 1 }} />
-                Didn’t Receive the OTP? Retry in 00:{timer < 10 ? `0${timer}` : timer}
+                 Didnot Receive the OTP? Retry in 00:{timer < 10 ? `0${timer}` : timer}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'blue', cursor: 'pointer' }} onClick={handleResendOtp}>
                 Resend OTP
