@@ -5,6 +5,7 @@ import { Box, Typography, Button, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import TimerIcon from '@mui/icons-material/Timer';
 import Grid from '@mui/material/Grid2';
+import Image from 'next/image';
 
 
 
@@ -33,7 +34,7 @@ export default function LoginOTPPaga() {
         <Grid container spacing={2} alignItems="center" justifyContent="center">
             {/* Image Section (Using sx media query to hide on small screens) */}
             <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-            <img
+            <Image
                 src="path_to_your_image.png"
                 alt="Business Portal"
                 style={{ width: '100%', height: 'auto' }}

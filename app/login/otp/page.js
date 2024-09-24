@@ -46,7 +46,7 @@ export default function LoginOptionPage() {
               />
 
               <Typography variant="body2">
-                <a href="#">T&C's Privacy Policy</a>
+                <a href="#">T&amp;C&apos;s Privacy Policy</a>
               </Typography>
 
               <Box mt={2}>

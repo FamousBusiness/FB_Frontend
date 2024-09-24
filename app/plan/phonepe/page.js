@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import Alert from '@mui/joy/Alert';
-
+import Image from 'next/image';
 
 
 
@@ -177,7 +177,7 @@ export default function PhonePeAutoPay() {
           {/* Business and Amount Section */}
           <Box display="flex" justifyContent="space-between" >
             <Box display="flex" alignItems="center" flexGrow={1}>
-              <img src="/autopay/shoping-cart.svg" alt="icon1" style={{ marginRight: 8, maxWidth:'50px' }} />
+              <Image src="/autopay/shoping-cart.svg" alt="icon1" style={{ marginRight: 8, maxWidth:'50px' }} />
 
               <Typography variant="p" fontWeight="bold">
                 Famous Business Pvt. Ltd.
@@ -222,10 +222,10 @@ export default function PhonePeAutoPay() {
           {/* UPI Icons and Others */}
           <Box display="flex" justifyContent="center" mt={2} mb={2}>
             {/* Add actual icons here */}
-            <img src="/autopay/phonepe.svg" alt="icon1" style={{ marginRight: 8, maxWidth:'50px' }} />
-            <img src="/autopay/google-pay.svg" alt="icon2" style={{ marginRight: 1,  maxWidth:'30px', marginLeft:1 }} />
-            <img src="/autopay/paytm.svg" alt="icon3" style={{ marginRight: 8,  maxWidth:'20px',  marginLeft:2 }} />
-            <img src="/autopay/bhim.svg" alt="icon3" style={{ marginRight: 8,  maxWidth:'20px',  marginLeft:2 }} />
+            <Image src="/autopay/phonepe.svg" alt="icon1" style={{ marginRight: 8, maxWidth:'50px' }} />
+            <Image src="/autopay/google-pay.svg" alt="icon2" style={{ marginRight: 1,  maxWidth:'30px', marginLeft:1 }} />
+            <Image src="/autopay/paytm.svg" alt="icon3" style={{ marginRight: 8,  maxWidth:'20px',  marginLeft:2 }} />
+            <Image src="/autopay/bhim.svg" alt="icon3" style={{ marginRight: 8,  maxWidth:'20px',  marginLeft:2 }} />
             <Typography variant="body2" color="textSecondary">
               and more
             </Typography>
@@ -266,7 +266,7 @@ export default function PhonePeAutoPay() {
             <Typography variant="caption" color="textSecondary">
               Powered by
             </Typography>
-            <img src="/autopay/phonepe.svg" alt="icon3" style={{ maxWidth:'60px' }} />
+            <Image src="/autopay/phonepe.svg" alt="icon3" style={{ maxWidth:'60px' }} />
 
           </Box>
 
