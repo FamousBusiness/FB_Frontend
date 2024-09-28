@@ -10,17 +10,7 @@ import { get_all_leads } from '@/services/Admin/Leads';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { useRouter } from 'next/navigation';
-
-
-const ServerMmode = process.env.NEXT_IS_DEVELOPMENT;
-let apiURL = '';
-
-
-if (ServerMmode === 'True') {
-    apiURL = 'http://127.0.0.1:8000'
-} else {
-    apiURL = 'https://api.famousbusiness.in'
-};
+import { environmentMode } from '@/components/environment';
 
 
 
@@ -39,6 +29,11 @@ function Top() {
   const state = locationState.state;
 
 
+  // console.log('apiURL', environmentMode())
+
+  // const apiUrl = environmentMode()
+
+  // console.log('apiUrl', apiUrl)
 
   useEffect(() => {
     const fetchData = async () => {

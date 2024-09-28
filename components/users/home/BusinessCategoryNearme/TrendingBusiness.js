@@ -8,14 +8,17 @@ import Link from 'next/link';
 import AllCategory from './AllCategory';
 import useSWR from 'swr';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
+import { environmentMode } from '@/components/environment';
 
 
 
 
 function TrendingBusiness() {
     const { locationState } = useGlobalState();
+
+    // const apiUrl = environmentMode() // API URL
     
-    const { data: categories, error } = useSWR(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/listings/category/`, async (url) => {
+    const { data: categories, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/listings/category/`, async (url) => {
         const response = await fetch(url, {
             method: 'GET',
             headers: {

@@ -14,6 +14,7 @@ import { Poppins } from 'next/font/google';
 // import SoftwareComponent from '@/components/users/home/SoftwareSection/SoftwareComponent';
 
 
+
 const poppins = Poppins({
     weight: '500',
     subsets: ['latin']
@@ -30,8 +31,10 @@ const poppinss = Poppins({
 const { Text, Title } = Typography
 
 
+// Home Page
 function Page() {
     const controls = useAnimation();
+
     useEffect(() => {
         controls.start({ opacity: 1 });
     }, [controls]);

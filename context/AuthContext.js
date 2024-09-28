@@ -4,17 +4,7 @@ import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
-
-
-const ServerMmode = process.env.NEXT_IS_DEVELOPMENT;
-let apiURL = '';
-
-
-if (ServerMmode === 'True') {
-    apiURL = 'http://127.0.0.1:8000'
-} else {
-    apiURL = 'https://api.famousbusiness.in'
-};
+import { environmentMode } from '@/components/environment';
 
 
 
@@ -22,6 +12,8 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 	const router = useRouter();
+
+	const apiURL = environmentMode(); // Environment Mode
 
 	const [authTokens, setAuthTokens] = useState(() => {
 		if (typeof window !== 'undefined') {
@@ -245,12 +237,14 @@ const AuthProvider = ({ children }) => {
 		}
 	}, [setAuthTokens, setUser, authTokens, router]);
 
+
+
+	 // Refresh Token
 	const updateToken = useCallback(async () => {
 
-		// console.log('updatetoken function running');
-		
+				
 		try {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/token/refresh/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/api/token/refresh/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -286,7 +280,7 @@ const AuthProvider = ({ children }) => {
 
 		const nineteen = 1000 * 60 * 60 * 3;
 
-		const interval = setInterval(() => {
+		const interval = setInterval(() => { 
 			// console.log('Token refresh');
 			if (authTokens) {
 				updateToken();
