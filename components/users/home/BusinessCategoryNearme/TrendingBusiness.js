@@ -8,7 +8,7 @@ import Link from 'next/link';
 import AllCategory from './AllCategory';
 import useSWR from 'swr';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
-import { environmentMode } from '@/components/environment';
+import { EnvironmentMode } from '@/components/environment';
 
 
 

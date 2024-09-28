@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 
 
-function page() {
+function Page() {
 
     const [otp, setOtp] = useState(new Array(4).fill(''));
     const [timer, setTimer] = useState(55);
@@ -112,4 +112,4 @@ function page() {
   )
 }
 
-export default page
+export default Page;

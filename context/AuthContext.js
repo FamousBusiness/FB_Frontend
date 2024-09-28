@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
-import { environmentMode } from '@/components/environment';
+import { EnvironmentMode } from '@/components/environment';
 
 
 
@@ -13,7 +13,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 	const router = useRouter();
 
-	const apiURL = environmentMode(); // Environment Mode
+	const apiURL = EnvironmentMode(); // Environment Mode
 
 	const [authTokens, setAuthTokens] = useState(() => {
 		if (typeof window !== 'undefined') {

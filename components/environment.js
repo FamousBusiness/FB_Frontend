@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const ServerMode = process.env.NEXT_PUBLIC_IS_DEVELOPMENT;
 
 
-export const environmentMode = ()=> {
+export const EnvironmentMode = ()=> {
     const [apiURL, setApiURL] = useState('');
 
     useEffect(() => {

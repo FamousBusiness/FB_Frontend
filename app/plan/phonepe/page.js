@@ -23,18 +23,6 @@ import Image from 'next/image';
 
 
 
-const ServerMode = process.env.NEXT_IS_DEVELOPMENT;
-let apiURL = '';
-
-
-if (ServerMode === 'True') {
-    apiURL = 'http://127.0.0.1:8000'
-} else {
-    apiURL = 'https://api.famousbusiness.in'
-};
-
-
-
 // Autopay payment page
 export default function PhonePeAutoPay() {
     const [isRunning, setIsRunning] = useState(false);
@@ -64,7 +52,9 @@ export default function PhonePeAutoPay() {
 
     // Update the QR value into a state
     useEffect(()=> {
+      if (qrCode) {
         setQrValue(qrCode)
+      }
     }, []);
 
 
