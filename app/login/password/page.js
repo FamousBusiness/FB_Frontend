@@ -39,11 +39,12 @@ function PasswordLoginPage () {
                                 {/* <div className=' font-black text-sm sm:text-3xl space-x-2 text-slate-700 font-sans text-center'><span className=' font-bold text-orange-600 font-dark'>Log in</span> now to access the <span className=' font-bold text-orange-600 font-dark'>finest deals</span> and
                                     <span className=' font-bold text-orange-600 font-dark'>exclusive offers.</span>
                                 </div> */}
-                                <LoginForm />
+                                    <LoginForm />
                                 </Col>
                             </Row>
                         </Col>
-
+                        
+                        
                         <Col span={0}>
                             <div className=' text-center text-lg '>
                                 All rights reserved By Webzotica Business Famous Software Private Limited.

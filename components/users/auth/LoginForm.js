@@ -34,6 +34,7 @@ const LoginForm = () => {
         loginUser(data);
     };
 
+    
     const antIcon = (
         <LoadingOutlined
             style={{
@@ -55,9 +56,11 @@ const LoginForm = () => {
                     <Button block size='large' style={{ fontWeight: 700, color: "white", background: "#FB8C00" }} icon={<MdBusiness />} href="/registration">Register as Business</Button>
 
                 </Col>
+
                 <Col xxl={11} sm={0} xs={0} xl={11} lg={11}>
                     <Button size='large' block href='/registration/user' style={{ background: "green", fontWeight: 700, color: "white" }} icon={<UserOutlined />} >Register as User</Button>
                 </Col>
+                
                 <Col span={24}>
                     <Card className=' sm:shadow-lg' title={<center><p style={{ fontSize: 20 }}>Login</p></center>} bordered>
                         <Form
@@ -107,11 +110,10 @@ const LoginForm = () => {
                                     <Row justify='center'>
                                         <Col span={24}>
                                             <Form.Item>
-                                                <Button disabled={useloading} shape='round' size='large' style={{ width: '100%',    background: '#3c89d0', color: 'white' }} htmlType="submit" >
+                                                <Button disabled={useloading} shape='round' size='large' style={{ width: '100%',       background: '#3c89d0', color: 'white' }} htmlType="submit" >
                                                     {useloading ? <Spin indicator={antIcon} /> : "Log in"}
                                                 </Button>
                                             </Form.Item>
-                                           
 
                                         </Col>
                                     </Row>

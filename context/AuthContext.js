@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
-import { EnvironmentMode } from '@/components/environment';
+// import { EnvironmentMode } from '@/components/environment';
 
 
 
@@ -13,7 +13,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 	const router = useRouter();
 
-	const apiURL = EnvironmentMode(); // Environment Mode
+	// const apiURL = EnvironmentMode(); // Environment Mode
 
 	const [authTokens, setAuthTokens] = useState(() => {
 		if (typeof window !== 'undefined') {
@@ -148,6 +148,8 @@ const AuthProvider = ({ children }) => {
 		}
 	};
 
+	
+
 	const loginUser = async (values, pathname) => {
 		try {
 			setUseloading(true);
@@ -174,15 +176,20 @@ const AuthProvider = ({ children }) => {
 					number: data.mobile_number,
 					plan: data.plan_status
 				});
+
 				localStorage.setItem('userData', JSON.stringify({
 					name: data.user_name,
 					business: data.business_id,
 					number: data.mobile_number,
 					plan: data.plan_status
 				}));
+
 				Cookies.set('accessToken', data.token.access);
+
 				setUser(jwt_decode(data.token.access));
+
 				Cookies.set('authTokens', JSON.stringify(data.token), { expires: 15 });
+
 				if (pathname) {
 					return; // Redirect to the specified pathname if provided
 				} else {
@@ -200,7 +207,6 @@ const AuthProvider = ({ children }) => {
 		} catch (error) {
 			console.error('Error during login:', error);
 			alert('An error occurred during login.');
-
 		}
 	};
 
@@ -217,6 +223,7 @@ const AuthProvider = ({ children }) => {
 				},
 				body: JSON.stringify({ "refresh_token": refreshToken })
 			});
+
 			if (response.ok) {
 				// Logout successful on the server, clear local stat
 				Cookies.remove('accessToken');
@@ -242,9 +249,8 @@ const AuthProvider = ({ children }) => {
 	 // Refresh Token
 	const updateToken = useCallback(async () => {
 
-				
 		try {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/api/token/refresh/`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/token/refresh/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -309,6 +315,10 @@ const AuthProvider = ({ children }) => {
 	);
 };
 
+
+
+
+
 const useAuth = () => {
 	const context = useContext(AuthContext);
 	if (!context) {
@@ -317,12 +327,8 @@ const useAuth = () => {
 	return context;
 };
 
+
+
+
 export { AuthProvider, useAuth };
-
-
-
-
-
-
-
 

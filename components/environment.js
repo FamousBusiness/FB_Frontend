@@ -1,22 +1,22 @@
-'use client'
+// 'use client'
 
-import { useEffect, useState } from "react";
-
-
-const ServerMode = process.env.NEXT_PUBLIC_IS_DEVELOPMENT;
+// import { useEffect, useState } from "react";
 
 
-export const EnvironmentMode = ()=> {
-    const [apiURL, setApiURL] = useState('');
+// const ServerMode = process.env.NEXT_PUBLIC_IS_DEVELOPMENT;
 
-    useEffect(() => {
-        if (ServerMode == 'True') {
-            setApiURL(process.env.NEXT_PUBLIC_DEVELOPMENT_URL);
-        } else {
-            setApiURL(process.env.NEXT_PUBLIC_API_URL);
-        }
-    }, []);
 
-    return apiURL;
+// export const EnvironmentMode = ()=> {
+//     const [apiURL, setApiURL] = useState('');
 
-};
+//     useEffect(() => {
+//         if (ServerMode == 'True') {
+//             setApiURL(process.env.NEXT_PUBLIC_DEVELOPMENT_URL);
+//         } else {
+//             setApiURL(process.env.NEXT_PUBLIC_API_URL);
+//         }
+//     }, []);
+
+//     return apiURL;
+
+// };

@@ -1,114 +1,147 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
-import { Box, Typography, Button, TextField, IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import TimerIcon from '@mui/icons-material/Timer';
+import { Box, Button, TextField, Typography, Checkbox, FormControlLabel, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Image from 'next/image';
 
 
 
-
 function Page() {
+  // const router = useRouter();
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [error, setError]               = useState('');
+  const [disableButton, setDisableButton] = useState(false);
 
-    const [otp, setOtp] = useState(new Array(4).fill(''));
-    const [timer, setTimer] = useState(55);
 
-    const handleChange = (e, index) => {
-        const value = e.target.value;
-        if (value.length <= 1) {
-        const newOtp = [...otp];
-        newOtp[index] = value;
-        setOtp(newOtp);
-        }
-    };
+  // Redirect to Login with password page
+   const handleRedirectPasswordLogin = ()=> {
+      window.location.href = '/login/password/'
+   };
 
-    const handleResendOtp = () => {
-        // Logic to resend OTP
-        setTimer(55); // Reset the timer
-    };
+   
+   // Get mobile number 
+   const handleChangeMobileNumber = (e)=> {
+        const {name, value} = e.target;
+
+        setMobileNumber(value)
+   };
+
+   // Redirect to OTP Page
+   const handleRedirectOTPLogin = async ()=> {
+         if(mobileNumber == '') {
+            setError('Please type your Mobile Number')
+         } else if (mobileNumber.length !== 10) {
+            setError('Mobile number length should be 10 digit')
+         } else if (!/^\d{10}$/.test(mobileNumber)) {
+            setError('Mobile number should contain only digits');
+         } else {
+            setError('')
+            setDisableButton(true);
+
+            // Send API Request for OTP
+            try{
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send/login/otp/`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ 'mobile_number': mobileNumber }),
+                });
+    
+                const data = await response.json()
+    
+                if (response.status === 200) {
+                    let userMobileNumber = btoa(mobileNumber)
+
+                    window.location.href = `/login/otp/?mn=${userMobileNumber}`
+
+                } else if (response.status === 400) {
+                    // console.log(data.message)
+                    setDisableButton(false);
+
+                    if (data.message === 'Invalid User') {
+                      setError('User with this mobile number does not exists')
+                    } else if (data.message === 'Invalid Mobile Number') {
+                      setError('User with this mobile number does not exists')
+                    } else {
+                      setError('')
+                    }
+
+                } else {
+                  setError('Invalid Data')
+                };
+
+            } catch(e) {
+                // console.log(e);
+            }
+         }
+   };
+
   
 
   return (
 
-    <Box sx={{ flexGrow: 1, padding: '20px' }}>
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
-            {/* Image Section (Using sx media query to hide on small screens) */}
-            <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Image
-                  src="path_to_your_image.png"
-                  alt="Business Portal"
-                  style={{ width: '100%', height: 'auto' }}
-              />
-            </Grid>
+    <Box sx={{ flexGrow: 1, padding: '20px', mt:9 }}>
+     
+    <Grid container spacing={2} alignItems="center" justifyContent="center">
 
-            {/* OTP Form Section */}
-            <Grid item xs={12} md={6}>
-                <Box sx={{ textAlign: 'center' }}>
-                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: 'green' }}>
-                      Famous Business
-                    </Typography>
+        <Grid size={{md:6}}>
+          <Box sx={{ textAlign: 'center', mb: 2, color:'green' }}>
+            <Typography variant="h5" gutterBottom>
+                <b>Indias Largest B2B and B2C Business Portal</b>
+            </Typography>
+          </Box>
 
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
-                      Indias Largest B2B And B2C Business Portal
-                    </Typography>
-
-                    <Typography variant="h4" gutterBottom>
-                      Welcome
-                    </Typography>
-
-                    <Typography variant="body1" gutterBottom>
-                      Enter the code sent to <b>+91 - 9871475373</b> 
-                      <IconButton size="small" sx={{ ml: 1 }}>
-                          <EditIcon fontSize="small" />
-                      </IconButton>
-                    </Typography>
-
-                    {/* OTP Input Fields */}
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                      {otp.map((data, index) => (
-                          <TextField
-                          key={index}
-                          value={data}
-                          onChange={(e) => handleChange(e, index)}
-                          variant="outlined"
-                          inputProps={{
-                              maxLength: 1,
-                              style: { textAlign: 'center', width: '50px', marginRight: '10px' },
-                          }}
-                          />
-                      ))}
-                    </Box>
-
-                    {/* Resend OTP Section */}
-                    <Typography variant="body2" sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                      <TimerIcon fontSize="small" sx={{ mr: 1 }} />
-                      Didnot Receive the OTP? Retry in 00:{timer < 10 ? `0${timer}` : timer}
-                    </Typography>
-
-                    <Typography variant="body2" sx={{ color: 'blue', cursor: 'pointer' }} onClick={handleResendOtp}>
-                      Resend OTP
-                    </Typography>
-
-                    {/* Continue Button */}
-                    <Button variant="contained" color="primary" fullWidth sx={{ mt: 2, height: '50px' }}>
-                      Continue
-                    </Button>
-
-                    {/* Register Buttons */}
-                    <Box mt={2}>
-                      <Button variant="contained" color="secondary" fullWidth>
-                          Register as Business
-                      </Button>
-                      <Button variant="outlined" color="primary" fullWidth sx={{ mt: 1 }}>
-                          Register as User
-                      </Button>
-                    </Box>
-                </Box>
-            </Grid>
+          <Image
+            src="/Model.png"
+            alt="Business Portal"
+            width={400}
+            height={400}
+          />
         </Grid>
-    </Box>
+
+      {/* Login Form */}
+      <Grid size={{xs:12, md:6}}>
+        <Paper sx={{ textAlign: 'center', p:4, borderRadius:5 }} elevation={3}>
+
+            <Typography variant="h4" gutterBottom>
+              Welcome
+            </Typography>
+
+            <TextField
+              label="Enter Mobile Number"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              onChange={handleChangeMobileNumber}
+            />
+
+            <FormControlLabel
+              control={<Checkbox />}
+              label="I agree to Terms and Conditions"
+            />
+
+            <Typography variant="body2">
+              <a href="#">Privacy Policy</a>
+            </Typography>
+
+            <Box mt={2}>
+              <Button variant="contained" color="primary" onClick={handleRedirectOTPLogin} fullWidth disabled={disableButton}>
+                Login with OTP
+              </Button>
+
+              <Button variant="contained" onClick={handleRedirectPasswordLogin} color="success" fullWidth sx={{ mt: 1 }}>
+                Login with Password
+              </Button>
+
+              <p style={{color:'red'}}>{error && error}</p>
+            </Box>
+
+        </Paper>
+      </Grid>
+    </Grid>
+  </Box>
   )
 }
 
