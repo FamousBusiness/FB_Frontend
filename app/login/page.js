@@ -1,17 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Checkbox, FormControlLabel, Paper } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import Image from 'next/image';
+import { ArrowRightOutlined } from '@ant-design/icons';
+import { Player } from '@lottiefiles/react-lottie-player';
+import {  FormControl, InputAdornment, TextField } from '@mui/material';
+import { Col,   Row } from 'antd'
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { Button as MUButton} from '@mui/material';
+
 
 
 
 function Page() {
   // const router = useRouter();
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [error, setError]               = useState('');
-  const [disableButton, setDisableButton] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState('');  // Mobile Number 
+  const [error, setError]               = useState('');  // Error state
+  const [disableButton, setDisableButton] = useState(false);  // Disable Button
 
 
   // Redirect to Login with password page
@@ -82,67 +86,125 @@ function Page() {
 
   return (
 
-    <Box sx={{ flexGrow: 1, padding: '20px', mt:9 }}>
-     
-    <Grid container spacing={2} alignItems="center" justifyContent="center">
+    <Row justify='center' gutter={[0, 24]}>
+            <Col xl={23} xxl={23} sm={24} xs={24} lg={23} >
+                <Row justify='center' gutter={[0, 24]}>
 
-        <Grid size={{md:6}}>
-          <Box sx={{ textAlign: 'center', mb: 2, color:'green' }}>
-            <Typography variant="h5" gutterBottom>
-                <b>Indias Largest B2B and B2C Business Portal</b>
-            </Typography>
-          </Box>
+                    <Col span={22} className=' top-6'>
+                        <Link className="text-lg sm:text-3xl font-bold" href="/" prefetch scroll={false}>
+                            <span className='dark:text-blue-600'>Famous </span>
+                            <span className='text-green-700 dark:text-green-700'>Business</span>
+                        </Link>
+                        <hr className=' my-2' />
+                    </Col>
+                    
+                    <Col xl={14} xxl={14} sm={0} xs={0} lg={14}>
+                        <div className=' flex flex-col mt-20 justify-center items-center'>
+                            <div className='h-48 md:h-96 w-48 sm:w-3/4'>
+                                <Row justify='space-between' gutter={[12, 12]}>
+                                    <Col span={11} className='border-animate relative overflow-hidden border-2 h-24 sm:h-56 w-16 sm:w-52 rounded-3xl p-4 text-center' style={{ backgroundColor: 'rgba(255, 187, 17, 0.3)' }}>
+                                        <div className=' absolute z-30 text-black text-sm sm:text-2xl font-bold'>
+                                            Join Over 10.1 Crore Buyers*
+                                        </div>
+                                        <Player src='/BusinessList/shoping.json' loop autoplay className=' absolute top-16 left-1/3 -z-10 sm:z-0 w-full sm:w-2/3' />
+                                    </Col>
 
-          <Image
-            src="/Model.png"
-            alt="Business Portal"
-            width={400}
-            height={400}
-          />
-        </Grid>
+                                    <Col span={11} className='border-animate relative overflow-hidden border-2 h-24 sm:h-56 w-16 sm:w-52 rounded-3xl p-4 text-center' style={{ backgroundColor: 'rgba(155, 180, 10, 0.3)' }}>
+                                        <div className=' absolute z-30 text-black text-sm sm:text-2xl font-bold'>
+                                            3.8 Crore+
+                                            Businesses
+                                            Listed
+                                        </div>
+                                        <Player src='/BusinessList/web.json' loop autoplay className=' absolute top-16 left-1/3 -z-10 sm:z-0 w-full sm:w-2/4' />
+                                    </Col>
 
-      {/* Login Form */}
-      <Grid size={{xs:12, md:6}}>
-        <Paper sx={{ textAlign: 'center', p:4, borderRadius:5 }} elevation={3}>
+                                    <Col span={11} className='border-animate relative overflow-hidden border-2 h-24 sm:h-56 w-16 sm:w-52 rounded-3xl bg-red-200 p-4 text-center' >
+                                        <div className=' absolute z-30 text-black text-sm sm:text-2xl font-bold'>
+                                            Show Products and Services
+                                        </div>
+                                        <Player src='/BusinessList/product.json' loop autoplay className=' absolute top-16 left-1/3 -z-10 sm:z-0 w-full sm:w-2/4' />
+                                    </Col>
 
-            <Typography variant="h4" gutterBottom>
-              Welcome
-            </Typography>
+                                    <Col span={11} className='border-animate relative overflow-hidden border-2 h-24 sm:h-56 w-16 sm:w-52 rounded-3xl bg-orange-100 p-4 text-center' >
+                                        <div className=' absolute z-30 w-full text-center text-black text-sm sm:text-2xl font-bold'>
+                                            Get Daily Potential Customers
+                                        </div>
+                                        <Player src='/BusinessList/customer.json' loop autoplay className=' absolute top-16 left-1/3 -z-10 sm:z-0 w-full sm:w-2/4' />
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+                    </Col>
 
-            <TextField
-              label="Enter Mobile Number"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              onChange={handleChangeMobileNumber}
-            />
+                    <Col sm={12} xs={12} lg={10} className=' top-20' >
+                        <Row justify='end' gutter={[0, 24]}>
+                            <Col span={24} >
+                                <div className=' h-48 sm:h-96 dark:text-black flex flex-col justify-center mt-10 items-center'>
+                                    <Row gutter={[0, 24]} justify='end'>
+                                        <Col span={22}>
+                                            <div className='text-xs sm:text-2xl font-black'>
+                                              <span className='text-blue-700'> Business Directory</span> Portal Connecting Buyers with Suppliers. 
+                                            </div>
+                                            {/* <div className='mt-2 text-lg sm:text-xl font-semibold'>
+                                                with India`s No.1 B2B & B2C Business Platform
+                                            </div> */}
+                                        </Col>
 
-            <FormControlLabel
-              control={<Checkbox />}
-              label="I agree to Terms and Conditions"
-            />
+                                        <Col span={22}>
+                                            <FormControl>
+                                                <TextField
+                                                    fullWidth
+                                                    id="outlined-basic"
+                                                    required
+                                                    label="Enter Mobile No."
+                                                    onChange={handleChangeMobileNumber}
+                                                    InputProps={{
+                                                        startAdornment: (
+                                                            <InputAdornment position="start">
+                                                                 +91
+                                                            </InputAdornment>
+                                                        ),
+                                                        endAdornment: (
+                                                            <InputAdornment position="end">
+                                                                <b onClick={handleRedirectOTPLogin} 
+                                                                disabled={disableButton}
+                                                                className=' cursor-pointer bg-[linear-gradient(to_right,theme(colors.blue.600),theme(colors.blue.300),theme(colors.blue.600),theme(colors.blue.200),theme(colors.blue.600))] bg-[length:200%_auto] animate-gradient rounded-md px-5 py-2 text-white font-semibold flex flex-row justify-between hover:translate-x-1 transition-transform duration-300'
+                                                                >
+                                                                    Start Now <ArrowRightOutlined className=' ml-1' /></b>
+                                                            </InputAdornment>
+                                                        )
+                                                    }}
+                                                />
+                                            </FormControl>
+                                        </Col>
+                                        
+                                        <Col span={22}>
+                                            <div className=' text-xs'>By proceeding, you consent to abide by our <Link href="/about/Terms-Condition/">Terms of Use</Link>, <Link href='/about/policy'>Privacy Policy</Link></div>
 
-            <Typography variant="body2">
-              <a href="#">Privacy Policy</a>
-            </Typography>
+                                            <MUButton variant="contained" color="primary" fullWidth sx={{ mt: 1, width:{xs:'100%', sm:'100%', md:'70%'} }} onClick={handleRedirectPasswordLogin}>
+                                                Login with Password
+                                            </MUButton>
 
-            <Box mt={2}>
-              <Button variant="contained" color="primary" onClick={handleRedirectOTPLogin} fullWidth disabled={disableButton}>
-                Login with OTP
-              </Button>
+                                            <p style={{color:'red'}}>{error && error}</p>
 
-              <Button variant="contained" onClick={handleRedirectPasswordLogin} color="success" fullWidth sx={{ mt: 1 }}>
-                Login with Password
-              </Button>
+                                        </Col>
+                                    </Row>
 
-              <p style={{color:'red'}}>{error && error}</p>
-            </Box>
+                                </div>
 
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
-  )
-}
+                            </Col>
+                        </Row>
+
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
+
+  );
+};
 
 export default Page;
+
+
+
+
