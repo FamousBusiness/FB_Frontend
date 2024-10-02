@@ -23,6 +23,7 @@ import CategorySelect from '@/components/admin/Listing/CategorySelect';
 
 function Page() {
     const { userdata, authTokens } = useAuth()
+    const [category_id, setCategoryId] = useState(1);
     const { locationState } = useGlobalState()
     const [open, setOpen] = useState(false)
     const router = useRouter()
@@ -41,7 +42,7 @@ function Page() {
             if (category) {
                 datasend = {
                     ...values,
-                    category: category,
+                    category: parseInt(category_id),
                     state: state ? state : locationState.state
                 };
                 form.resetFields();
@@ -150,7 +151,10 @@ function Page() {
                                         </Col> */}
 
                                         <Col span={24}>
-                                            <CategorySelect label={false} />
+                                            <CategorySelect label={false} 
+                                            setCategoryId={setCategoryId}
+                                            category_id={category_id}
+                                            />
                                         </Col>
                                         
 

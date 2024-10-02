@@ -9,9 +9,9 @@ import { get_all_categories } from '@/services/Admin/category';
 
 
 
-const Category1 = ({ label, tooltip, required, size }) => {
+const Category1 = ({ label, tooltip, required, size, category_id, setCategoryId }) => {
   const [items, setItems] = useState([]);
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
 
 
   useEffect(() => {
@@ -28,8 +28,9 @@ const Category1 = ({ label, tooltip, required, size }) => {
   }, []); // Run only on component mount
 
   const onNameChange = (value) => {
-    setName(value);
+    setCategoryId(value);
   };
+
 
 
 
@@ -39,7 +40,7 @@ const Category1 = ({ label, tooltip, required, size }) => {
         showSearch
         size={size}
         onChange={onNameChange}
-        value={name}
+        value={category_id}
         style={{
           width: "100%",
         }}
