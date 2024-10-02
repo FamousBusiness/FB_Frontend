@@ -18,6 +18,7 @@ export const EnquiryIndivisual = async (formData) => {
   }
 };
 
+
 export const CategoryWiseEnquiry = async (formData) => {
   try {
     // console.log('from categoriwiseenquiry ', formData);
@@ -34,4 +35,5 @@ export const CategoryWiseEnquiry = async (formData) => {
     console.log("Error in updating Product (service) =>", error);
   }
 };
+
 

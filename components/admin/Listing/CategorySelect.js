@@ -5,9 +5,14 @@ import { Divider, Form, Select, Space } from 'antd';
 // import AddnewCat from './AddNewlist';
 import { get_all_categories } from '@/services/Admin/category';
 
+
+
+
+
 const Category1 = ({ label, tooltip, required, size }) => {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +30,8 @@ const Category1 = ({ label, tooltip, required, size }) => {
   const onNameChange = (value) => {
     setName(value);
   };
+
+
 
   return (
     <Form.Item required={required} tooltip={tooltip} name='category' label={label && 'Category'}>
@@ -48,5 +55,6 @@ const Category1 = ({ label, tooltip, required, size }) => {
     </Form.Item>
   );
 };
+
 
 export default Category1;

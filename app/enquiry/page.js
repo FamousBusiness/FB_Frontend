@@ -16,9 +16,14 @@ import { BsTelephoneFill } from 'react-icons/bs';
 import { TbMapPinCode } from "react-icons/tb";
 import { FaUser } from 'react-icons/fa';
 import CustomSelect from '@/components/Custom/SelectCustom';
+import CategorySelect from '@/components/admin/Listing/CategorySelect';
+
+
+
+
 function Page() {
     const { userdata, authTokens } = useAuth()
-     const { locationState } = useGlobalState()
+    const { locationState } = useGlobalState()
     const [open, setOpen] = useState(false)
     const router = useRouter()
     const [form] = Form.useForm();
@@ -28,8 +33,9 @@ function Page() {
     const state= decodeURIComponent(Search.get('state'));
     const pincode=decodeURIComponent(Search.get('pincode'));
 
+
     const onFinish = async (values) => {
-        console.log(values);
+        // console.log(values);
         try {
               let datasend;
             if (category) {
@@ -64,7 +70,8 @@ function Page() {
         } catch (error) {
             console.error('Error submitting enquiry:', error);
         }
-    }
+    };
+
 
      useEffect(() => {
         // Update form fields when category or city changes in the URL
@@ -72,8 +79,10 @@ function Page() {
             city: city ? city : undefined,
         });
     }, [category, city, form]);
-    return (
 
+
+
+    return (
         <div className=' min-h-screen bg-white'>
             <Row justify='center' gutter={[0, 36]}>
                 <Col span={22} className=' top-6'>
@@ -83,6 +92,7 @@ function Page() {
                     </Link>
                     <Divider />
                 </Col>
+
                 <Col span={23}>
                     <Row justify='space-around' align='top'>
                         <Col xs={0} sm={0} md={12} xl={12} xxl={12}>
@@ -94,6 +104,7 @@ function Page() {
                                 <Image src='/SignUp/web-search.svg' width={500} height={500} alt='message' />
                             </Flex>
                         </Col>
+
                         <Col xs={24} sm={24} md={10} xl={10} xxl={10} >
                             <Card className=' shadow-xl' style={{ borderRadius: '20px', borderWidth: 2, borderColor: 'blue' }}>
                                 <div className=' text-center'>
@@ -102,6 +113,7 @@ function Page() {
                                         Get Instant Quatation From Verified Sellers
                                     </Typography.Title>
                                 </div>
+
                                 <Form form={form} onFinish={onFinish} initialValues={{ name: userdata?.name, mobile_number: userdata?.number}}>
                                     <Row>
                                         <Col span={24}>
@@ -132,10 +144,16 @@ function Page() {
                                                 />
                                             </Form.Item>
                                         </Col>
-                                        <Col span={24}>
+
+                                        {/* <Col span={24}>
                                             {category? null : <Category1 label={false} />}
+                                        </Col> */}
+
+                                        <Col span={24}>
+                                            <CategorySelect label={false} />
                                         </Col>
                                         
+
                                         <Col span={24}>
                                             <Form.Item rules={[{
                                                 required: true,
@@ -144,6 +162,7 @@ function Page() {
                                                <CustomSelect mode={'multiple'}/>
                                             </Form.Item>
                                         </Col>
+
                                         <Col span={24}>
                                             <Form.Item
                                                 rules={[{
@@ -152,9 +171,10 @@ function Page() {
                                                 }]}
                                                 name='requirements'
                                             >
-                                                <Input.TextArea placeholder=' Requirement ' rows={5} maxLength={100} showCount style={{ color: 'white' }} className='  w-full' />
+                                                <Input.TextArea placeholder='Requirement ' rows={5} maxLength={100} showCount style={{ color: 'black' }} className='w-full' />
                                             </Form.Item>
                                         </Col>
+
                                         <Col span={24}>
                                             <Form.Item>
                                                 <Button style={{background:'#3c89d0',color:'white'}} size='large' className=' w-full font-bold' htmlType='submit'>Submit</Button>
