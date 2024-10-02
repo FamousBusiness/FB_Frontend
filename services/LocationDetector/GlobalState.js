@@ -131,6 +131,7 @@ export const GlobalStateProvider = ({ children }) => {
   );
 };
 
+
 export const useGlobalState = () => {
   const context = useContext(GlobalStateContext);
   if (!context) {

@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Select } from 'antd';
 import { locations } from '@/data/data';
 
-const CustomSelect = ({ mode, handlePinCodeChange}) => {
+const CustomSelect = ({ mode, handlePinCodeChange, selectedCity, setSelectedCity}) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [options, setOptions] = useState([]);
+
 
   useEffect(() => {
     // Retrieve or generate session token
@@ -19,14 +20,17 @@ const CustomSelect = ({ mode, handlePinCodeChange}) => {
     }
   }, []);
 
+
   const onChange = (value) => {
-    console.log(`Selected: ${value}`);
+    // console.log(`Selected: ${value}`);
+    setSelectedCity(value);
   };
+
 
   const handleSearch = async (value) => {
     if (value.length >= 1) {
       try {
-        console.log("sessionToken", sessionToken);
+        // console.log("sessionToken", sessionToken);
         const response = await axios.get(
           `https://api.mapbox.com/search/searchbox/v1/suggest?q=${value}&language=en&country=in&types=city&access_token=${process.env.NEXT_PUBLIC_GEO_API_KEY}&session_token=${sessionToken}`
         );

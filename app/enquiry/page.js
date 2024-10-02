@@ -24,6 +24,7 @@ import CategorySelect from '@/components/admin/Listing/CategorySelect';
 function Page() {
     const { userdata, authTokens } = useAuth()
     const [category_id, setCategoryId] = useState(1);
+    const [selectedCity, setSelectedCity] = useState('');
     const { locationState } = useGlobalState()
     const [open, setOpen] = useState(false)
     const router = useRouter()
@@ -43,7 +44,8 @@ function Page() {
                 datasend = {
                     ...values,
                     category: parseInt(category_id),
-                    state: state ? state : locationState.state
+                    state: state ? state : locationState.state,
+                    city: selectedCity ? selectedCity : ''
                 };
                 form.resetFields();
             } else {
@@ -163,7 +165,11 @@ function Page() {
                                                 required: true,
                                                 message: 'Select Cities'
                                             }]} name='city'>
-                                               <CustomSelect mode={'multiple'}/>
+                                               <CustomSelect 
+                                                    mode={'multiple'}
+                                                    setSelectedCity={setSelectedCity}
+                                                    selectedCity={selectedCity}
+                                                    />
                                             </Form.Item>
                                         </Col>
 
