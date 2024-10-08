@@ -23,7 +23,7 @@ export const GenerateQRCode = ({value})=> {
 
     return (
          <div style={{ width: '100%', height: '100%' }}>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
+            <canvas ref={canvasRef} />
         </div>
     );
 };
