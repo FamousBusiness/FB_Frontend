@@ -12,7 +12,7 @@ export const GenerateQRCode = ({value})=> {
         if (canvasRef.current) {
             QRCode.toCanvas(canvasRef.current, value, { 
                 errorCorrectionLevel: 'H',
-                width: '100px'
+                // width: '100px'
             }, (error) => {
                 if (error) console.error(error);
                 // console.log('QR code generated!');
@@ -22,8 +22,8 @@ export const GenerateQRCode = ({value})=> {
 
 
     return (
-         <div>
-            <canvas ref={canvasRef} />
+         <div style={{ width: '100%', height: '100%' }}>
+            <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
         </div>
     );
 };

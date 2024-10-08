@@ -180,7 +180,7 @@ export default function PhonePeAutoPay() {
             </Box>
 
             <Typography variant="h6" fontWeight="bold">
-              {amount}
+              ₹{amount}
             </Typography>
           </Box>
 
@@ -204,7 +204,7 @@ export default function PhonePeAutoPay() {
 
 
           {/* QR Code Image Placeholder */}
-          <Box  my={2} sx={{display:'flex', justifyContent:'center', padding:1, maxWidth: '200px', maxHeight: '200px', overflow: 'hidden'}}>
+          <Box  my={2} sx={{display:'flex', justifyContent:'center', padding:1, maxWidth: '200px', maxHeight: '200px'}}>
               <GenerateQRCode value={QrValue ? QrValue : 'No QR'} />
           </Box>
 
