@@ -30,9 +30,9 @@ const TimerPage = () => {
     const [counter, setCounter] = useState(0);
     const [delayPassed, setDelayPassed] = useState(false);
 
-    const merchantId        = Cookies.get('merchant_id');
-    const decodedMerchantId = atob(merchantId);
-    const token             = Cookies.get('accessToken');
+    const upiauthRequestId     = localStorage.getItem('upiAuth');
+    const decodedauthRequestId = atob(upiauthRequestId);
+    const token                = Cookies.get('accessToken');
   
     // Start sending request after 30 sec
     useEffect(() => {
@@ -65,7 +65,7 @@ const TimerPage = () => {
     const sendRequest = async () => {
       try {
            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`, {
-                merchantUserId: decodedMerchantId
+            authRequestId: decodedauthRequestId
         }, {
             headers: {
                 'Content-Type': 'application/json',

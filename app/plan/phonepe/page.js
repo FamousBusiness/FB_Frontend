@@ -47,8 +47,8 @@ export default function PhonePeAutoPay() {
 
     const token = Cookies.get('accessToken')
     const qrCode = Cookies.get('QrCode')
-    const merchantId = Cookies.get('merchant_id');
-    const decodedMerchantId = atob(merchantId);
+    const amount        = Cookies.get('amount');
+    const premiumPlan   = Cookies.get('premium_plan');
 
     // Update the QR value into a state
     useEffect(()=> {
@@ -65,7 +65,8 @@ export default function PhonePeAutoPay() {
           setErrorMessage('');
            
           axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/upi/payment/`, {
-            merchantUserId: decodedMerchantId,
+            amount: parseFloat(amount),
+            premium_plan_id: parseInt(premiumPlan),
             upi_id: upiId
           }, {
             headers: {
@@ -76,6 +77,10 @@ export default function PhonePeAutoPay() {
               // console.log(res)
 
               if (res.status === 200 && res.data.success === true) {
+
+                const upiauthRequestId = btoa(res.data.authRequestId)
+                localStorage.setItem('upiAuth', upiauthRequestId)
+
                 router.push('/plan/phonepe/upipayment/')
               }
 
@@ -122,7 +127,7 @@ export default function PhonePeAutoPay() {
     const sendRequest = async () => {
       try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
-            merchantUserId: decodedMerchantId
+              authRequestId: decodedAuthRequestId
           },{
             headers: {
               'Content-Type': 'application/json',

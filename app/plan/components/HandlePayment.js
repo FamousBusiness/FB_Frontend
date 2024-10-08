@@ -57,13 +57,16 @@ function HandlePayment({ id, amount }) {
 
                 // console.log("API Response", data)
                 const response_qr_code = data.QR_Code
-                const merchant_id      = btoa(data.merchantUserId)
+                const authRequestId    = btoa(data.authRequestId)
 
                 var intenMinutes = new Date(new Date().getTime() + 10 * 60 * 1000);
 
                 setQrCode(response_qr_code)
                 Cookies.set('QrCode', response_qr_code, {expires: intenMinutes });  // Set the UPI value in Cookie
-                Cookies.set('merchant_id', merchant_id, {expires: intenMinutes });  // Set the UPI value in Cookie
+                Cookies.set('authRequestId', authRequestId, {expires: intenMinutes });  // Set the UPI value in Cookie
+                Cookies.set('premium_plan', id, {expires: intenMinutes });  
+                Cookies.set('amount', amount, {expires: intenMinutes });  
+
                 setShowPaymentPage(true)
 
                 router.push(`/plan/phonepe/?id=${amount}`)
