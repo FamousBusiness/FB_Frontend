@@ -33,6 +33,7 @@ const TimerPage = () => {
     const upiauthRequestId     = localStorage.getItem('upiAuth');
     const decodedauthRequestId = atob(upiauthRequestId);
     const token                = Cookies.get('accessToken');
+    const amount               = Cookies.get('amount')
   
     // Start sending request after 30 sec
     useEffect(() => {
@@ -119,7 +120,7 @@ const TimerPage = () => {
       >
         {/* Header Section */}
         <Typography variant="h4" fontWeight="bold" gutterBottom>
-          Pay ₹12,000
+          Pay ₹{amount? amount : 0}
         </Typography>
         
         {/* Progress Bar */}

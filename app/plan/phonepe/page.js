@@ -204,7 +204,7 @@ export default function PhonePeAutoPay() {
 
 
           {/* QR Code Image Placeholder */}
-          <Box  my={2} sx={{display:'flex', justifyContent:'center', padding:1, width:'100%'}}>
+          <Box  sx={{display: 'flex', justifyContent: 'center'}}>
               <GenerateQRCode value={QrValue ? QrValue : 'No QR'} />
           </Box>
 

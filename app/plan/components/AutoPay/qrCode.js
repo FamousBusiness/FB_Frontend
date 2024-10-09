@@ -9,20 +9,27 @@ export const GenerateQRCode = ({value})=> {
     const canvasRef = useRef(null);
 
     useEffect(() => {
-        if (canvasRef.current) {
-            QRCode.toCanvas(canvasRef.current, value, { 
-                errorCorrectionLevel: 'H',
-                // width: '100px'
-            }, (error) => {
-                if (error) console.error(error);
-                // console.log('QR code generated!');
-            });
-        }
+        const setCanvasSize = () => {
+            const width = window.innerWidth > 700 ? 400 : window.innerWidth * 0.8; // adjust for responsiveness
+            if (canvasRef.current) {
+                QRCode.toCanvas(canvasRef.current, value, { 
+                    errorCorrectionLevel: 'H',
+                    width: width,
+                }, (error) => {
+                    if (error) console.error(error);
+                });
+            }
+        };
+
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize); // Update QR code on window resize
+
+        return () => window.removeEventListener('resize', setCanvasSize); // Cleanup on unmount
     }, [value]);
 
 
     return (
-         <div >
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <canvas ref={canvasRef} />
         </div>
     );
