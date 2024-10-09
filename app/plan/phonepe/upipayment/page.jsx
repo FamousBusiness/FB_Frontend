@@ -73,8 +73,9 @@ const TimerPage = () => {
                 'Authorization': `Bearer ${token}`
               }
         }).then((res)=> {
-            if (res.status === 200 && res.data.success === true) {
+            if (res.status === 200) {
                 setIsRunning(false);
+                window.location.href = '/plan/success/'
             }
         }).catch((error)=> {
             console.log(error);

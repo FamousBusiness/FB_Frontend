@@ -50,15 +50,16 @@ export default function PhonePeAutoPay() {
     const amount        = Cookies.get('amount');
     const premiumPlan   = Cookies.get('premium_plan');
 
+
     // Update the QR value into a state
     useEffect(()=> {
       if (qrCode) {
         setQrValue(qrCode)
       }
-    }, []);
+    }, [qrCode]);
 
 
-    
+
     // Method for UPI ID
     const handleUpiSubmit = () => {
       if (isValidUpiId(upiId)) {
@@ -137,14 +138,14 @@ export default function PhonePeAutoPay() {
 
         if (response.status === 200) {
           setIsRunning(false);
+          window.location.href = '/plan/success/'
         }
       } catch (error) {
         // console.log(error);
 
         if (error.response.status === 401) {
-          // router.push('/login/')
+            router.push('/login/')
         }
-        
       }
 
       setCounter((prevCounter) => prevCounter + 1);
