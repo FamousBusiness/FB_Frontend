@@ -10,7 +10,7 @@ export const GenerateQRCode = ({value})=> {
 
     useEffect(() => {
         const setCanvasSize = () => {
-            const width = window.innerWidth > 700 ? 400 : window.innerWidth * 0.8; // adjust for responsiveness
+            const width = window.innerWidth > 700 ? 250 : window.innerWidth * 0.8; // adjust for responsiveness
             if (canvasRef.current) {
                 QRCode.toCanvas(canvasRef.current, value, { 
                     errorCorrectionLevel: 'H',

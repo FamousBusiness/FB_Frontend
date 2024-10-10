@@ -32,9 +32,30 @@ export default function PhonePeAutoPay() {
     const [showUpiInput, setShowUpiInput] = useState(false);  // Open the Input field below UPI ID
     const [errorMessage, setErrorMessage] = useState('');     // Error message for wrong UPI ID
     const [upiId, setUpiId]               = useState('');     // UPI ID
+    const [time, setTime]                 = useState(6 * 60); // 6 minutes in seconds
+
 
     const router =  useRouter();
     // const { id } = router.query;
+
+    useEffect(() => {
+      if (time > 0) {
+        const timerInterval = setInterval(() => {
+          setTime((prevTime) => prevTime - 1);
+        }, 1000);
+  
+        // Cleanup interval on unmount
+        return () => clearInterval(timerInterval);
+      }
+    }, [time]);
+  
+    // Convert seconds into minutes and seconds for display
+    const formatTime = (seconds) => {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+
+    };
 
 
     // UPI ID validation
@@ -212,7 +233,7 @@ export default function PhonePeAutoPay() {
 
           {/* Payment Status */}
           <Typography variant="body2" align="center" color="textSecondary">
-            Checking payment status: <span style={{color:'green'}}>19:18</span>
+            Checking payment status: <span style={{color:'green'}}>{formatTime(time)}</span>
           </Typography>
 
           {/* UPI Icons and Others */}
