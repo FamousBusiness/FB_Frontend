@@ -124,6 +124,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
+
     return (
         <>
             <Row>
@@ -171,7 +172,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                             {item?.price?.price && item?.price?.price !== 0 && (
                                                 <div onClick={stopPropagation} className=' w-full'>
                                                     <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? showRazorpay : () => router.push('/login')} color='orange' className='font-bold'>
-                                                        ₹ {item?.price?.price}
+                                                        {/* ₹ {item?.price?.price} */}
+                                                        View
                                                     </Button>
                                                 </div>
                                             )}

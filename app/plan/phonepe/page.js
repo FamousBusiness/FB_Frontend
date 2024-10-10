@@ -230,7 +230,6 @@ export default function PhonePeAutoPay() {
               <GenerateQRCode value={QrValue ? QrValue : 'No QR'} />
           </Box>
 
-
           {/* Payment Status */}
           <Typography variant="body2" align="center" color="textSecondary">
             Checking payment status: <span style={{color:'green'}}>{formatTime(time)}</span>

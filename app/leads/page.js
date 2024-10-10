@@ -165,6 +165,7 @@ function Page() {
             </Col>
             <Col span={24}>
                 <Title level={2}>Premium User Leads</Title>
+                
                 <Divider type='horizontal' />
                 {premiumLeads && premiumLeads.length > 0 ?
                     <Row gutter={[16, 16]}>
@@ -177,6 +178,7 @@ function Page() {
             </Col>
         </Row>
     );
+
 
     const handleTabChange = (value) => {
         setActiveKey(value);
