@@ -177,7 +177,6 @@ export default function LoginOptionPage() {
                         onChange={handleOTPChange} 
                         length={5} 
                         autoFocus 
-                        // validateChar={validateChar} 
                         TextFieldsProps={{ placeholder: '-' }}
                         />
                   </Box>

@@ -8,6 +8,8 @@ import { useHomeData } from '@/services/Commondata/HomeData';
 import MobileCard from './mobileCard';
 
 
+
+
 // VerifyBusiness functional component
 function VerifyBusiness() {
     // Create a ref for the carousel
@@ -32,6 +34,7 @@ function VerifyBusiness() {
         );
     }
 
+    
     // If there's an error, display an error message
     if (isError) {
         return <p>Error loading data.</p>;

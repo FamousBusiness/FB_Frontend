@@ -9,6 +9,9 @@ import { createStyles, useTheme } from 'antd-style';
 import Modal from '@mui/joy/Modal';
 import { ModalClose, ModalDialog } from '@mui/joy';
 import { usePathname } from 'next/navigation';
+import { MuiOtpInput } from 'mui-one-time-password-input';
+import { useState } from 'react';
+
 
 const useStyle = createStyles(({ token }) => ({
     'my-modal-body': {
@@ -19,11 +22,46 @@ const useStyle = createStyles(({ token }) => ({
     },
 }));
 
+
+
+const handleMobileNumberchange
+= (e, setMobileNumber, setMobileError, setDisableContinueButton)=> {
+const {name, value} = e.target;
+const isNumeric = /^\d*$/.test(value);
+
+if (value.length < 10) {
+    setMobileError('Please type 10 digit mobile number')
+    setDisableContinueButton(true)
+} else if (!isNumeric) {
+    setMobileError('Please enter numeric value')
+    setDisableContinueButton(true)
+} else {
+    setMobileError('')
+    setMobileNumber(value)
+    setDisableContinueButton(false)
+    }
+};
+
+
+
 const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
-    const { loginUser, loading } = useAuth();
+    const { loginUser, loading }          = useAuth();
+    const [visibleOTP, setVisibleOTP]     = useState(false);
+    const [otpValue, setOTPValue]         = useState('');
+    const [mobileError, setMobileError]   = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
+    const [disableContinueButtton, setDisableContinueButton] = useState(true);
+    const [visibleContinueButton, setVisibleContinueButton] = useState(true);
+    const [visibleLoginButton, setVisibleLoginButton]        = useState(false);
+    const [error, setError] = useState('');
+    
+    // const 
     // const [isModalOpen, setIsModalOpen] = useState([false, false]);
     const pathName = usePathname()
     const { styles } = useStyle();
+
+
+
     const onFinish = (values) => {
         // Check if the input value is an email or a mobile number
         const isEmail = values.mobile_number.includes('@');
@@ -44,6 +82,116 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
         onClose();
     };
 
+    // Redirect to OTP Page
+   const handleSendOTP = async ()=> {
+    if(mobileNumber == '') {
+        setError('Please type your Mobile Number')
+    } else if (mobileNumber.length !== 10) {
+        setError('Mobile number length should be 10 digit')
+    } else if (!/^\d{10}$/.test(mobileNumber)) {
+        setError('Mobile number should contain only digits');
+    } else {
+       setError('')
+       setVisibleOTP(true);
+
+       // Send API Request for OTP
+       try{
+           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send/login/otp/`, {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json',
+             },
+             body: JSON.stringify({ 'mobile_number': mobileNumber }),
+           });
+
+           const data = await response.json()
+
+           if (response.status === 200) {
+                setDisableContinueButton(false);
+                setVisibleLoginButton(true);
+                setVisibleContinueButton(false);
+
+           } else if (response.status === 400) {
+               // console.log(data.message)
+               setVisibleLoginButton(true);
+               setVisibleContinueButton(false);
+
+               if (data.message === 'Invalid User') {
+                 setError('User with this mobile number does not exists')
+               } else if (data.message === 'Invalid Mobile Number') {
+                 setError('User with this mobile number does not exists')
+               } else {
+                 setError('')
+               }
+
+           } else {
+             setError('Invalid Data')
+           };
+
+       } catch(e) {
+           // console.log(e);
+       }
+    }
+};
+
+
+     // Submit OTP to API
+    const handleSubmitLogin = async ()=> {
+        if (otpValue === '') {
+           setError('Please type otp')
+        } else {
+           setError('')
+           try {
+                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login/otp/`, {
+                     method: 'POST',
+                     headers: {
+                       'Content-Type': 'application/json',
+                     },
+                     body: JSON.stringify({
+                       mobile_number: mobileNumber,
+                       otp: otpValue
+                     }),
+                 });
+           
+                 const data = await response.json();
+
+                 if (response.ok) {
+
+                   localStorage.setItem('userData', JSON.stringify({
+                     name: data.user_name,
+                     business: data.business_id,
+                     number: data.mobile_number,
+                     plan: data.plan_status
+                   }));
+
+                   Cookies.set('accessToken', data.token.access);
+
+                   Cookies.set('authTokens', JSON.stringify(data.token), { expires: 15 });
+
+                   onClose()
+                   
+                 } else if (response.status === 400 || response.status === 401) {
+                   // Display a message for invalid credentials
+                   alert('Login failed. Please check your credentials.');
+           
+                 } else {
+                   // Handle other errors gracefully
+                   alert('An error occurred during login.');
+                 }
+           } catch (error) {
+             console.error('Error during login:', error);
+             alert('An error occurred during login.');
+       
+           }
+        };
+   };
+
+   // Get otp value
+   const handleOTPChange = (newValue) => {
+    setOTPValue(newValue)
+  };
+   
+
 
 
     const antIcon = (
@@ -56,6 +204,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
         />
     );
 
+
     const classNames = {
         body: styles['my-modal-body'],
         mask: styles['my-modal-mask'],
@@ -66,6 +215,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
             backdropFilter: 'blur(10px)',
         },
     };
+
 
     return (
         <Modal open={visible} onClose={onClose}>
@@ -103,6 +253,8 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                                 <Form.Item
                                     label="Mobile Number/Email"
                                     name="mobile_number"
+                                    validateStatus={mobileError ? 'error' : ''}
+                                    help={mobileError}
                                     rules={[
                                         {
                                             required: true,
@@ -110,9 +262,18 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                                         },
                                     ]}
                                 >
-                                    <Input style={{ padding: 10 }} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Mobile Number/Email" />
+                                    <Input 
+                                        style={{ padding: 10 }} 
+                                        prefix={<UserOutlined className="site-form-item-icon" />} 
+                                        placeholder="Mobile Number/Email" 
+                                        onChange={(e)=> {handleMobileNumberchange(e, setMobileNumber, setMobileError, setDisableContinueButton)}}
+                                        count={{
+                                            show: true,
+                                            max:10
+                                        }}
+                                        />
                                 </Form.Item>
-                                <Form.Item
+                                {/* <Form.Item
                                     label="Password"
                                     name="password"
                                     rules={[
@@ -127,27 +288,65 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                                         type="password"
                                         placeholder="Password"
                                     />
-                                </Form.Item>
-                                <Form.Item>
+                                </Form.Item> */}
+                                {visibleOTP && 
+                                    <Form.Item
+                                        name="otp"
+                                        rules={[
+                                            {
+                                                required: true,
+                                                message: 'Please input OTP',
+                                            },
+                                        ]}>
+
+                                        <MuiOtpInput 
+                                            value={otpValue} 
+                                            onChange={handleOTPChange} 
+                                            length={5} 
+                                            autoFocus 
+                                            TextFieldsProps={{ placeholder: '-' }}
+                                            />
+                                    </Form.Item>
+                                }
+
+                                {visibleContinueButton && 
+                                
+                                    <Form.Item>
+                                        <Button block size='large' style={{ width: '100%', background: '#3c89d0',color:'white' }} 
+                                        onClick={handleSendOTP}
+                                        disabled={disableContinueButtton}
+                                        className="login-form-button">
+                                            Continue
+                                        </Button>
+                                    </Form.Item>
+                                }
+
+                                {visibleLoginButton && 
+                                    <Form.Item>
+                                        <Button block size='large' style={{ width: '100%', background: '#3c89d0', color:'white' }} 
+                                        onClick={handleSubmitLogin} 
+                                        className="login-form-button">
+                                            Login
+                                        </Button>
+                                    </Form.Item>
+                                }
+
+                                {/* <Form.Item>
                                     <Link href="/login/forgot" target="_parent">
                                         Forgot password?
                                     </Link>
-                                </Form.Item>
+                                </Form.Item> */}
 
-                                <Form.Item>
-                                    <Button block size='large' style={{ width: '100%', background: '#3c89d0',color:'white' }}  htmlType="submit" className="login-form-button">
-                                        {loading ? <Spin indicator={antIcon} /> : "Log in"}
-                                    </Button>
-                                </Form.Item>
+                                <p style={{color:'red'}}>{error && error}</p>
                             </Form>
                             <p className=' text-center'>If you don&apos;t have an account?<Link href='/registration' className=' mx-1'>Business</Link> | <Link href='/registration/user' className=' ml-1'>User</Link></p>
                             <Divider />
-                            <Button block icon={<FacebookFilled />} style={{ borderRadius: 0, background: 'blue', color: 'white', borderWidth: 1, borderColor: 'black' }}>
+                            {/* <Button block icon={<FacebookFilled />} style={{ borderRadius: 0, background: 'blue', color: 'white', borderWidth: 1, borderColor: 'black' }}>
                                 Login with Facebook
                             </Button>
                             <Button block icon={<GoogleOutlined />} style={{ borderRadius: 0, color: 'black', marginTop: 5, borderWidth: 1, borderColor: 'black' }}>
                                 Login with Google
-                            </Button>
+                            </Button> */}
                         </div>
                     </Col>
                     <Col sm={0} xs={0} md={12} xl={12} xxl={12} lg={12} className=' relative'>
