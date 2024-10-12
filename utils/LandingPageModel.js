@@ -10,7 +10,9 @@ import Modal from '@mui/joy/Modal';
 import { ModalClose, ModalDialog } from '@mui/joy';
 import { usePathname } from 'next/navigation';
 import { MuiOtpInput } from 'mui-one-time-password-input';
+import Cookies from 'js-cookie';
 import { useState } from 'react';
+
 
 
 const useStyle = createStyles(({ token }) => ({
@@ -169,7 +171,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                    Cookies.set('authTokens', JSON.stringify(data.token), { expires: 15 });
 
                    onClose()
-                   
+
                  } else if (response.status === 400 || response.status === 401) {
                    // Display a message for invalid credentials
                    alert('Login failed. Please check your credentials.');
@@ -191,7 +193,6 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
     setOTPValue(newValue)
   };
    
-
 
 
     const antIcon = (
