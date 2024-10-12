@@ -173,6 +173,8 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
 
                    onClose()
 
+                   window.location.reload()
+
                  } else if (response.status === 400 || response.status === 401) {
                    // Display a message for invalid credentials
                    alert('Login failed. Please check your credentials.');
