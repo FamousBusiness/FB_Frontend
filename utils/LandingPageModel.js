@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import { message } from 'antd';
 
 
 
@@ -26,8 +27,7 @@ const useStyle = createStyles(({ token }) => ({
 
 
 
-const handleMobileNumberchange
-= (e, setMobileNumber, setMobileError, setDisableContinueButton)=> {
+const handleMobileNumberchange = (e, setMobileNumber, setMobileError, setDisableContinueButton)=> {
 const {name, value} = e.target;
 const isNumeric = /^\d*$/.test(value);
 
@@ -64,25 +64,25 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
 
 
 
-    const onFinish = (values) => {
-        // Check if the input value is an email or a mobile number
-        const isEmail = values.mobile_number.includes('@');
-        // Prepare the data object for submission based on the input type
-        let data = {};
-        if (isEmail) {
-            data = {
-                email: values.mobile_number,
-                password: values.password,
-            };
-        } else {
-            data = {
-                mobile_number: values.mobile_number,
-                password: values.password,
-            };
-        }
-        loginUser(data, pathName);
-        onClose();
-    };
+    // const onFinish = (values) => {
+    //     // Check if the input value is an email or a mobile number
+    //     const isEmail = values.mobile_number.includes('@');
+    //     // Prepare the data object for submission based on the input type
+    //     let data = {};
+    //     if (isEmail) {
+    //         data = {
+    //             email: values.mobile_number,
+    //             password: values.password,
+    //         };
+    //     } else {
+    //         data = {
+    //             mobile_number: values.mobile_number,
+    //             password: values.password,
+    //         };
+    //     }
+    //     loginUser(data, pathName);
+    //     onClose();
+    // };
 
     // Redirect to OTP Page
    const handleSendOTP = async ()=> {
@@ -158,6 +158,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                  const data = await response.json();
 
                  if (response.ok) {
+                    message.success('Login successfull');
 
                    localStorage.setItem('userData', JSON.stringify({
                      name: data.user_name,
@@ -249,7 +250,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
                             <Form
                                 className="login-form"
                                 layout='vertical'
-                                onFinish={onFinish}
+                                // onFinish={onFinish}
                             >
                                 <Form.Item
                                     label="Mobile Number/Email"
