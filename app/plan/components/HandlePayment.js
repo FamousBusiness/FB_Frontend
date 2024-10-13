@@ -89,7 +89,7 @@ function HandlePayment({ id, amount }) {
                 size='large' 
                 loading={checkOut}
                 >
-            Upgrade
+            Activate Now
         </Button>
 
         <LoginForm visible={login} onClose={() => setLogin(false)} />
