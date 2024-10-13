@@ -18,6 +18,11 @@ import PayNowModal from './PayNowModal';
 import Paragraph from 'antd/es/typography/Paragraph';
 import Image from 'next/image';
 
+
+
+
+
+
 const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const { authTokens, user, userdata } = useAuth()
     const router = useRouter()
@@ -96,6 +101,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
         });
     };
 
+
+    // Lead Payemnt method
     const showRazorpay = async () => {
         // await loadScript();
         let bodyData = new FormData();
@@ -124,6 +131,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
+
+
 
     return (
         <>
@@ -171,7 +180,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                         <Col span={10} >
                                             {item?.price?.price && item?.price?.price !== 0 && (
                                                 <div onClick={stopPropagation} className=' w-full'>
-                                                    <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? showRazorpay : () => router.push('/login')} color='orange' className='font-bold'>
+                                                    <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? ()=> router.push('/plan') : () => router.push('/login')} color='orange' className='font-bold'>
                                                         {/* ₹ {item?.price?.price} */}
                                                         View
                                                     </Button>
