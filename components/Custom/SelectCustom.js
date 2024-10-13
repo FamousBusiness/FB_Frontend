@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Select } from 'antd';
 import { locations } from '@/data/data';
 
+
+
+
+
 const CustomSelect = ({ mode, handlePinCodeChange, selectedCity, setSelectedCity}) => {
   const [sessionToken, setSessionToken] = useState(null);
   const [options, setOptions] = useState([]);

@@ -20,11 +20,41 @@ import CategorySelect from '@/components/admin/Listing/CategorySelect';
 
 
 
+const indianStates = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+    "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+    "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+    "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+    "Uttar Pradesh", "Uttarakhand", "West Bengal"
+  ];
+
+
+const CustomStateSelect = ({ selectedState, setSelectedState }) => {
+    return (
+      <Select
+        showSearch
+        placeholder="Select a State"
+        // optionFilterProp="children"
+        onChange={(value) => setSelectedState(value)}  
+        value={selectedState}  // Show selected state
+      >
+        {indianStates.map((state) => (
+          <Select.Option key={state} value={state}>
+            {state}
+          </Select.Option>
+        ))}
+      </Select>
+    );
+  };
+
+
 
 function Page() {
     const { userdata, authTokens } = useAuth()
     const [category_id, setCategoryId] = useState(1);
     const [selectedCity, setSelectedCity] = useState('');
+    const [selectedState, setSelectedState] = useState('');
     const { locationState } = useGlobalState()
     const [open, setOpen] = useState(false)
     const router = useRouter()
@@ -44,7 +74,7 @@ function Page() {
                 datasend = {
                     ...values,
                     category: parseInt(category_id),
-                    state: state ? state : locationState.state,
+                    state: selectedState,
                     city: selectedCity ? selectedCity : ''
                 };
                 form.resetFields();
@@ -103,6 +133,7 @@ function Page() {
                                 <p className=' text-center text-lg mb-6 text-green-600 drop-shadow-lg font-bold sm:text-4xl'>
                                     India`s Largest B2B And B2C Business Platform
                                 </p>
+
                                 <p className=' text-3xl font-semibold text-center text-black'>Share Your Requirement to Get the Best Deals and Exclusive Offers with Trusted Seller</p>
                                 <Image src='/SignUp/web-search.svg' width={500} height={500} alt='message' />
                             </Flex>
@@ -169,6 +200,18 @@ function Page() {
                                                     mode={'multiple'}
                                                     setSelectedCity={setSelectedCity}
                                                     selectedCity={selectedCity}
+                                                    />
+                                            </Form.Item>
+                                        </Col>
+
+                                        <Col span={24}>
+                                            <Form.Item rules={[{
+                                                required: false,
+                                                message: 'Please Select State'
+                                            }]} name='state'>
+                                               <CustomStateSelect 
+                                                    setSelectedState={setSelectedState}
+                                                    selectedState={selectedState}
                                                     />
                                             </Form.Item>
                                         </Col>

@@ -210,6 +210,7 @@ function Page() {
                         </div>
                     </Link>
                 </div>
+                
                 <div className='fixed invisible sm:visible -right-6 z-30 top-2/3 sm:top-3/4'>
                     <Link href='/enquiry'>
                         <div className='drop-shadow-lg  rotate-90 text-base rounded-b-md cursor-pointer border-2 hover:px-3
@@ -219,7 +220,6 @@ function Page() {
                         </div>
                     </Link>
                 </div>
-
             </div>
         </motion.div>
     )

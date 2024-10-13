@@ -22,6 +22,7 @@ export const EnquiryIndivisual = async (formData) => {
 export const CategoryWiseEnquiry = async (formData) => {
   try {
     // console.log('from categoriwiseenquiry ', formData);
+    // const res = await fetch(`http://127.0.0.1:8000/lead-api/enquiry-form/`, {
     const res = await fetch(`${process.env.SERVER_API_SECRET}/lead-api/enquiry-form/`, {
       method: "POST",
       headers: {
