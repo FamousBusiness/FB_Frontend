@@ -197,7 +197,7 @@ export default function PhonePeAutoPay() {
               <Image src="/autopay/shoping-cart.svg" alt="icon1" style={{ marginRight: 8, maxWidth:'50px' }} />
 
               <Typography variant="p" fontWeight="bold">
-                Famous Business Pvt. Ltd.
+                Famous Business
               </Typography>
             </Box>
 

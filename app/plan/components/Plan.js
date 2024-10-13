@@ -18,7 +18,7 @@ const { Text } = Typography
 
 function Plan() {
     const [data, setData] = useState({});
-    const [plan, setPlan] = useState('Yearly')
+    const [plan, setPlan] = useState('Yearly');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,8 +63,7 @@ function Plan() {
                             <Row justify='center' gutter={[24, 24]}>
 
                                 {sortedMonthlyPlans.map((item, index) => <Col key={item.id} xxl={6} md={6} sm={22} xs={22} xl={6} lg={6}>
-                                    {/* <Badge.Ribbon text='1 Month Free Trial' color='blue'> */}
-                                    <Badge.Ribbon color='blue'>
+                                    <Badge.Ribbon text={`${item.plan.tag_line}`} color='blue'>
                                         <Card style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} bordered={false} className=' shadow-xl relative'>
                                             <Row align='top' gutter={[12, 24]}>
                                                 <Col span={5}>
@@ -168,8 +167,7 @@ function Plan() {
                             {data.Yearly && data.Yearly.length > 0 && <div className=' mt-40'>
                                 <Row justify='center' gutter={[24, 24]}>
                                     {sortedYearlyPlans.map((item, index) => <Col key={item.id} xxl={6} md={6} sm={22} xs={22} xl={6} lg={6}>
-                                        {/* <Badge.Ribbon text='1 Month Free Trial' color='blue'> */}
-                                        <Badge.Ribbon color='blue'>
+                                        <Badge.Ribbon text={`${item.plan.tag_line}`} color='blue'>
                                             <Card style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} bordered={false} className=' shadow-xl relative'>
                                                 <Row align='top' gutter={[12, 24]}>
                                                     <Col span={5}>
@@ -180,19 +178,19 @@ function Plan() {
                                                     </Col>
                                                     <Col span={19}>
                                                         <p className=' text-lg font-semibold'>{item.plan.name}</p>
-                                                        <p className=' text-lg text-blue-500 mt-2'>{item.plan.tag_line}</p>
+                                                        {/* <p className=' text-lg text-blue-500 mt-2'>{item.plan.tag_line}</p> */}
                                                     </Col>
                                                     <Col span={24}>
                                                         <div className=' h-2 bg-gradient-to-tr rounded-full from-orange-500 to-purple-400 ' />
                                                     </Col>
                                                     {/* Plan price  */}
-                                                    {/* <Col span={24}>
+                                                    <Col span={24}>
                                                         <Flex vertical gap={4}>
                                                             <Space direction='horizontal' size={4}><p className=' text-xl font-semibold'>₹{item.plan.price}</p> /
-                                                                <Typography.Text mark>12 Month and 1 Month Free</Typography.Text></Space>
+                                                                <Typography.Text mark>Month</Typography.Text></Space>
                                                             <Typography.Text color='green' italic>Included 18% GST Invoice Available</Typography.Text>
                                                         </Flex>
-                                                    </Col> */}
+                                                    </Col>
                                                     {/* plan Feature  */}
                                                     {/* {item.plan.name==='Starter' && <div className=' h-6'></div>} */}
                                                     <Col span={24}>
@@ -271,7 +269,7 @@ function Plan() {
                                                 </Col>
                                                 <Col span={19}>
                                                     <p className=' text-lg font-semibold'>{item.plan.name}</p>
-                                                    <p className=' text-lg text-blue-500 mt-2'>{item.plan.tag_line}</p>
+                                                    <p className=' text-lg text-blue-500 mt-2'>{item.plan.tag_line} for 5 Days</p>
                                                 </Col>
                                                 <Col span={24}>
                                                     <div className=' h-2 bg-gradient-to-tr rounded-full from-orange-500 to-purple-400 ' />
