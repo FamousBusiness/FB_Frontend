@@ -165,11 +165,13 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                                 <Paragraph ellipsis={{ rows: 2 }} style={{ lineHeight: '16px', fontSize: '16px', fontWeight: 'lighter' }}>
                                                     {item.requirement}
                                                 </Paragraph>
-                                                <p className=' text-base font-light text-red'>Pin Code: {item.pincode || ''}</p>
+                                                {/* <p className=' text-base font-light text-red'>Pin Code: {item.pincode || ''}</p> */}
                                             </Flex>
                                         </Col>
                                     </Row>
                                 </Col>
+
+
                                 <Col span={24}>
                                     <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
                                     <Flex align='baseline' justify='space-between'>
@@ -245,7 +247,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     </Col>
                 </Row>}
             </Modal>
-            <PayNowModal open={checkout} handleShow={showRazorpay} onClose={() => setCheckOut(false)} amount={amount} />
+            {/* <PayNowModal open={checkout} handleShow={showRazorpay} onClose={() => setCheckOut(false)} amount={amount} /> */}
         </>
     )
 };
