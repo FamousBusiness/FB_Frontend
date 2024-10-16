@@ -148,9 +148,9 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 </div>
                             </div>
                             <div className=' absolute z-10 right-0 top-8 '>
-                                {item.status === 'High Priority' &&
+                                {/* {item.status === 'High Priority' &&
                                     <Image src='/leads/Premium.svg' width={100} height={100} alt='' />
-                                }
+                                } */}
                             </div>
                             {/* {item.status === 'high Priority' ? null : <div className=' py-1 absolute top-0 right-0 px-2 dark:text-red-600 text-xs font-semibold'>{`${item.status}`}</div>} */}
                             <Row justify='start' gutter={[12, 12]} className=' text-sm mt-8 font-bold' >
@@ -234,11 +234,13 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     <Col span={24}>
                         <Space size={10} align='center' direction='horizontal'><BiSolidUser className=' text-lg' /><Link target='_blank' href={`https://famousbusiness.in/userprofile/${data.created_by}?z_id=${data.business_page}`} className=' text-xl py-2 font-semibold '>{data.created_by}</Link></Space>
                     </Col>
+
                     <Col span={24}>
                         <Row gutter={[12, 12]}>
                             <Col span={24}>
                                 <Space size={10} direction='horizontal' ><PhoneFilled /><Link href={`tel:${data.mobile_number}`}>{data.mobile_number}</Link></Space>
                             </Col>
+                            
                             <Col span={24}>
                                 <Space size={10} direction='horizontal'  ><MailFilled /><Link href={`mailto:${data.email}`}>{data.email}</Link></Space>
                             </Col>

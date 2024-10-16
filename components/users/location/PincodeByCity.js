@@ -3,6 +3,10 @@ import { Select } from 'antd';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 
+
+
+
+
 function PincodeByCity({ handlePincode }) {
     const { locationState } = useGlobalState()
     const [selectedSort, setSelectedSort] = useState(null);
@@ -23,7 +27,9 @@ function PincodeByCity({ handlePincode }) {
             }
         }
         fetchData();
-    }, [locationState])
+    }, [locationState]);
+
+
     return (
         <div>
             {options.length > 0 ? ( // Add conditional rendering here
@@ -40,8 +46,8 @@ function PincodeByCity({ handlePincode }) {
                     style={{ width: '100%' }}
                     showSearch={true}
                 >
-                    {options.map((item) => (
-                        <Select.Option key={item.id} value={item.Pincode}>
+                    {options.map((item, index) => (
+                        <Select.Option key={index} value={item.Pincode}>
                             {item.Pincode}
                         </Select.Option>
                     ))}
