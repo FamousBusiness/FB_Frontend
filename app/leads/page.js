@@ -30,6 +30,7 @@ function Page() {
     const accessToken = Cookies.get('accessToken');
     const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
 
+
     if (!data && isValidating) {
         return (
             <div className='p-3'>
@@ -124,6 +125,7 @@ function Page() {
         );
     };
 
+    
     const RenderLeadContent = ({ leads, type }) => {
         const sortedLeads = leads && leads.length > 0
             ? [...leads].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
