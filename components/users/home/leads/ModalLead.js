@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Row, Space, Badge, Progress, Flex, message, Result, Typography, notification } from 'antd';
 import { EyeFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -133,6 +133,10 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
         e.stopPropagation();
     };
 
+    // 
+    useEffect(()=> {
+        
+    }, [item])
 
 
     return (
@@ -174,18 +178,19 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 </Col>
 
 
-                                {/* <Col span={24}>
+                                <Col span={24}>
                                     <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
                                     <Flex align='baseline' justify='space-between'>
                                         <p className=' text-sm font-light italic' >left: {remain}</p>
                                         <p className=' text-sm font-light italic' >total: 2</p>
                                     </Flex>
+
                                     <Row justify='center' align='middle' className=' mt-2'>
                                         <Col span={10} >
                                             {item?.price?.price && item?.price?.price !== 0 && (
                                                 <div onClick={stopPropagation} className=' w-full'>
                                                     <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? ()=> router.push('/plan') : () => router.push('/login')} color='orange' className='font-bold'>
-                                                        ₹ {item?.price?.price}
+                                                        {/* ₹ {item?.price?.price} */}
                                                         View
                                                     </Button>
                                                 </div>
@@ -193,8 +198,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
                                         </Col>
                                     </Row>
-                                </Col> */}
-                                
+                                </Col>
+
                                 <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
