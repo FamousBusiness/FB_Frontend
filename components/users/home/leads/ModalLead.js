@@ -158,7 +158,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                     <Row gutter={[10, 10]} align='middle'>
                                         <Col span={24}>
                                             {/* <p className=" text-lg font-semibold" >Customer Details</p> */}
-                                            <p className=" text-lg font-semibold" >{data.created_by}</p>
+                                            <p className=" text-lg font-semibold" >{data?.created_by || ''}</p>
                                         </Col>
 
                                         <Col span={24}>
