@@ -153,12 +153,12 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 } */}
                             </div>
                             {/* {item.status === 'high Priority' ? null : <div className=' py-1 absolute top-0 right-0 px-2 dark:text-red-600 text-xs font-semibold'>{`${item.status}`}</div>} */}
+                            
                             <Row justify='start' gutter={[12, 12]} className=' text-sm mt-8 font-bold' >
                                 <Col span={24} onClick={showModal}>
                                     <Row gutter={[10, 10]} align='middle'>
                                         <Col span={24}>
-                                            {/* <p className=" text-lg font-semibold" >Customer Details</p> */}
-                                            <p className=" text-lg font-semibold" >{data?.created_by || ''}</p>
+                                            <p className=" text-lg font-semibold" >Customer Details</p>
                                         </Col>
 
                                         <Col span={24}>
@@ -174,7 +174,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 </Col>
 
 
-                                <Col span={24}>
+                                {/* <Col span={24}>
                                     <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
                                     <Flex align='baseline' justify='space-between'>
                                         <p className=' text-sm font-light italic' >left: {remain}</p>
@@ -185,7 +185,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                             {item?.price?.price && item?.price?.price !== 0 && (
                                                 <div onClick={stopPropagation} className=' w-full'>
                                                     <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? ()=> router.push('/plan') : () => router.push('/login')} color='orange' className='font-bold'>
-                                                        {/* ₹ {item?.price?.price} */}
+                                                        ₹ {item?.price?.price}
                                                         View
                                                     </Button>
                                                 </div>
@@ -193,7 +193,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
                                         </Col>
                                     </Row>
-                                </Col>
+                                </Col> */}
+                                
                                 <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
