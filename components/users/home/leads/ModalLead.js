@@ -179,11 +179,11 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
 
                                 <Col span={24}>
-                                    <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
+                                    {/* <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
                                     <Flex align='baseline' justify='space-between'>
                                         <p className=' text-sm font-light italic' >left: {remain}</p>
                                         <p className=' text-sm font-light italic' >total: 2</p>
-                                    </Flex>
+                                    </Flex> */}
 
                                     <Row justify='center' align='middle' className=' mt-2'>
                                         <Col span={10} >
@@ -200,7 +200,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                     </Row>
                                 </Col>
 
-                                <Col span={24}>
+                                {/* <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
                                             <Text type='secondary'>{formattedDate}</Text>
@@ -214,7 +214,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
 
                                     </Row>
-                                </Col>
+                                </Col> */}
                             </Row>
                         </div>
                     </Badge.Ribbon>
