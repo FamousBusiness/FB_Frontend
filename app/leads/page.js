@@ -61,6 +61,7 @@ function Page() {
         }
     };
 
+
     const renderContent = () => {
         const result = data && data.results;
         const leadTootal = data && data.count;
@@ -146,6 +147,7 @@ function Page() {
         }
     };
 
+    // Viewed Lead
     const RenderPlanViewedLeads = ({ leads }) => (
         <Row gutter={[16, 16]}>
             {leads.map((lead, index) => (
@@ -155,6 +157,7 @@ function Page() {
             ))}
         </Row>
     );
+
 
     const RenderPaidLeads = ({ paidLeads, premiumLeads }) => (
         <Row gutter={[0, 24]}>
@@ -183,12 +186,14 @@ function Page() {
             </Col>
         </Row>
     );
-
+    
 
     const handleTabChange = (value) => {
         setActiveKey(value);
     };
+    
 
+    
     return (
         <div className='min-h-screen  relative p-2'>
             <Row justify='center' gutter={[4, 12]}>
@@ -212,6 +217,9 @@ function Page() {
             </Row>
         </div>
     );
-}
+};
+
+
+
 
 export default Page;
