@@ -68,6 +68,7 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
     // console.log("indivisual leads after click", data);
     return data;
   } catch (error) {
-    console.log("Error in getting brands by ID (service) =>", error);
+    // console.log("Error in getting brands by ID (service) =>", error);
+    throw error;
   }
 };

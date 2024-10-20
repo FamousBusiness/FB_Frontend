@@ -42,19 +42,24 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
         if (item.status !== 'expired') {
             if (authTokens) {
-                const res = await AuthLeads(indivisual === true ? { individual_lead_id: leadId } : { lead: leadId });
-                // notification.info({
-                //     message: res.msg,
-                //     placement: 'bottomRight',
-                //     duration: 3000,
-                // })
-                setData(res.data);
-                if (res.data) {
-                    setOpen(true); // Show lead modal
-                } else {
-                    // showRazorpay()
-                    setCheckOut(true);
+                try{
+                    const res = await AuthLeads(indivisual === true ? { individual_lead_id: leadId } : { lead: leadId });
+                    // notification.info({
+                    //     message: res.msg,
+                    //     placement: 'bottomRight',
+                    //     duration: 3000,
+                    // })
+                    setData(res.data);
+                    if (res.data) {
+                        setOpen(true); // Show lead modal
+                    } else {
+                        // showRazorpay()
+                        setCheckOut(true);
+                    }
+                } catch (error) {
+                    console.log('error message', error)
                 }
+                
             } else {
                 setNotLoggedIn(true); // Show login form modal
             }
@@ -195,7 +200,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                                     </Button>
                                                 </div>
                                             )} */}
-                                            <div onClick={stopPropagation} className=' w-full'>
+                                            <div onClick={(e)=> stopPropagation(e)} className=' w-full'>
                                                 <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? ()=> router.push('/login') : () => showModal()} color='orange' className='font-bold'>
                                                     View
                                                 </Button>
