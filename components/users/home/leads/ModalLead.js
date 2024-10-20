@@ -58,7 +58,11 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     }
                 } catch (error) {
                     console.log('error message', error)
-                    if (error === 'Error: No Available Premium Plan balance to view the lead Please Purchase') {
+                    if (error === 'No Available Premium Plan balance to view the lead Please Purchase') {
+                        console.log('redirecting to plan')
+                        window.location.href = '/plan/'
+                    } else if (error === 'Error: No Available Premium Plan balance to view the lead Please Purchase') {
+                        console.log('redirecting to plan')
                         window.location.href = '/plan/'
                     }
                 }
