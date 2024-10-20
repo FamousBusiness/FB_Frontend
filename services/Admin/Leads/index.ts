@@ -63,7 +63,8 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${data.message} and response ${res}`);
+      console.log(`HTTP error! Status: ${data} and response ${res}`)
+      throw new Error(`HTTP error! Status: ${data} and response ${res.body}`);
     }
     
     // console.log("indivisual leads after click", data);
