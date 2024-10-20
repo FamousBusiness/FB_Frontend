@@ -196,7 +196,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                                 </div>
                                             )} */}
                                             <div onClick={stopPropagation} className=' w-full'>
-                                                <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? ()=> router.push('/login') : () => setOpen(true)} color='orange' className='font-bold'>
+                                                <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? ()=> router.push('/login') : () => showModal()} color='orange' className='font-bold'>
                                                     View
                                                 </Button>
                                             </div>

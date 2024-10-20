@@ -84,6 +84,7 @@ function Page() {
             );
         }
 
+
         return (
             <>  <div className=' overflow-x-auto mb-4'>
                 <ConfigProvider
@@ -126,7 +127,7 @@ function Page() {
         );
     };
 
-    
+
     const RenderLeadContent = ({ leads, type }) => {
         const sortedLeads = leads && leads.length > 0
             ? [...leads].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
