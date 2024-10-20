@@ -49,8 +49,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     //     placement: 'bottomRight',
                     //     duration: 3000,
                     // })
-                    setData(res.data);
                     if (res.data) {
+                        setData(res.data);
                         setOpen(true); // Show lead modal
                     } else {
                         // showRazorpay()

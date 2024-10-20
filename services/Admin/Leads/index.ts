@@ -63,8 +63,8 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
     const data = await res.json();
 
     if (!res.ok) {
-      console.log("Error response from API:", data)
-      throw new Error(`HTTP error! Status: ${data}`);
+      const errorMessage = data.msg || 'An error occured'
+      throw new Error(errorMessage);
     }
 
     return data;
