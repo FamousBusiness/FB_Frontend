@@ -63,10 +63,10 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${data.data} and response`);
+      console.log("Error response from API:", data)
+      throw new Error(`HTTP error! Status: ${data}`);
     }
-    
-    // console.log("indivisual leads after click", data);
+
     return data;
   } catch (error) {
     // console.log("Error in getting brands by ID (service) =>", error);
