@@ -60,11 +60,12 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
       }
     );
 
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`);
-    }
-
     const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${data}`);
+    }
+    
     // console.log("indivisual leads after click", data);
     return data;
   } catch (error) {
