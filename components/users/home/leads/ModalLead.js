@@ -35,7 +35,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [checkout, setCheckOut] = useState(false);
 
-    const remain = 2 - item.views;
+    const remain = Math.max(2 - item.views, 0);
 
     const offer = (amount / 10) + amount;
     const showModal = async () => {
@@ -172,7 +172,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 <Col span={24} onClick={showModal}>
                                     <Row gutter={[10, 10]} align='middle'>
                                         <Col span={24}>
-                                            <p className=" text-lg font-semibold" >Customer Details</p>
+                                            {/* <p className=" text-lg font-semibold" >Customer Details</p> */}
+                                            <p className=" text-lg font-semibold" >{item?.created_by || 'Customer Details'}</p>
                                         </Col>
 
                                         <Col span={24}>
