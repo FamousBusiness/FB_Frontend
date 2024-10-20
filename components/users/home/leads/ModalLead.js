@@ -44,11 +44,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
             if (authTokens) {
                 try{
                     const res = await AuthLeads(indivisual === true ? { individual_lead_id: leadId } : { lead: leadId });
-                    // notification.info({
-                    //     message: res.msg,
-                    //     placement: 'bottomRight',
-                    //     duration: 3000,
-                    // })
+                    
                     if (res.data) {
                         setData(res.data);
                         setOpen(true); // Show lead modal
@@ -57,13 +53,14 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                         setCheckOut(true);
                     }
                 } catch (error) {
-                    console.log('error message', error)
                     if (error.message === 'No Available Premium Plan balance to view the lead Please Purchase') {
-                        console.log('redirecting to plan')
                         window.location.href = '/plan/'
-                    } else if (error === 'Error: No Available Premium Plan balance to view the lead Please Purchase') {
-                        console.log('Error: redirecting to plan')
-                        window.location.href = '/plan/'
+                    } else if (error.message === 'You can not view this category lead has to purchase the lead') {
+                        notification.info({
+                            message: 'Can not view Lead other than your category',
+                            placement: 'topRight',
+                            duration: 3000,
+                        })
                     }
                 }
                 
