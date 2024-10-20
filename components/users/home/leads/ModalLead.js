@@ -129,6 +129,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
             console.error(error);
         }
     };
+
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
@@ -194,6 +195,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                                     </Button>
                                                 </div>
                                             )} */}
+                                            {console.log('user', user)}
                                             <div onClick={(e)=> {stopPropagation(e); setOpen(true); }} className=' w-full'>
                                                 <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? ()=> router.push('/plan') : () => router.push('/login')} color='orange' className='font-bold'>
                                                     View
@@ -266,4 +268,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
         </>
     )
 };
+
+
+
 export default ModalLead;
