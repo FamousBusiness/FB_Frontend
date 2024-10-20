@@ -189,32 +189,24 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
 
                                 <Col span={24}>
-                                    {/* <Progress strokeColor='green' percent={item.views * 20} showInfo={false} />
+                                    <Progress strokeColor='green' percent={item.views * 50} showInfo={false} />
                                     <Flex align='baseline' justify='space-between'>
                                         <p className=' text-sm font-light italic' >left: {remain}</p>
                                         <p className=' text-sm font-light italic' >total: 2</p>
-                                    </Flex> */}
+                                    </Flex>
 
                                     <Row justify='center' align='middle' className=' mt-2'>
                                         <Col span={10} >
-                                            {/* {item?.price?.price && item?.price?.price !== 0 && (
-                                                <div onClick={stopPropagation} className=' w-full'>
-                                                    <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={user ? ()=> router.push('/plan') : () => router.push('/login')} color='orange' className='font-bold'>
-                                                        View
-                                                    </Button>
-                                                </div>
-                                            )} */}
                                             <div onClick={(e)=> stopPropagation(e)} className=' w-full'>
                                                 <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? ()=> router.push('/login') : () => showModal()} color='orange' className='font-bold'>
                                                     View
                                                 </Button>
                                             </div>
-
                                         </Col>
                                     </Row>
                                 </Col>
 
-                                {/* <Col span={24}>
+                                <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
                                             <Text type='secondary'>{formattedDate}</Text>
@@ -225,10 +217,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                                 <Text type='secondary'>{item.views}</Text>
                                             </Flex>
                                         </Col>
-
-
                                     </Row>
-                                </Col> */}
+                                </Col>
                             </Row>
                         </div>
                     </Badge.Ribbon>
