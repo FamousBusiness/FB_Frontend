@@ -59,7 +59,7 @@ function ContactInformation() {
 
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/form/lead/generate/`, {
                 full_name: formData.full_name,
-                phone_number: formData.number,
+                mobile_number: formData.number,
                 category: query_category
 
             }).then((res)=> {
