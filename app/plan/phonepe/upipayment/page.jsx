@@ -59,7 +59,7 @@ const TimerPage = () => {
           clearInterval(intervalId);
         };
       }
-    }, [delayPassed, isRunning, sendRequest]);
+    }, [delayPassed, isRunning]);
   
 
     /// Send API Request
