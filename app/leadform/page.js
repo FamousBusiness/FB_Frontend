@@ -153,7 +153,7 @@ export default function LeadForm() {
 
       <Card
         sx={{
-          width: 345,
+          width: 550,
           boxShadow: '0px 4px 10px rgba(0,0,0,0.2)',
           borderRadius: 3,
           overflow: 'hidden',
@@ -161,7 +161,7 @@ export default function LeadForm() {
         }}
       >
         {/* Special Offer Tag */}
-        <Chip
+        {/* <Chip
           label="SPECIAL OFFER"
           sx={{
             position: 'absolute',
@@ -172,7 +172,7 @@ export default function LeadForm() {
             fontWeight: 'bold',
             zIndex: 2,
           }}
-        />
+        /> */}
 
         {/* Main Image with icon in center */}
         <Box
