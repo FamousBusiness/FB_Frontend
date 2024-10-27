@@ -42,12 +42,12 @@ export default function ConfirmationPage() {
           
           {/* Title */}
           <Typography variant="subtitle1" fontWeight="bold" mt={1} mb={2}>
-            Thanks, you're all set.
+            Thanks, you &apos; re all set.
           </Typography>
       
           {/* Description */}
           <Typography variant="body2" color="textSecondary" mb={2}>
-            Famous Business is India's Trusted Business Directory Portal. Our Verified Dealers will contact you shortly.
+            Famous Business is India &apos;s Trusted Business Directory Portal. Our Verified Dealers will contact you shortly.
             Please coordinate with them and share your feedback. For more support, contact us at: 
             <Typography component="span" variant="body2" fontWeight="bold" color="textPrimary">
               08062181258
