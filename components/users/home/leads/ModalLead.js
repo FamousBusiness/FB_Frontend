@@ -42,9 +42,9 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
         if (item.status !== 'expired') {
             if (authTokens) {
-                try{
+                try {
                     const res = await AuthLeads(indivisual === true ? { individual_lead_id: leadId } : { lead: leadId });
-                    
+
                     if (res.data) {
                         setData(res.data);
                         setOpen(true); // Show lead modal
@@ -63,7 +63,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                         })
                     }
                 }
-                
+
             } else {
                 setNotLoggedIn(true); // Show login form modal
             }
@@ -144,8 +144,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     };
 
     // 
-    useEffect(()=> {
-        
+    useEffect(() => {
+
     }, [item])
 
 
@@ -167,7 +167,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 } */}
                             </div>
                             {/* {item.status === 'high Priority' ? null : <div className=' py-1 absolute top-0 right-0 px-2 dark:text-red-600 text-xs font-semibold'>{`${item.status}`}</div>} */}
-                            
+
                             <Row justify='start' gutter={[12, 12]} className=' text-sm mt-8 font-bold' >
                                 <Col span={24} onClick={showModal}>
                                     <Row gutter={[10, 10]} align='middle'>
@@ -198,8 +198,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
                                     <Row justify='center' align='middle' className=' mt-2'>
                                         <Col span={10} >
-                                            <div onClick={(e)=> stopPropagation(e)} className=' w-full'>
-                                                <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? ()=> router.push('/login') : () => showModal()} color='orange' className='font-bold'>
+                                            <div onClick={(e) => stopPropagation(e)} className=' w-full'>
+                                                <Button block style={{ background: '#3c89d0', color: 'white' }} onClick={!user ? () => router.push('/login') : () => showModal()} color='orange' className='font-bold'>
                                                     View
                                                 </Button>
                                             </div>
@@ -226,8 +226,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 </Col>
             </Row>
             <LoginForm visible={notLoggedIn} onClose={() => setNotLoggedIn(false)} />
-            
-            
+
+
             <Modal
                 centered="false"
                 open={open}
@@ -252,7 +252,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                             <Col span={24}>
                                 <Space size={10} direction='horizontal' ><PhoneFilled /><Link href={`tel:${data.mobile_number}`}>{data.mobile_number}</Link></Space>
                             </Col>
-                            
+
                             <Col span={24}>
                                 <Space size={10} direction='horizontal'  ><MailFilled /><Link href={`mailto:${data.email}`}>{data.email}</Link></Space>
                             </Col>
