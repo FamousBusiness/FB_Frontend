@@ -141,7 +141,7 @@ export default function PhonePeAutoPay() {
           clearInterval(intervalId);
         };
       }
-    }, [delayPassed, isRunning]);
+    }, [delayPassed, isRunning, sendRequest]);
 
 
 

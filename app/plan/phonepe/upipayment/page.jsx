@@ -59,7 +59,7 @@ const TimerPage = () => {
           clearInterval(intervalId);
         };
       }
-    }, [delayPassed, isRunning]);
+    }, [delayPassed, isRunning, sendRequest]);
   
 
     /// Send API Request
@@ -83,7 +83,7 @@ const TimerPage = () => {
         })
 
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
   
       setCounter((prevCounter) => prevCounter + 1);

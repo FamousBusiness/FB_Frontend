@@ -45,7 +45,7 @@ function ContactInformation() {
         if (LeadGenereted) {
             window.location.href = `/leadform/?category=${query_category}&lead=${leadId}`
         }
-    }, [LeadGenereted]);
+    }, [LeadGenereted, leadId, query_category]);
 
 
    // Submit form data
