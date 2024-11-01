@@ -11,10 +11,21 @@ import PremiumMember from './Components/PremiumMember';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { get_all_leads } from '@/services/Admin/Leads';
+import { Carousel } from 'antd';
 
 const { Title } = Typography;
 
 
+//// Lead Banner Style
+const contentStyle = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+    marginRight:'10%',
+    marginLeft:'10%',
+  };
 
 
 
@@ -44,6 +55,7 @@ function Page() {
             </div>
         );
     }
+
     if (error) {
         return <div>Error fetching data</div>;
     }
@@ -52,6 +64,8 @@ function Page() {
         return leads ? leads.length : 0;
     };
 
+
+    /// 
     const filterLeadsByPincode = (pincode) => {
         if (data && data.results && data.results.Leads) {
             const filtered = data.results.Leads.filter((lead) =>
@@ -61,7 +75,7 @@ function Page() {
         }
     };
 
-
+    
     const renderContent = () => {
         const result = data && data.results;
         const leadTootal = data && data.count;
@@ -82,11 +96,13 @@ function Page() {
                     <RenderLeadContent leads={filteredLeads || Leads} />
                 </>
             );
-        }
+        };
 
 
         return (
-            <>  <div className=' overflow-x-auto mb-4'>
+            <>  
+            <div className=' overflow-x-auto mb-4'>
+               
                 <ConfigProvider
                     theme={{
                         components: {
@@ -96,6 +112,7 @@ function Page() {
                         },
                     }}
                 >
+
                     <Segmented
 
                         className=' mb-4 overflow-x-auto'
@@ -114,14 +131,18 @@ function Page() {
 
             </div>
                 {activeKey === '3' && <RenderLeadContent leads={Individual_Leads} type={true} />}
+
                 {activeKey === '9' && (plan_viewed_leads && plan_viewed_leads.length > 0 ?
                     <RenderPlanViewedLeads leads={plan_viewed_leads} />
                     : <Empty />)
                 }
+
                 {activeKey === '1' && <RenderLeadContent leads={Leads} type={false} />}
+
                 {activeKey === '2' && (
                     <RenderPaidLeads paidLeads={paid_leads} premiumLeads={premium_plan_leads} />
                 )}
+
                 {activeKey === '4' && <RenderLeadContent leads={Other_Category_Leads} type={false} />}
             </>
         );
@@ -197,13 +218,31 @@ function Page() {
     
     return (
         <div className='min-h-screen  relative p-2'>
+
+            <Carousel autoplay>
+                <div>
+                <h3 style={contentStyle}>1</h3>
+                </div>
+                <div>
+                <h3 style={contentStyle}>2</h3>
+                </div>
+                <div>
+                <h3 style={contentStyle}>3</h3>
+                </div>
+                <div>
+                <h3 style={contentStyle}>4</h3>
+                </div>
+            </Carousel>
+
             <Row justify='center' gutter={[4, 12]}>
-                {!user && <Col xs={22} sm={22} lg={8} xl={8} xxl={8} md={8}>
+                {/* {!user && <Col xs={22} sm={22} lg={8} xl={8} xxl={8} md={8}>
                     <PincodeByCity handlePincode={filterLeadsByPincode} />
-                </Col>}
+                </Col>} */}
+
                 <Col span={22} >
                     {renderContent()}
                 </Col>
+
                 <Col span={8}>
                     {data.next && !user && (
                         <Button

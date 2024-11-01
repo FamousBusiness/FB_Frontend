@@ -72,6 +72,7 @@ function Page() {
                                     </Col>
                                 </Row>
                             </Col>
+                            
                             {/* Top Heading  */}
                             {/* Top Heading for Mobile View */}
                             {/* Top Banner  */}

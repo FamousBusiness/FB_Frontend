@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Row, Space, Badge, Progress, Flex, message, Result, Typography, notification } from 'antd';
 import { EyeFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
-import { Player } from '@lottiefiles/react-lottie-player';
+// import { Player } from '@lottiefiles/react-lottie-player';
 import { BiSolidUser } from 'react-icons/bi';
 import Link from 'next/link';
 import { FaLocationDot } from 'react-icons/fa6';
@@ -14,11 +14,9 @@ import { useRouter } from 'next/navigation';
 import { AuthLeads } from '@/services/Admin/Leads';
 const { Text } = Typography
 import LoginForm from '@/utils/LandingPageModel';
-import PayNowModal from './PayNowModal';
+// import PayNowModal from './PayNowModal';
 import Paragraph from 'antd/es/typography/Paragraph';
-import Image from 'next/image';
-
-
+// import Image from 'next/image';
 
 
 
@@ -71,82 +69,83 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     };
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
+        // console.log('Clicked cancel button');
         setOpen(false);
     };
 
-    const handlePaymentSuccess = async (response) => {
-        try {
-            let bodyData = new FormData();
-            bodyData.append("provider_order_id", response.razorpay_order_id)
-            bodyData.append("payment_id", response.razorpay_payment_id);
-            bodyData.append("signature_id", response.razorpay_signature);
-            bodyData.append("lead_id", item.id);
-            await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment-complete/`, bodyData, {
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${Cookies.get("accessToken")}`
-                },
-            })
-                .then((res) => {
-                    console.log("Everything is OK!");
-                    setLeadId("");
-                    setAmount("");
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
-    const loadScript = () => {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
-            script.onload = resolve;
-            document.body.appendChild(script);
-        });
-    };
+    // const handlePaymentSuccess = async (response) => {
+    //     try {
+    //         let bodyData = new FormData();
+    //         bodyData.append("provider_order_id", response.razorpay_order_id)
+    //         bodyData.append("payment_id", response.razorpay_payment_id);
+    //         bodyData.append("signature_id", response.razorpay_signature);
+    //         bodyData.append("lead_id", item.id);
+    //         await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment-complete/`, bodyData, {
+    //             headers: {
+    //                 Accept: "application/json",
+    //                 "Content-Type": "multipart/form-data",
+    //                 Authorization: `Bearer ${Cookies.get("accessToken")}`
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 console.log("Everything is OK!");
+    //                 setLeadId("");
+    //                 setAmount("");
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    // const loadScript = () => {
+    //     return new Promise((resolve) => {
+    //         const script = document.createElement("script");
+    //         script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
+    //         script.onload = resolve;
+    //         document.body.appendChild(script);
+    //     });
+    // };
 
 
     // Lead Payemnt method
-    const showRazorpay = async () => {
-        // await loadScript();
-        let bodyData = new FormData();
-        bodyData.append("amount", amount);
-        bodyData.append("lead_id", leadId);
+    // const showRazorpay = async () => {
+    //     // await loadScript();
+    //     let bodyData = new FormData();
+    //     bodyData.append("amount", amount);
+    //     bodyData.append("lead_id", leadId);
 
-        try {
+    //     try {
 
-            setCheckOut(false);
-            const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${Cookies.get("accessToken")}`
-                },
-            });
+    //         setCheckOut(false);
+    //         const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
+    //             headers: {
+    //                 Accept: "application/json",
+    //                 "Content-Type": "multipart/form-data",
+    //                 "Authorization": `Bearer ${Cookies.get("accessToken")}`
+    //             },
+    //         });
 
-            const redirect = data.payment_response.redirect_url;
-            router.push(redirect)
+    //         const redirect = data.payment_response.redirect_url;
+    //         router.push(redirect)
 
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
-    const stopPropagation = (e) => {
-        e.stopPropagation();
-    };
+    // const stopPropagation = (e) => {
+    //     e.stopPropagation();
+    // };
 
-    // 
-    useEffect(() => {
+    // // 
+    // useEffect(() => {
 
-    }, [item])
+    // }, [item])
 
 
     return (
