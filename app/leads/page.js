@@ -12,20 +12,24 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
+import { useEffect } from 'react';
 
 const { Title } = Typography;
 
 
+
 //// Lead Banner Style
 const contentStyle = {
-    height: '160px',
+    height: '210px',
     color: '#fff',
     lineHeight: '160px',
     textAlign: 'center',
     background: '#364d79',
     marginRight:'10%',
     marginLeft:'10%',
+    borderRadius:'25px'
   };
+
 
 
 
@@ -40,6 +44,25 @@ function Page() {
     const city = locationState.city;
     const accessToken = Cookies.get('accessToken');
     const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
+    
+
+    /// Get Lead Banner data
+    useEffect(()=> {
+        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+
+        }).then((res)=> {
+            console.log(res);
+
+        }).catch((error)=> {
+            console.log(error);
+
+        })
+    }, []);
+    
+    
 
 
     if (!data && isValidating) {
@@ -99,7 +122,7 @@ function Page() {
         };
 
 
-        return (
+    return (
             <>  
             <div className=' overflow-x-auto mb-4'>
                
@@ -112,9 +135,7 @@ function Page() {
                         },
                     }}
                 >
-
                     <Segmented
-
                         className=' mb-4 overflow-x-auto'
                         options={[
                             { label: ` My Category Leads (${countLeads(Leads)})`, value: '1' },
