@@ -13,13 +13,14 @@ import Cookies from 'js-cookie';
 import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 const { Title } = Typography;
 
 
 
 //// Lead Banner Style
-const contentStyle = {
+    const contentStyle = {
     height: '210px',
     color: '#fff',
     lineHeight: '160px',
@@ -39,12 +40,14 @@ function Page() {
     const [page, setPage] = useState(1);
     const { user } = useAuth();
     const [filteredLeads, setFilteredLeads] = useState(null);
+    const [LeadBanner, setLeadBanner] = useState([]);
+    const [noLeadBanner, setNoLeadBanner] = useState(false);
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const state = locationState.state;
     const city = locationState.city;
     const accessToken = Cookies.get('accessToken');
     const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
-    
+
 
     /// Get Lead Banner data
     useEffect(()=> {
@@ -54,11 +57,19 @@ function Page() {
             }
 
         }).then((res)=> {
-            console.log(res);
+            // console.log(res);
+            if (res.status === 200) {
+                setLeadBanner(res.data.lead_banner_data);
+                setNoLeadBanner(false)
+            }
 
         }).catch((error)=> {
-            console.log(error);
-
+            // console.log(error);
+            if (error.response.status === 400) {
+                setNoLeadBanner(true);
+            } else if (error.response.status === 401) {
+                setNoLeadBanner(true)
+            }
         })
     }, []);
     
@@ -240,20 +251,40 @@ function Page() {
     return (
         <div className='min-h-screen  relative p-2'>
 
-            <Carousel autoplay>
-                <div>
-                <h3 style={contentStyle}>1</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>2</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>3</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>4</h3>
-                </div>
-            </Carousel>
+            {!noLeadBanner && 
+                <Carousel autoplay slidesToScroll={true} effect='fade'>
+                    {LeadBanner.map((banner, index)=> {
+                        <>
+                            <div key={index}>
+                                {banner.image &&
+                                    <Image 
+                                        src={banner.image}
+                                        style={contentStyle}
+                                        alt='Image'
+                                    />
+                                }
+                            </div>
+    
+                            <div key={banner.id}>
+                                {banner.video &&
+                                    <video 
+                                        src={banner.video}
+                                        style={contentStyle}
+                                        alt='Video'
+                                        controls 
+                                        width='100%'
+                                        height='auto'
+                                        autoPlay 
+                                        loop
+                                        preload="metadata"
+                                    />
+                                }
+                            </div>
+                        </>
+                    })}
+                    
+                </Carousel>
+            }
 
             <Row justify='center' gutter={[4, 12]}>
                 {/* {!user && <Col xs={22} sm={22} lg={8} xl={8} xxl={8} md={8}>
