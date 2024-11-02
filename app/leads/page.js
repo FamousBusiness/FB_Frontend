@@ -50,35 +50,35 @@ function Page() {
 
 
     /// Get Lead Banner data
-    useEffect(()=> {
-        if (city && accessToken) {
+    // useEffect(()=> {
+    //     if (city && accessToken) {
 
-            axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
+    //         axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${accessToken}`
+    //             }
     
-            }).then((res)=> {
-                // console.log(res);
-                if (res.status === 200) {
-                    setLeadBanner(res.data.lead_banner_data);
-                    setNoLeadBanner(false)
-                }
+    //         }).then((res)=> {
+    //             // console.log(res);
+    //             if (res.status === 200) {
+    //                 setLeadBanner(res.data.lead_banner_data);
+    //                 setNoLeadBanner(false)
+    //             }
     
-            }).catch((error)=> {
-                // console.log(error);
-                if (error.response.status === 400) {
-                    setNoLeadBanner(true);
-                } else if (error.response.status === 401) {
-                    setNoLeadBanner(true)
-                }
-            })
+    //         }).catch((error)=> {
+    //             // console.log(error);
+    //             if (error.response.status === 400) {
+    //                 setNoLeadBanner(true);
+    //             } else if (error.response.status === 401) {
+    //                 setNoLeadBanner(true)
+    //             }
+    //         })
 
-        } else {
-            console.log('City and token did not found')
-        }
+    //     } else {
+    //         console.log('City and token did not found')
+    //     }
         
-    }, [accessToken, city]);
+    // }, [accessToken, city]);
     
     
 console.log('noLeadBanner', noLeadBanner)
