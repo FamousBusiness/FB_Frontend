@@ -233,7 +233,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 title={"Business Details"}
             >
                 {console.log(data ? data.created_by : '')}
-                
+                {console.log(data ? data : '')}
+
                 {data && <Row justify='center' gutter={[12, 8]}>
                     {/* <Col>
                         <div className=' relative flex flex-col justify-center items-center'>
