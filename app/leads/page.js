@@ -256,7 +256,7 @@ function Page() {
                     {LeadBanner.map((banner, index) => (
                         <div key={banner.id}>
                             {banner.image && (
-                                <div>
+                                <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
                                     <img 
                                         src={banner.image}
                                         alt='Image'
@@ -277,7 +277,7 @@ function Page() {
                             )}
                             
                             {banner.video && (
-                                <div>
+                                <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
                                     <video 
                                         src={banner.video}
                                         style={{
