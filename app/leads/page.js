@@ -14,22 +14,11 @@ import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
 import { useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const { Title } = Typography;
 
 
-
-//// Lead Banner Style
-    const contentStyle = {
-    height: '210px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-    marginRight:'10%',
-    marginLeft:'10%',
-    borderRadius:'25px'
-  };
 
 
 
@@ -46,6 +35,7 @@ function Page() {
     const state = locationState.state;
     const city = locationState.city;
     const accessToken = Cookies.get('accessToken');
+    const router = useRouter();
 
     const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
 
@@ -282,6 +272,7 @@ function Page() {
                                             height: '210px',
                                             width: '80%'
                                         }}
+                                        onClick={router.push(banner?.url || '')}
                                     />
                                 </div>
                             )}
@@ -301,10 +292,11 @@ function Page() {
                                             height: '210px',
                                             width: '80%'
                                         }}
-                                        controls 
-                                        autoPlay 
+                                        controls
+                                        autoPlay
                                         loop
                                         preload="metadata"
+                                        onClick={router.push(banner?.url || '')}
                                     />
                                 </div>
                             )}
