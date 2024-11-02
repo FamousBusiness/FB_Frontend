@@ -78,7 +78,7 @@ function Page() {
             console.log('City and token did not found')
         }
         
-    }, [accessToken, city]);d
+    }, [accessToken, city]);
     
     
 console.log('noLeadBanner', noLeadBanner)
