@@ -82,8 +82,8 @@ function Page() {
     }, [accessToken, city]);
     
     
-console.log('noLeadBanner', noLeadBanner)
-console.log('LeadBanner', LeadBanner)
+// console.log('noLeadBanner', noLeadBanner)
+// console.log('LeadBanner', LeadBanner)
 
 
     if (!data && isValidating) {
@@ -284,7 +284,6 @@ console.log('LeadBanner', LeadBanner)
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index)=> {
                         <>
-                        {banner.image &&
                         <div>
                             <img 
                                 src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
@@ -302,7 +301,7 @@ console.log('LeadBanner', LeadBanner)
                             }}
                           />
                         </div>
-                        }
+                        
                             
                         {banner.video &&
                             <div key={banner.id}>
