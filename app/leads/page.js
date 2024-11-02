@@ -261,16 +261,47 @@ console.log('LeadBanner', LeadBanner)
     return (
         <div className='min-h-screen  relative p-2'>
 
+            {/* <Carousel autoplay>
+                <div>
+                    <img 
+                       src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
+                       alt='Image'
+                      style={{
+                        lineHeight: '160px',
+                        textAlign: 'center',
+                        background: '#364d79',
+                        marginRight:'10%',
+                        marginLeft:'10%',
+                        borderRadius:'25px',
+                        color: '#fff',
+                        height: '210px',
+                        width:'80%'
+                      }}
+                     />
+                </div>
+            </Carousel> */}
             {noLeadBanner === false && 
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index)=> {
                         <>
                         {banner.image &&
-                            <div key={index}>
-                                <a href={banner.image} style={contentStyle}>
-
-                                </a>
-                            </div>
+                        <div>
+                            <img 
+                                src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
+                                alt='Image'
+                               style={{
+                                    lineHeight: '160px',
+                                    textAlign: 'center',
+                                    background: '#364d79',
+                                    marginRight:'10%',
+                                    marginLeft:'10%',
+                                    borderRadius:'25px',
+                                    color: '#fff',
+                                    height: '210px',
+                                    width:'80%'
+                            }}
+                          />
+                        </div>
                         }
                             
                         {banner.video &&
