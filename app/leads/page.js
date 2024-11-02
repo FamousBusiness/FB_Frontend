@@ -70,9 +70,7 @@ function Page() {
         
     }, [accessToken, city]);
     
-    
-// console.log('noLeadBanner', noLeadBanner)
-// console.log('LeadBanner', LeadBanner)
+
 
 
     if (!data && isValidating) {
@@ -183,9 +181,19 @@ function Page() {
 
 
     const RenderLeadContent = ({ leads, type }) => {
-        const sortedLeads = leads && leads.length > 0
-            ? [...leads].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            : leads;
+        // const sortedLeads = leads && leads.length > 0
+        //     ? [...leads].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+        //     : leads;
+        const sortedLeads = leads && leads.lenght > 0 ?
+          [...leads].sort((a, b) => {
+            if (a.expired === b.expired) {
+                return new Date(b.created_at) - new Date(a.created_at);
+            }
+
+            return a.expired - b.expired;
+          }) 
+          :
+          leads;
 
         if (sortedLeads && sortedLeads.length > 0) {
             return (
@@ -251,7 +259,7 @@ function Page() {
     
     return (
         <div className='min-h-screen  relative p-2'>
-            {/* <Carousel autoplay slidesToScroll={true} effect='fade'>
+            <Carousel autoplay slidesToScroll={true} effect='fade'>
                 <div style={{ cursor: 'pointer' }}>
                     <img 
                         src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
@@ -269,7 +277,7 @@ function Page() {
                         }}
                     />
                 </div>
-            </Carousel> */}
+            </Carousel>
 
             {noLeadBanner === false && LeadBanner && (
 

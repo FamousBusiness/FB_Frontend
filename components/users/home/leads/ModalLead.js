@@ -206,7 +206,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
-                                            <Text type='secondary'>{formattedDate}</Text>
+                                            {/* <Text type='secondary'>{formattedDate}</Text> */}
+                                            <Text type='secondary'>Pending task</Text>
                                         </Col>
                                         <Col>
                                             <Flex gap={3}>
@@ -232,8 +233,6 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 onCancel={handleCancel}
                 title={"Business Details"}
             >
-                {console.log(data ? data.created_by : '')}
-                {console.log(data ? data : '')}
 
                 {data && <Row justify='center' gutter={[12, 8]}>
                     {/* <Col>
