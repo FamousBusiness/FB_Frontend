@@ -271,7 +271,7 @@ function Page() {
                                             height: '210px',
                                             width: '80%'
                                         }}
-                                        onClick={window.location.href = banner.url}
+                                        // onClick={window.location.href = banner.url}
                                     />
                                 </div>
                             )}
@@ -295,7 +295,7 @@ function Page() {
                                         autoPlay
                                         loop
                                         preload="metadata"
-                                        onClick={window.location.href = banner.url}
+                                        // onClick={window.location.href = banner.url}
                                     />
                                 </div>
                             )}
