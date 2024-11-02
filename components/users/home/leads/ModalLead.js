@@ -232,7 +232,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 onCancel={handleCancel}
                 title={"Business Details"}
             >
-                {console.log(data ? data : 'No data')}
+                {console.log(data ? data.created_by : '')}
                 
                 {data && <Row justify='center' gutter={[12, 8]}>
                     {/* <Col>
@@ -248,11 +248,11 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     <Col span={24}>
                         <Row gutter={[12, 12]}>
                             <Col span={24}>
-                                <Space size={10} direction='horizontal' ><PhoneFilled /><Link href={`tel:${data.mobile_number}`}>{data.mobile_number}</Link></Space>
+                                <Space size={10} direction='horizontal' ><PhoneFilled /><Link href={`tel:${data?.mobile_number}`}>{data?.mobile_number}</Link></Space>
                             </Col>
 
                             <Col span={24}>
-                                <Space size={10} direction='horizontal'  ><MailFilled /><Link href={`mailto:${data.email}`}>{data.email}</Link></Space>
+                                <Space size={10} direction='horizontal'  ><MailFilled /><Link href={`mailto:${data?.email}`}>{data?.email}</Link></Space>
                             </Col>
                         </Row>
                     </Col>
