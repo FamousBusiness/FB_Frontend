@@ -74,78 +74,75 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     };
 
 
-    // const handlePaymentSuccess = async (response) => {
-    //     try {
-    //         let bodyData = new FormData();
-    //         bodyData.append("provider_order_id", response.razorpay_order_id)
-    //         bodyData.append("payment_id", response.razorpay_payment_id);
-    //         bodyData.append("signature_id", response.razorpay_signature);
-    //         bodyData.append("lead_id", item.id);
-    //         await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment-complete/`, bodyData, {
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 "Content-Type": "multipart/form-data",
-    //                 Authorization: `Bearer ${Cookies.get("accessToken")}`
-    //             },
-    //         })
-    //             .then((res) => {
-    //                 console.log("Everything is OK!");
-    //                 setLeadId("");
-    //                 setAmount("");
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
+    const handlePaymentSuccess = async (response) => {
+        try {
+            let bodyData = new FormData();
+            bodyData.append("provider_order_id", response.razorpay_order_id)
+            bodyData.append("payment_id", response.razorpay_payment_id);
+            bodyData.append("signature_id", response.razorpay_signature);
+            bodyData.append("lead_id", item.id);
+            await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment-complete/`, bodyData, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${Cookies.get("accessToken")}`
+                },
+            })
+                .then((res) => {
+                    console.log("Everything is OK!");
+                    setLeadId("");
+                    setAmount("");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    // const loadScript = () => {
-    //     return new Promise((resolve) => {
-    //         const script = document.createElement("script");
-    //         script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
-    //         script.onload = resolve;
-    //         document.body.appendChild(script);
-    //     });
-    // };
+    const loadScript = () => {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = "https://mercury.phonepe.com/web/bundle/checkout.js";
+            script.onload = resolve;
+            document.body.appendChild(script);
+        });
+    };
 
 
     // Lead Payemnt method
-    // const showRazorpay = async () => {
-    //     // await loadScript();
-    //     let bodyData = new FormData();
-    //     bodyData.append("amount", amount);
-    //     bodyData.append("lead_id", leadId);
+    const showRazorpay = async () => {
+        // await loadScript();
+        let bodyData = new FormData();
+        bodyData.append("amount", amount);
+        bodyData.append("lead_id", leadId);
 
-    //     try {
+        try {
 
-    //         setCheckOut(false);
-    //         const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 "Content-Type": "multipart/form-data",
-    //                 "Authorization": `Bearer ${Cookies.get("accessToken")}`
-    //             },
-    //         });
+            setCheckOut(false);
+            const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${Cookies.get("accessToken")}`
+                },
+            });
 
-    //         const redirect = data.payment_response.redirect_url;
-    //         router.push(redirect)
+            const redirect = data.payment_response.redirect_url;
+            router.push(redirect)
 
-    //     }
-    //     catch (error) {
-    //         console.error(error);
-    //     }
-    // };
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
 
     const stopPropagation = (e) => {
         e.stopPropagation();
     };
 
-    // // 
-    // useEffect(() => {
-
-    // }, [item])
+ 
 
 
     return (
@@ -235,6 +232,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 onCancel={handleCancel}
                 title={"Business Details"}
             >
+                {console.log(data ? data : 'No data')}
+                
                 {data && <Row justify='center' gutter={[12, 8]}>
                     {/* <Col>
                         <div className=' relative flex flex-col justify-center items-center'>
