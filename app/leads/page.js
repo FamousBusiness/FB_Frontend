@@ -251,7 +251,8 @@ function Page() {
         <div className='min-h-screen  relative p-2'>
 
            
-            {noLeadBanner === false && 
+            {noLeadBanner === false && LeadBanner && (
+
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index) => (
                         <div key={banner.id}>
@@ -271,7 +272,7 @@ function Page() {
                                             height: '210px',
                                             width: '80%'
                                         }}
-                                        // onClick={window.location.href = banner.url}
+                                        
                                     />
                                 </div>
                             )}
@@ -295,14 +296,13 @@ function Page() {
                                         autoPlay
                                         loop
                                         preload="metadata"
-                                        // onClick={window.location.href = banner.url}
                                     />
                                 </div>
                             )}
                         </div>
                     ))}
                 </Carousel>
-            }
+            )}
 
 
             <Row justify='center' gutter={[4, 12]}>
