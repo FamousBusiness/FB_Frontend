@@ -259,7 +259,7 @@ function Page() {
     
     return (
         <div className='min-h-screen  relative p-2'>
-            <Carousel autoplay slidesToScroll={true} effect='fade'>
+            {/* <Carousel autoplay slidesToScroll={true} effect='fade'>
                 <div style={{ cursor: 'pointer' }}>
                     <img 
                         src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
@@ -277,7 +277,7 @@ function Page() {
                         }}
                     />
                 </div>
-            </Carousel>
+            </Carousel> */}
 
             {noLeadBanner === false && LeadBanner && (
 
