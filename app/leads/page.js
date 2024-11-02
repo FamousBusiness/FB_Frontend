@@ -74,7 +74,7 @@ function Page() {
     }, []);
     
     
-
+console.log('noLeadBanner', noLeadBanner)
 
     if (!data && isValidating) {
         return (
