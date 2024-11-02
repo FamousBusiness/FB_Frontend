@@ -138,9 +138,9 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     //     }
     // };
 
-    // const stopPropagation = (e) => {
-    //     e.stopPropagation();
-    // };
+    const stopPropagation = (e) => {
+        e.stopPropagation();
+    };
 
     // // 
     // useEffect(() => {

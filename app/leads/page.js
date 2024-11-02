@@ -87,12 +87,14 @@ function Page() {
                 </Row>
             </div>
         );
-    }
+    };
+
 
     if (error) {
         return <div>Error fetching data</div>;
-    }
+    };
 
+    
     const countLeads = (leads) => {
         return leads ? leads.length : 0;
     };
@@ -249,13 +251,32 @@ function Page() {
     
     return (
         <div className='min-h-screen  relative p-2'>
+            {/* <Carousel autoplay slidesToScroll={true} effect='fade'>
+                <div style={{ cursor: 'pointer' }}>
+                    <img 
+                        src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
+                        alt='Image'
+                        style={{
+                            lineHeight: '160px',
+                            textAlign: 'center',
+                            background: '#364d79',
+                            marginRight: '10%',
+                            marginLeft: '10%',
+                            borderRadius: '25px',
+                            color: '#fff',
+                            height: '210px',
+                            width: '90%'
+                        }}
+                    />
+                </div>
+            </Carousel> */}
 
-           
             {noLeadBanner === false && LeadBanner && (
 
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index) => (
                         <div key={banner.id}>
+
                             {banner.image && (
                                 <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
                                     <img 
@@ -270,13 +291,12 @@ function Page() {
                                             borderRadius: '25px',
                                             color: '#fff',
                                             height: '210px',
-                                            width: '80%'
+                                            width: '90%'
                                         }}
-                                        
                                     />
                                 </div>
                             )}
-                            
+
                             {banner.video && (
                                 <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
                                     <video 
