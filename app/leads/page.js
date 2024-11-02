@@ -59,14 +59,14 @@ function Page() {
                 }
     
             }).then((res)=> {
-                console.log(res);
+                // console.log(res);
                 if (res.status === 200) {
                     setLeadBanner(res.data.lead_banner_data);
                     setNoLeadBanner(false)
                 }
     
             }).catch((error)=> {
-                console.log(error);
+                // console.log(error);
                 if (error.response.status === 400) {
                     setNoLeadBanner(true);
                 } else if (error.response.status === 401) {
@@ -82,6 +82,8 @@ function Page() {
     
     
 console.log('noLeadBanner', noLeadBanner)
+console.log('LeadBanner', LeadBanner)
+
 
     if (!data && isValidating) {
         return (
@@ -258,7 +260,7 @@ console.log('noLeadBanner', noLeadBanner)
     return (
         <div className='min-h-screen  relative p-2'>
 
-            {!noLeadBanner && 
+            {noLeadBanner === false && 
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index)=> {
                         <>
