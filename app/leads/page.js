@@ -264,16 +264,12 @@ console.log('LeadBanner', LeadBanner)
             {noLeadBanner === false && 
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index)=> {
-                        {console.log(banner.image)}
                         <>
                         {banner.image &&
-                            <div key={index} style={contentStyle}>
-                                <Image 
-                                    src={banner.image}
-                                    // style={contentStyle}
-                                    alt='Image'
-                                />
-                            {console.log('inside',banner.image)}
+                            <div key={index}>
+                                <a href={banner.image} style={contentStyle}>
+
+                                </a>
                             </div>
                         }
                             
