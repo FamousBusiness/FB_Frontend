@@ -261,65 +261,47 @@ function Page() {
     return (
         <div className='min-h-screen  relative p-2'>
 
-            {/* <Carousel autoplay>
-                <div>
-                    <img 
-                       src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
-                       alt='Image'
-                      style={{
-                        lineHeight: '160px',
-                        textAlign: 'center',
-                        background: '#364d79',
-                        marginRight:'10%',
-                        marginLeft:'10%',
-                        borderRadius:'25px',
-                        color: '#fff',
-                        height: '210px',
-                        width:'80%'
-                      }}
-                     />
-                </div>
-            </Carousel> */}
+           
             {noLeadBanner === false && 
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
-                    {LeadBanner.map((banner, index)=> {
-                        <>
-                        <div>
-                            <img 
-                                src='https://mdwebzotica.famousbusiness.in/Lead_image_black_blue.jpg'
-                                alt='Image'
-                               style={{
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#364d79',
-                                    marginRight:'10%',
-                                    marginLeft:'10%',
-                                    borderRadius:'25px',
-                                    color: '#fff',
-                                    height: '210px',
-                                    width:'80%'
-                            }}
-                          />
-                        </div>
-                        
+                    {LeadBanner.map((banner, index) => (
+                        <div key={banner.id}>
+                            {banner.image && (
+                                <div>
+                                    <img 
+                                        src={banner.image}
+                                        alt='Image'
+                                        style={{
+                                            lineHeight: '160px',
+                                            textAlign: 'center',
+                                            background: '#364d79',
+                                            marginRight: '10%',
+                                            marginLeft: '10%',
+                                            borderRadius: '25px',
+                                            color: '#fff',
+                                            height: '210px',
+                                            width: '80%'
+                                        }}
+                                    />
+                                </div>
+                            )}
                             
-                        {banner.video &&
-                            <div key={banner.id}>
-                                <video 
-                                    src={banner.video}
-                                    style={contentStyle}
-                                    alt='Video'
-                                    controls 
-                                    width='100%'
-                                    height='auto'
-                                    autoPlay 
-                                    loop
-                                    preload="metadata"
-                                />
-                            </div>
-                        }
-                        </>
-                    })}
+                            {banner.video && (
+                                <div>
+                                    <video 
+                                        src={banner.video}
+                                        style={contentStyle}
+                                        controls 
+                                        width="100%"
+                                        height="auto"
+                                        autoPlay 
+                                        loop
+                                        preload="metadata"
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ))}
                 </Carousel>
             }
 
