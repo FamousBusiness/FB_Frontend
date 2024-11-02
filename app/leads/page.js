@@ -46,39 +46,40 @@ function Page() {
     const state = locationState.state;
     const city = locationState.city;
     const accessToken = Cookies.get('accessToken');
+
     const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
 
 
     /// Get Lead Banner data
-    // useEffect(()=> {
-    //     if (city && accessToken) {
+    useEffect(()=> {
+        if (city && accessToken) {
 
-    //         axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${accessToken}`
-    //             }
+            axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
     
-    //         }).then((res)=> {
-    //             // console.log(res);
-    //             if (res.status === 200) {
-    //                 setLeadBanner(res.data.lead_banner_data);
-    //                 setNoLeadBanner(false)
-    //             }
+            }).then((res)=> {
+                // console.log(res);
+                if (res.status === 200) {
+                    setLeadBanner(res.data.lead_banner_data);
+                    setNoLeadBanner(false)
+                }
     
-    //         }).catch((error)=> {
-    //             // console.log(error);
-    //             if (error.response.status === 400) {
-    //                 setNoLeadBanner(true);
-    //             } else if (error.response.status === 401) {
-    //                 setNoLeadBanner(true)
-    //             }
-    //         })
+            }).catch((error)=> {
+                // console.log(error);
+                if (error.response.status === 400) {
+                    setNoLeadBanner(true);
+                } else if (error.response.status === 401) {
+                    setNoLeadBanner(true)
+                }
+            })
 
-    //     } else {
-    //         console.log('City and token did not found')
-    //     }
+        } else {
+            console.log('City and token did not found')
+        }
         
-    // }, [accessToken, city]);
+    }, [accessToken, city]);
     
     
 console.log('noLeadBanner', noLeadBanner)
@@ -264,36 +265,43 @@ console.log('LeadBanner', LeadBanner)
                 <Carousel autoplay slidesToScroll={true} effect='fade'>
                     {LeadBanner.map((banner, index)=> {
                         <>
+                        {/* {banner.image &&
                             <div key={index}>
-                                {banner.image &&
-                                    <Image 
-                                        src={banner.image}
-                                        style={contentStyle}
-                                        alt='Image'
-                                    />
-                                }
+                                <Image 
+                                    src={banner.image}
+                                    style={contentStyle}
+                                    alt='Image'
+                                />
                             </div>
-    
+                        } */}
+                            <div key={index}>
+                                <Image 
+                                    src={banner.image}
+                                    style={contentStyle}
+                                    alt='Image'
+                                />
+                            </div>
+
+                        {banner.video &&
                             <div key={banner.id}>
-                                {banner.video &&
-                                    <video 
-                                        src={banner.video}
-                                        style={contentStyle}
-                                        alt='Video'
-                                        controls 
-                                        width='100%'
-                                        height='auto'
-                                        autoPlay 
-                                        loop
-                                        preload="metadata"
-                                    />
-                                }
+                                <video 
+                                    src={banner.video}
+                                    style={contentStyle}
+                                    alt='Video'
+                                    controls 
+                                    width='100%'
+                                    height='auto'
+                                    autoPlay 
+                                    loop
+                                    preload="metadata"
+                                />
                             </div>
+                        }
                         </>
                     })}
-                    
                 </Carousel>
             }
+
 
             <Row justify='center' gutter={[4, 12]}>
                 {/* {!user && <Col xs={22} sm={22} lg={8} xl={8} xxl={8} md={8}>
