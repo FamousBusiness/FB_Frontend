@@ -290,10 +290,18 @@ function Page() {
                                 <div>
                                     <video 
                                         src={banner.video}
-                                        style={contentStyle}
+                                        style={{
+                                            lineHeight: '160px',
+                                            textAlign: 'center',
+                                            background: '#364d79',
+                                            marginRight: '10%',
+                                            marginLeft: '10%',
+                                            borderRadius: '25px',
+                                            color: '#fff',
+                                            height: '210px',
+                                            width: '80%'
+                                        }}
                                         controls 
-                                        width="100%"
-                                        height="auto"
                                         autoPlay 
                                         loop
                                         preload="metadata"
