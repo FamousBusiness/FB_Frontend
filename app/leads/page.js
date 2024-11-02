@@ -57,14 +57,14 @@ function Page() {
             }
 
         }).then((res)=> {
-            // console.log(res);
+            console.log(res);
             if (res.status === 200) {
                 setLeadBanner(res.data.lead_banner_data);
                 setNoLeadBanner(false)
             }
 
         }).catch((error)=> {
-            // console.log(error);
+            console.log(error);
             if (error.response.status === 400) {
                 setNoLeadBanner(true);
             } else if (error.response.status === 401) {
