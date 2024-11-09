@@ -121,7 +121,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
         try {
 
             setCheckOut(false);
-            const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
+                const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead-payment/`, bodyData, {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "multipart/form-data",

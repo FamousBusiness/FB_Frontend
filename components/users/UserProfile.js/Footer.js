@@ -6,10 +6,16 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import React from 'react'
 import { FaSquareFacebook } from 'react-icons/fa6';
+
+
+
+
 function Footer({ BusinessName }) {
   const pathName = usePathname()
+
   return (<>
     {pathName.includes('/failure') || pathName.includes('/success') || pathName.includes('/admin') || pathName.includes('/userprofile') || pathName.includes('/brands/Branddeatails') || pathName.includes('/login') || pathName.includes('/registration') || pathName.includes('/job/employerdash') || pathName.includes('/job/employeedash') ? null :
+    
       <div className=" relative dark:text-black sm:rounded-2xl shadow-sm m-0 sm:m-4 bg-white pt-6 pb-6">
         <Row justify='center' align='middle'>
           <Col span={23}>

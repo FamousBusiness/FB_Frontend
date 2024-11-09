@@ -121,7 +121,7 @@ function Page() {
                     <Segmented
 
                         options={[
-                            { label: `All Leads (${leadTootal})`, value: '1' },
+                            { label: `All Orders (${leadTootal})`, value: '1' },
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}
@@ -148,11 +148,11 @@ function Page() {
                     <Segmented
                         className=' mb-4 overflow-x-auto'
                         options={[
-                            { label: ` My Category Leads (${countLeads(Leads)})`, value: '1' },
-                            { label: `My Viewed Leads (${countLeads(plan_viewed_leads)})`, value: '9' },
-                            { label: `My Leads (${countLeads(Individual_Leads)})`, value: '3' },
-                            { label: `My Paid Leads (${totalLeads})`, value: '2' },
-                            { label: `Other Category Leads (${countLeads(Other_Category_Leads)})`, value: '4' }
+                            { label: ` My Category Orders (${countLeads(Leads)})`, value: '1' },
+                            { label: `My Viewed Orders (${countLeads(plan_viewed_leads)})`, value: '9' },
+                            { label: `My Orders (${countLeads(Individual_Leads)})`, value: '3' },
+                            { label: `My Paid Orders (${totalLeads})`, value: '2' },
+                            { label: `Other Category Orders (${countLeads(Other_Category_Leads)})`, value: '4' }
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}
