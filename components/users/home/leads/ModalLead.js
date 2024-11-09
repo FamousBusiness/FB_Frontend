@@ -206,8 +206,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 <Col span={24}>
                                     <Row align='bottom' justify='space-between'>
                                         <Col className=" font-light">
-                                            {/* <Text type='secondary'>{formattedDate}</Text> */}
-                                            <Text type='secondary'>Pending task</Text>
+                                            <Text type='secondary'>{formattedDate}</Text>
+                                            {/* <Text type='secondary'>Pending task</Text> */}
                                         </Col>
                                         <Col>
                                             <Flex gap={3}>
