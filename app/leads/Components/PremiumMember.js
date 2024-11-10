@@ -13,6 +13,10 @@ import { BiUser } from 'react-icons/bi'
 import { FaLocationDot, FaMapLocationDot } from 'react-icons/fa6'
 const { Text, Paragraph, Title } = Typography
 
+
+
+
+
 function PremiumMember({ item }) {
     const { user } = useAuth()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -20,6 +24,9 @@ function PremiumMember({ item }) {
     const [open, setOpen] = useState(false);
     const limit = 10
     const remain = limit - item.sum_lead_viewed;
+
+
+    
     return (
         <div>
             <Row>

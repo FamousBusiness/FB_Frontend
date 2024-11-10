@@ -13,25 +13,32 @@ import { Poppins } from "next/font/google";
 // import ProfilePop from '@/utils/ProfilePop';
 // import SoftwareComponent from '@/components/users/home/SoftwareSection/SoftwareComponent';
 
+
 const poppins = Poppins({
   weight: "500",
   subsets: ["latin"],
 });
+
 
 const poppinss = Poppins({
   weight: "700",
   subsets: ["latin"],
 });
 
+
 const { Text, Title } = Typography;
+
 
 // Home Page
 function Page() {
   const controls = useAnimation();
 
+
   useEffect(() => {
     controls.start({ opacity: 1 });
   }, [controls]);
+
+
 
   return (
     <motion.div
@@ -239,6 +246,8 @@ function Page() {
                   </div>
                 </Link>
               </Col>
+
+
               <Col span={7}>
                 <Link href="/enquiry">
                   <div
@@ -344,7 +353,9 @@ function Page() {
         </div>
       </div>
     </motion.div>
+
   );
-}
+};
+
 
 export default Page;

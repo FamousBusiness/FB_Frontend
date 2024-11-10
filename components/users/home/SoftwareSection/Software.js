@@ -7,6 +7,9 @@ import Image from 'next/image';
 
 const { Text, Paragraph } = Typography;
 
+
+
+
 const Software = ({ item }) => {
   const router = useRouter();
   return (

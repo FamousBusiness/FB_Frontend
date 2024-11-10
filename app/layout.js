@@ -7,11 +7,13 @@ import { GlobalStateProvider } from "@/services/LocationDetector/GlobalState";
 // import { AntdRegistry } from '@ant-design/nextjs-registry';
 // import { GoogleTagManager } from '@next/third-parties/google'
 
+
+
 export const metadata = {
   title: "Famous Business",
   description: "Developed By WBFS PVT LTD",
-  creator: "Arvindra",
-  authors: [{ name: "Arvindra Ahirwar" }],
+  creator: "Arshad",
+  authors: [{ name: "Arshad Iqbal" }],
   verification: {
     google: "Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw",
     facebook: "8hhzgny6wxz91vzeqa61rmobj6tbim",
@@ -35,6 +37,8 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         ></script>
       </head>
+
+
       <body className="bg-slate-100 dark:text-gray-800 ">
         <AuthProvider>
           <GlobalStateProvider>

@@ -1,6 +1,9 @@
 import { Badge, Checkbox, Col, Row } from 'antd'
 import React from 'react'
 
+
+
+
 function PaymentStep({ }) {
     return (
         <Badge.Ribbon text='1st Payment' color='orange' style={{ padding: '10px 20px' }} className='text-lg font-bold'>
@@ -24,8 +27,6 @@ function PaymentStep({ }) {
                         </div>
                     </Col>
                 </Row>
-
-
 
 
             </div>

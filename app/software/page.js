@@ -1,8 +1,8 @@
 
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
-import { Card, Carousel, Col, Row, Typography } from 'antd';
-import Software from './Software';
+import { Card, Carousel, Col, Row } from 'antd';
+import Software from '@/components/users/home/SoftwareSection/Software';
 import { product } from '@/data/data';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Poppins } from 'next/font/google';
@@ -94,7 +94,8 @@ function SoftwareComponent() {
         </div>
 
     )
-}
+};
+
 
 export default SoftwareComponent
 

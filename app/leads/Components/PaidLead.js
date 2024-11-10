@@ -7,6 +7,10 @@ import { BiSolidUser } from 'react-icons/bi';
 import Link from 'next/link';
 import { FaLocationDot, FaLocationPin } from 'react-icons/fa6';
 import moment from 'moment';
+
+
+
+
 const PaidLeads = ({ item, icon, color, title, limit }) => {
     const [leadId, setLeadId] = useState(item.id);
     const [data, setData] = useState(null);
@@ -19,13 +23,14 @@ const PaidLeads = ({ item, icon, color, title, limit }) => {
     };
 
 
-const left = 5 - item.lead.views;
+    const left = 5 - item.lead.views;
 
 
     const handleCancel = () => {
-        console.log('Clicked cancel button');
+        // console.log('Clicked cancel button');
         setOpen(false);
     };
+
 
     return (
         <>
