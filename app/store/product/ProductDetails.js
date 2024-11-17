@@ -8,6 +8,7 @@ import {
   Stack,
   Divider,
   InputAdornment,
+  Paper,
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -20,7 +21,7 @@ export default function ProductDetails() {
     const handlePincodeChange = (e) => setPincode(e.target.value);
 
   return (
-    <Box sx={{ padding: 2, height:{} }}>
+    <Paper sx={{ padding: 2 }} elevation={3}>
  
         <Typography variant="h6">
             Noise Icon 4 with Stunning 1.96&apos;&apos; AMOLED Display, Metallic Finish, BT Calling Smartwatch  (Jet Black Strap, Regular)
@@ -101,6 +102,6 @@ export default function ProductDetails() {
             />
         <Button variant="contained" color="error">Deliver in 5 hrs</Button>
       </Box>
-    </Box>
+    </Paper>
   );
 }
