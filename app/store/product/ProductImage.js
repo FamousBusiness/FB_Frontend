@@ -25,7 +25,7 @@ export default function ImageGallery() {
 
 
 return (
-    <Paper sx={{display:{xs:'flex', sm:'flex'}, flexDirection:'row', alignItems:'flex-start', padding:4, height:{xs:'400px', sm:'545px'}}} elevation={1}>
+    <Box sx={{display:{xs:'flex', sm:'flex'}, flexDirection:'row', alignItems:'flex-start', padding:4, height:{xs:'400px', sm:'545px'}}} elevation={1}>
 
       <Box sx={{overflowY:'auto', maxHeight:{xs:'330px', sm:'450px'}, width: { xs: '60px', sm:'90px' }, mt: { xs: 1}, mr:2}}>
         <ImageList cols={1} gap={8}>
@@ -75,6 +75,6 @@ return (
           </Button>
         </Box>
       </Box>
-    </Paper>
+    </Box>
   );
 }

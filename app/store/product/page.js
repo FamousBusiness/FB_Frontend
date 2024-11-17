@@ -14,7 +14,7 @@ export default function Page() {
    return (
     <>
       
-      <div className="container-fluid">
+      <div className="container" style={{padding:2}}>
         <div className="row">
 
           <div className="col-sm-12 col-md-6" style={{marginTop:7}}>
