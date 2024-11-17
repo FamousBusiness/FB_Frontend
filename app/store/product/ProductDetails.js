@@ -23,7 +23,7 @@ export default function ProductDetails() {
     <Box sx={{ padding: 2, height:{} }}>
  
         <Typography variant="h6">
-            Noise Icon 4 with Stunning 1.96'' AMOLED Display, Metallic Finish, BT Calling Smartwatch  (Jet Black Strap, Regular)
+            Noise Icon 4 with Stunning 1.96&apos;&apos; AMOLED Display, Metallic Finish, BT Calling Smartwatch  (Jet Black Strap, Regular)
         </Typography>
 
         <Stack direction="row" alignItems="center" spacing={1}>

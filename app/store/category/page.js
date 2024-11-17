@@ -63,7 +63,7 @@ function Page() {
         <Typography variant="h5">CCTV Cameras</Typography>
       </Box>
 
-      <Typography variant="body2" sx={{ml:'1.4%' }}><b>Showing 1 - 40 of 13,718 results for "cctv camera set"</b></Typography>
+      <Typography variant="body2" sx={{ml:'1.4%' }}><b>Showing 1 - 40 of 13,718 results for &quot;cctv camera set&quot;</b></Typography>
 
       {/* Sort Options */}
       <Box sx={{ mb: 3, display: 'flex', justifyContent:'flex-start' ,gap: 2, ml:'1%' }}>
