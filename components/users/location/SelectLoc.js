@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { MdMyLocation } from 'react-icons/md';
 
+
+
+
 const LocAuto = () => {
   const { updateLiveLocation, locationState, handleButtonClick, updateCallCount } = useGlobalState(); // Access liveLocation from context
   const [options, setOptions] = useState([

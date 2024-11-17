@@ -47,6 +47,7 @@ function Page() {
       transition={{ duration: 0.5 }}
     >
       <div className=" relative overflow-hidden dark:text-black">
+        
         {/* <ProfilePop /> */}
         <Row
           justify="center"
@@ -54,6 +55,7 @@ function Page() {
         >
           <Col span={24}>
             <Row justify="center" className=" bg-white drop-shadow-lg p-2">
+
               {/* Top Heading  */}
               <Col xl={23} xxl={23} xs={0} md={23} sm={0} lg={23}>
                 <Row gutter={4} align="middle">
@@ -64,6 +66,7 @@ function Page() {
                       Search
                     </div>
                   </Col>
+
                   <Col span={12}>
                     <Carousel
                       swipeToSlide={true}
@@ -123,6 +126,7 @@ function Page() {
               {/* Top Banner  */}
             </Row>
           </Col>
+
           <Col span={24} className=" bg-white drop-shadow-lg p-4">
             <Row justify="center" gutter={[0, 12]}>
               <Col span={23}>
@@ -151,6 +155,7 @@ function Page() {
             <p className={`${poppins.className} text-lg  text-gray-500`}>
               Business Tools
             </p>
+            
             <Row justify="space-between" gutter={[0, 12]}>
               <Col span={7}>
                 <Link href="/invoice-generator">
@@ -175,6 +180,7 @@ function Page() {
                   </div>
                 </Link>
               </Col>
+
               <Col span={7}>
                 <Link href="/tender">
                   <div

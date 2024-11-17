@@ -76,6 +76,7 @@ const Navbar = () => {
         <div className=" px-2 py-2 sm:py-3  mb-4 sticky top-0 z-20 w-full bg-white" style={{ boxShadow: 'rgba(33, 35, 38, 0.1) 0px 10px 10px -10px' }} >
 
           <Row align='middle' gutter={[0, 10]}>
+
             <Col xs={24} sm={24} xl={0} lg={0} xxl={0}>
               <Row justify='space-between' gutter={4} align='middle'>
                 <Col span={6}>
@@ -83,6 +84,7 @@ const Navbar = () => {
                 {!pathName.includes('/job') && <Col span={10}>
                   <LocAuto />
                 </Col>}
+                
                 <Col >
                   <MenuBar1 />
                 </Col>
