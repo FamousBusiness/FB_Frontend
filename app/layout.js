@@ -39,7 +39,8 @@ export default function RootLayout({ children }) {
       </head>
 
 
-      <body className="bg-slate-100 dark:text-gray-800 ">
+      {/* <body className="bg-slate-100 dark:text-gray-800 "> */}
+      <body className="bg-slate-100 ">
         <AuthProvider>
           <GlobalStateProvider>
             {/* <AntdRegistry> */}

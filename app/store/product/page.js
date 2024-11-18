@@ -11,13 +11,6 @@ export default function Page() {
 
   return (
     <>
-    <style>{`
-        body {
-          background-color: #ffff; /* Replace with your desired color */
-        }
-      `}</style>
-
-
       <div className="container" style={{ padding: 2 }}>
         <div className="row">
           <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
