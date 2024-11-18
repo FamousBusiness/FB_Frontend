@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
-import { Box, ImageList, ImageListItem, Paper, Button } from '@mui/material';
+import { Box, ImageList, ImageListItem, Paper, Button, useTheme, useMediaQuery, IconButton } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 const images = [
   '/store/realme_P1.jpg', // Replace with actual image URLs or paths
@@ -18,6 +19,8 @@ const images = [
 export default function ImageGallery() {
   const [selectedImage, setSelectedImage] = useState(images[0]);
   const imageListRef = useRef(null);
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -27,7 +30,7 @@ export default function ImageGallery() {
 
 
 return (
-  <Paper sx={{display:'flex', flexDirection:'row', alignItems:'flex-start', padding:6, height:{xs:'400px', sm:'600px'}}} elevation={1}>
+  <Paper sx={{display:'flex', flexDirection:'row', alignItems:'flex-start', padding:6, height:{xs:'420px', sm:'600px'}}} elevation={1}>
 
       <Box sx={{overflowY:'auto', maxHeight:{xs:'330px', sm:'450px'}, width: { xs: '60px', sm:'90px' }, mt: { xs: 1}, mr:2}}>
         <ImageList cols={1} gap={8}>
