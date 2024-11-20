@@ -12,19 +12,19 @@ export default function Page() {
 
   return (
     <>
-    <Paper elevation={3}>
-      <div className="container" style={{ padding: 2 }}>
-        <div className="row">
-          <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
-            <ImageGallery />
-          </div>
+      <Paper elevation={3}>
+        <div className="container" style={{ padding: 2 }}>
+          <div className="row">
+            <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
+              <ImageGallery />
+            </div>
 
-          <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
-            <ProductDetails />
+            <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
+              <ProductDetails />
+            </div>
           </div>
         </div>
-      </div>
-    </Paper>
+      </Paper>
     </>
   );
 }
