@@ -129,7 +129,7 @@ function Page() {
     <Container maxWidth="xl" sx={{ paddingTop: 4, paddingBottom: 4 }}>
       {/* Header Breadcrumb */}
       <Typography variant="h6" color="textSecondary" gutterBottom>
-        Showing 1 40 of 13,818 results for "cctv camera set"
+        Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
       </Typography>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="subtitle1" color="textPrimary">
