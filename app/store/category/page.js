@@ -51,8 +51,10 @@ function Page() {
 
        })
     }
-  }, [catId, subCat]);
+}, [catId, subCat]);
 
+  
+  
   //// Redirect to product page
   useEffect(()=> {
     if (productID) {
@@ -122,7 +124,9 @@ function Page() {
                     '&:hover': {
                         boxShadow: 6,  // Apply shadow on hover
                       },
-                    }}>
+                      cursor:'pointer'
+                    }}
+                    >
 
                     <div style={{flex: '70%', position: 'relative', width: '100%', height: '65%', marginTop:10 }}>
                       <Image

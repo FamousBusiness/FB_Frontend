@@ -10,7 +10,6 @@ import axios from 'axios';
 
 
 export default function Page() {
-    
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true);
     const [error, setError]             = useState('');
@@ -36,7 +35,7 @@ export default function Page() {
             if (res.status === 200) {
               setLoading(false)
               setProductData(res.data.results)
-              setImages(res.data.results.multiple_img)
+              setImages(res.data.results[0].multiple_img);
             }
 
         }).catch((error)=> {
