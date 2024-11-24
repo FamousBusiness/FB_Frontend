@@ -25,6 +25,8 @@ export default function Store() {
       const [error, setError]                     = useState(''); //// Error Message
       const [categoryId, setCategoryID]           = useState(0);  //// selected category ID
       const [subCatgoryName, setSubCategoryName]  = useState(''); //// Selected subcategory Name
+      const [productID, setProductID]             = useState('');  /// Clicked product ID
+
 
       const handleClick = (event, subItems) => {
         setAnchorEl(event.currentTarget);
@@ -34,6 +36,20 @@ export default function Store() {
       const handleClose = () => {
         setAnchorEl(null);
       };
+
+      
+      //// Set product ID
+      const handleRedirectProductPage = (id)=> {
+        setProductID(id);
+      };
+      
+      //// redirect to product page
+      useEffect(()=> {
+        if (productID) {
+          window.location.href = `/store/product/?product_id=${productID}`
+        }
+      }, [productID]);
+
 
       ////// Redirect to category product page if clicked on any subcategory
       useEffect(()=> {
@@ -224,7 +240,7 @@ export default function Store() {
                         flex: '0 0 auto'
                       }}>
 
-                      <Card sx={{ width: '14.5rem', height: 220 }}>
+                      <Card sx={{ width: '14.5rem', height: 220 }} onClick={()=> handleRedirectProductPage(product.id)}>
                         <CardMedia
                           component="img"
                           style={{ height: '70%', objectFit: 'contain', paddingTop: 15 }}
