@@ -1,213 +1,180 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { Container, Typography, Card, CardMedia, CardContent, CardActions, Button, Box, Stack } from '@mui/material';
-import Grid from '@mui/material/Grid2';
-
-
-
-const products = [
-  {
-    id: 1,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 2,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 3,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 4,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 5,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 6,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 7,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 8,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 9,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-  {
-    id: 10,
-    image: '/store/cctv.png', // replace with actual image URLs
-    title: 'PHILIPS HSP 3800, 2MP, Color Night Vision, 2-Way Talk, ...',
-    rating: 4.1,
-    reviews: 939,
-    price: '₹4,299',
-    discountPrice: '₹7,795',
-    discount: '44% off',
-    delivery: 'Free delivery by 22nd Nov',
-  },
-
-];
+import React, { useState, useEffect } from "react";
+import { Container, Typography, Card, CardContent, Box, Stack,
+} from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import Image from "next/image";
+import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 
+
+///// Category wise product page
 function Page() {
+    const params = new URLSearchParams(window.location.search);
+    const catId = params.get('cat_id');
+    const subCat = params.get('sub_cat'); 
+
+    const [productData, setProductData] = useState([]);
+    const [loading, setLoading]         = useState(true); //// Loading 
+    const [error, setError]             = useState(''); //// Error Message
+
+
+    //// Fetch all Category wise product
+  useEffect(()=> {
+    if (catId && subCat) {
+      const category_id = parseInt(catId);
+      const subcategory = subCat;
+
+       axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/category/product/?category_id=${category_id}&subcategory=${subcategory}`).then((res)=> {
+            if (res.status === 200) {
+              setProductData(res.data.results);
+              setLoading(false);
+            }
+
+       }).catch((error)=> {
+          setError('Something went wrong');
+          setLoading(false);
+
+       })
+    }
+  }, [catId, subCat]);
+
+
+   ///// If not data available
+   if (productData.length === 0 && !loading) {
+    return (
+     <>
+       <div style={{display:'flex', justifyContent:'center', marginTop:'30vh'}}>
+           <DeleteOutlineIcon sx={{fontSize:'10rem'}} />
+       </div>
+
+       <div style={{display:'flex', justifyContent:'center'}}>
+         <p>Nothing to show</p>
+       </div>
+
+     </>
+    );
+ };
+
 
   return (
     <>
-    <Container maxWidth="xl" sx={{ paddingTop: 4, paddingBottom: 4 }}>
-      {/* Header Breadcrumb */}
-      <Typography variant="h6" color="textSecondary" gutterBottom>
-        Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
-      </Typography>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="subtitle1" color="textPrimary">
-          Sort By: <strong>Relevance</strong>
+      <Container
+        maxWidth="xl"
+        sx={{ paddingTop: 4, paddingBottom: 4, cursor: "pointer" }}
+      >
+        {/* Header Breadcrumb */}
+        <Typography variant="h6" color="textSecondary" gutterBottom>
+          Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
         </Typography>
-        {/* Sort options can be a dropdown */}
-      </Box>
 
-      {/* Product Grid */}
-      <Grid container spacing={{xs:1, sm:3}}>
-        {products.map((product) => (
-          <Grid size={{xs:6, sm:6, md:4, lg:3}} key={product.id}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={product.image}
-                alt={product.title}
-              />  
-              <CardContent>
-                <Typography variant="body2" color="textSecondary">
-                  Sponsored
-                </Typography>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={2}
+        >
+          <Typography variant="subtitle1" color="textPrimary">
+            Sort By: <strong>Relevance</strong>
+          </Typography>
+          {/* Sort options can be a dropdown */}
+        </Box>
 
-                <Typography 
-                  variant="subtitle1" 
-                  fontWeight="bold" 
-                  fontSize={{xs:'12px', sm:'14px'}}
-                  sx={{
-                    overflow:'hidden',
-                    whiteSpace:{xs: 'nowrap', sm:'normal'},
-                    textOverflow:'ellipsis'
-                  }}
-                  >
-                  {product.title}
-                </Typography>
+        {loading ? (
+          <CircularProgress style={{display:'flex', justifyContent:'center'}} />
 
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography variant="body2" color="textPrimary">
-                    {product.rating} ★
-                  </Typography>
+        ) : (
+          <>
 
-                  <Typography variant="body2" color="textSecondary">
-                    ({product.reviews})
-                  </Typography>
-                </Stack>
+            {/* Product Grid */}
+            <Grid container spacing={{ xs: 1, sm: 3 }}>
+              {productData.map((product) => (
+                <Grid size={{ xs: 6, sm: 6, md: 4, lg: 3 }} key={product.id}>
+                  <Card sx={{
+                    height:'20rem',
+                    borderRadius:3,
+                    boxShadow:0,
+                    '&:hover': {
+                        boxShadow: 6,  // Apply shadow on hover
+                      },
+                    }}>
 
-                <Stack direction="row" spacing={1}>
-                  <Typography variant="h6" color="textPrimary">
-                    {product.price}
-                  </Typography>
+                    <div style={{flex: '70%', position: 'relative', width: '100%', height: '65%', marginTop:10 }}>
+                      <Image
+                        src={product?.picture}
+                        alt={product?.name}
+                        layout="fill"
+                        objectFit="contain"
+                      />
+                    </div>
 
-                  <Typography variant="body2" color="textSecondary" sx={{ textDecoration: 'line-through' }} fontSize={{xs:'10px', sm:'13px'}}>
-                    {product.discountPrice}
-                  </Typography>
+                    <CardContent style={{ flex: '30%', overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      {product?.is_sponsored && 
+                        <Typography variant="body2" color="success">
+                          Sponsored
+                        </Typography>
+                      }
 
-                  <Typography variant="body2" color="success.main" fontSize={{xs:'9px', sm:'13px'}}>
-                    {product.discount}
-                  </Typography>
-                </Stack>
+                      <Typography
+                        variant="p"
+                        fontWeight="bold"
+                        fontSize={{ xs: "12px", sm: "14px" }}
+                        sx={{
+                          overflow: "hidden",
+                          whiteSpace: 'nowrap',
+                          textOverflow: "ellipsis",
+                          '&:hover': {
+                              color: 'primary.main',  
+                            },
+                        }}
+                      >
+                        {product?.description}
+                      </Typography>
 
-                <Typography variant="body2" color="textSecondary">
-                  {product.delivery}
-                </Typography>
-              </CardContent>
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <Typography variant="body2" sx={{color:'green'}}>
+                          {product?.rating} ★ 
+                        </Typography>
 
-              <CardActions>
-                <Button variant="contained" color="primary" fullWidth>
-                  Bank Offer
-                </Button>
-              </CardActions>
-            </Card>
+                        <Typography variant="body2" color="textSecondary">
+                          ({product?.reviews || 0})
+                        </Typography>
+                      </Stack>
 
-          </Grid>
-        ))}
-      </Grid>
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="p" color="textPrimary">
+                          ₹{product?.price}
+                        </Typography>
 
-    </Container>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          sx={{ textDecoration: "line-through" }}
+                          fontSize={{ xs: "10px", sm: "13px" }}
+                        >
+                          ₹{product?.discount_price}
+                        </Typography>
+
+                        <Typography
+                          variant="body2"
+                          color="success.main"
+                          fontSize={{ xs: "9px", sm: "13px" }}
+                        >
+                          {product?.percentage_off}% off
+                        </Typography>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
+      </Container>
     </>
   );
 }

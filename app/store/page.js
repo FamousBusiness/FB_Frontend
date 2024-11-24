@@ -23,6 +23,8 @@ export default function Store() {
       const [banner, SetBanner]                   = useState([]);  // Banner
       const [productData, setProductData]         = useState([]);
       const [error, setError]                     = useState(''); //// Error Message
+      const [categoryId, setCategoryID]           = useState(0);  //// selected category ID
+      const [subCatgoryName, setSubCategoryName]  = useState(''); //// Selected subcategory Name
 
       const handleClick = (event, subItems) => {
         setAnchorEl(event.currentTarget);
@@ -32,6 +34,13 @@ export default function Store() {
       const handleClose = () => {
         setAnchorEl(null);
       };
+
+      ////// Redirect to category product page if clicked on any subcategory
+      useEffect(()=> {
+        if (categoryId && subCatgoryName) {
+          window.location.href =  `/store/category/?cat_id=${categoryId}&sub_cat=${subCatgoryName}`
+        }
+      }, [categoryId, subCatgoryName]);
 
 
       //// Get all the top categories
@@ -123,7 +132,7 @@ export default function Store() {
               marginRight: { xs: 2, md: 4 },
               cursor: 'pointer',
             }}
-            onClick={(e) => handleClick(e, item.subcategory_names)}
+            onClick={(e) => {handleClick(e, item.subcategory_names); setCategoryID(item.id); }}
           >
             <Tooltip title={item.type}>
               <Image
@@ -150,7 +159,7 @@ export default function Store() {
         }}
       >
         {currentMenu.map((subItem, index) => (
-          <MenuItem key={index} onClick={handleClose}>
+          <MenuItem key={index} onClick={()=> {handleClose(); setSubCategoryName(subItem); }}>
             {subItem}
           </MenuItem>
         ))}
