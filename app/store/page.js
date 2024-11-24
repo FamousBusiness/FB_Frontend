@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
+import Tooltip from '@mui/material/Tooltip';
 
 
 
@@ -112,6 +113,7 @@ export default function Store() {
          <CircularProgress /> :
 
          topCategory.map((item, index) => (
+          
           <Box
             key={index}
             sx={{
@@ -123,13 +125,15 @@ export default function Store() {
             }}
             onClick={(e) => handleClick(e, item.subcategory_names)}
           >
-            <Image
-              src={item.image ? item.image : '/store/t_shirt.webp'}
-              width={40}
-              height={35}
-              alt='img'
-              style={{ marginBottom: '4px' }}
-            />
+            <Tooltip title={item.type}>
+              <Image
+                src={item.image ? item.image : '/store/t_shirt.webp'}
+                width={40}
+                height={35}
+                alt='img'
+                style={{ marginBottom: '4px' }}
+              />
+            </Tooltip>
             <Typography variant="caption">{item.name}</Typography>
           </Box>
         ))
