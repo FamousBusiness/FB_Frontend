@@ -13,17 +13,27 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 ///// Category wise product page
-function Page() {
-    const params = new URLSearchParams(window.location.search);
-    const catId = params.get('cat_id');
-    const subCat = params.get('sub_cat'); 
+function Page() { 
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true); //// Loading 
     const [error, setError]             = useState(''); //// Error Message
+    const [productID, setProductID]     = useState('');  //// Selected Product
+    const [catId, setCatId] = useState('');
+    const [subCat, setSubCat] = useState('');
+
+    
+    ////// Get the data from query params
+    useEffect(() => {
+      if (typeof window !== 'undefined') {  // Ensure code runs only on the client side
+        const params = new URLSearchParams(window.location.search);
+        setCatId(params.get('cat_id'));
+        setSubCat(params.get('sub_cat'));
+      }
+    }, []);
 
 
-    //// Fetch all Category wise product
+  //// Fetch all Category wise product
   useEffect(()=> {
     if (catId && subCat) {
       const category_id = parseInt(catId);
@@ -42,6 +52,16 @@ function Page() {
        })
     }
   }, [catId, subCat]);
+
+  //// Redirect to product page
+  useEffect(()=> {
+    if (productID) {
+       const product_id = parseInt(productID)
+
+       window.location.href = `/store/product/?product_id=${product_id}`
+    }
+
+ }, [productID]);
 
 
    ///// If not data available
@@ -94,7 +114,8 @@ function Page() {
             <Grid container spacing={{ xs: 1, sm: 3 }}>
               {productData.map((product) => (
                 <Grid size={{ xs: 6, sm: 6, md: 4, lg: 3 }} key={product.id}>
-                  <Card sx={{
+
+                  <Card onClick={()=> setProductID(product.id)} sx={{
                     height:'20rem',
                     borderRadius:3,
                     boxShadow:0,
