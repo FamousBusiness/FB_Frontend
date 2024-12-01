@@ -37,6 +37,8 @@ export default function PhonePeAutoPay() {
 
     const router =  useRouter();
     // const { id } = router.query;
+    const upiauthRequestId = localStorage.getItem("upiAuth");
+    const decodedauthRequestId = atob(upiauthRequestId);
 
     useEffect(() => {
       if (time > 0) {
@@ -149,7 +151,7 @@ export default function PhonePeAutoPay() {
     // const sendRequest = async () => {
     //   try {
     //         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
-    //           authRequestId: decodedAuthRequestId
+    //           authRequestId: decodedauthRequestId
     //       },{
     //         headers: {
     //           'Content-Type': 'application/json',
@@ -177,34 +179,34 @@ export default function PhonePeAutoPay() {
 
     // Define the sendRequest function using useCallback
     const sendRequest = useCallback(async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
-          {
-            authRequestId: decodedAuthRequestId, // Ensure this is correctly defined elsewhere
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
+              authRequestId: decodedauthRequestId
+          },{
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             }
-          }
-        );
+        });
 
         if (response.status === 200) {
           setIsRunning(false);
-          window.location.href = '/plan/success/';
+          window.location.href = '/plan/success/'
         }
       } catch (error) {
-        if (error.response?.status === 401) {
-          router.push('/login/');
+        // console.log(error);
+
+        if (error.response.status === 401) {
+            router.push('/login/')
         }
       }
 
       setCounter((prevCounter) => prevCounter + 1);
-      if (counter >= 60) {
-        setIsRunning(false);
-      }
+        if (counter >= 60) {
+          setIsRunning(false);
+        }
       
-    }, [counter, token, router]);
+    }, [counter, token, router, decodedauthRequestId]);
 
     
     // If access token not available in cookies
