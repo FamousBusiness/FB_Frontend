@@ -46,7 +46,7 @@ const ToggleButton = ({ handlePlan }) => {
         </div>
 
         <div onClick={() => handle('One Month Free')} className={`bg-gradient-to-tr w-1/3 rounded-full text-xl py-2 text-center ${isOn === 'One Month Free' && 'from-purple-600 text-white to-orange-400'} duration-300`}>
-            One Month Free
+            Free
         </div>
     </div>);
 };

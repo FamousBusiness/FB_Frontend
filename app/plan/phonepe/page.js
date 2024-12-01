@@ -148,44 +148,14 @@ export default function PhonePeAutoPay() {
 
 
     // Send API Requests
-    const sendRequest = async () => {
-      try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
-              authRequestId: decodedauthRequestId
-          },{
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (response.status === 200) {
-          setIsRunning(false);
-          window.location.href = '/plan/success/'
-        }
-      } catch (error) {
-        // console.log(error);
-
-        if (error.response.status === 401) {
-            router.push('/login/')
-        }
-      }
-
-      setCounter((prevCounter) => prevCounter + 1);
-        if (counter >= 60) {
-          setIsRunning(false);
-        }
-    };
-
-    // Define the sendRequest function using useCallback
-    // const sendRequest = useCallback(async () => {
-    //     try {
+    // const sendRequest = async () => {
+    //   try {
     //         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
     //           authRequestId: decodedauthRequestId
     //       },{
     //         headers: {
     //           'Content-Type': 'application/json',
-    //           'Authorization': `Bearer ${token}`
+    //           Authorization: `Bearer ${token}`
     //         }
     //     });
 
@@ -194,19 +164,53 @@ export default function PhonePeAutoPay() {
     //       window.location.href = '/plan/success/'
     //     }
     //   } catch (error) {
-    //     // console.log(error);
+    //     console.log(error);
 
-    //     if (error.response.status === 401) {
-    //         router.push('/login/')
-    //     }
+    //     // if (error.response.status === 401) {
+    //     //     router.push('/login/')
+    //     // }
     //   }
 
     //   setCounter((prevCounter) => prevCounter + 1);
     //     if (counter >= 60) {
     //       setIsRunning(false);
     //     }
-      
-    // }, [counter, token, router, decodedauthRequestId]);
+    // };
+    
+    const sendRequest = async () => {
+      try {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
+            {
+              authRequestId: decodedauthRequestId,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              }
+  
+            }).then((res) => {
+  
+              if (res.status === 200) {
+                setIsRunning(false);
+                window.location.href = "/plan/success/";
+              }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        // console.log(error);
+      }
+  
+      setCounter((prevCounter) => prevCounter + 1);
+  
+      if (counter >= 60) {
+        setIsRunning(false);
+      }
+    };
+
+    
 
     
     // If access token not available in cookies

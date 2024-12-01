@@ -50,6 +50,8 @@ const TimerPage = () => {
     };
   }, []);
 
+  
+
   // Start sending Request every 10 second
   useEffect(() => {
     if (delayPassed && isRunning) {
@@ -68,9 +70,7 @@ const TimerPage = () => {
   // /// Send API Request
   const sendRequest = async () => {
     try {
-      await axios
-        .post(
-          `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
           {
             authRequestId: decodedauthRequestId,
           },
@@ -78,14 +78,14 @@ const TimerPage = () => {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            setIsRunning(false);
-            window.location.href = "/plan/success/";
-          }
+            }
+
+          }).then((res) => {
+
+            if (res.status === 200) {
+              setIsRunning(false);
+              window.location.href = "/plan/success/";
+            }
         })
         .catch((error) => {
           console.log(error);
