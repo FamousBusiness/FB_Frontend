@@ -143,43 +143,13 @@ export default function PhonePeAutoPay() {
           clearInterval(intervalId);
         };
       }
-    }, [delayPassed, isRunning, sendRequest]);
+    }, [delayPassed, isRunning]);
 
 
 
     // Send API Requests
-    // const sendRequest = async () => {
-    //   try {
-    //         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
-    //           authRequestId: decodedauthRequestId
-    //       },{
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //           'Authorization': `Bearer ${token}`
-    //         }
-    //     });
-
-    //     if (response.status === 200) {
-    //       setIsRunning(false);
-    //       window.location.href = '/plan/success/'
-    //     }
-    //   } catch (error) {
-    //     // console.log(error);
-
-    //     if (error.response.status === 401) {
-    //         router.push('/login/')
-    //     }
-    //   }
-
-    //   setCounter((prevCounter) => prevCounter + 1);
-    //     if (counter >= 60) {
-    //       setIsRunning(false);
-    //     }
-    // };
-
-    // Define the sendRequest function using useCallback
-    const sendRequest = useCallback(async () => {
-        try {
+    const sendRequest = async () => {
+      try {
             const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
               authRequestId: decodedauthRequestId
           },{
@@ -205,8 +175,38 @@ export default function PhonePeAutoPay() {
         if (counter >= 60) {
           setIsRunning(false);
         }
+    };
+
+    // Define the sendRequest function using useCallback
+    // const sendRequest = useCallback(async () => {
+    //     try {
+    //         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
+    //           authRequestId: decodedauthRequestId
+    //       },{
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           'Authorization': `Bearer ${token}`
+    //         }
+    //     });
+
+    //     if (response.status === 200) {
+    //       setIsRunning(false);
+    //       window.location.href = '/plan/success/'
+    //     }
+    //   } catch (error) {
+    //     // console.log(error);
+
+    //     if (error.response.status === 401) {
+    //         router.push('/login/')
+    //     }
+    //   }
+
+    //   setCounter((prevCounter) => prevCounter + 1);
+    //     if (counter >= 60) {
+    //       setIsRunning(false);
+    //     }
       
-    }, [counter, token, router, decodedauthRequestId]);
+    // }, [counter, token, router, decodedauthRequestId]);
 
     
     // If access token not available in cookies

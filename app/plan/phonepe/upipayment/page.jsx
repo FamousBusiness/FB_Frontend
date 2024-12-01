@@ -61,76 +61,76 @@ const TimerPage = () => {
         clearInterval(intervalId);
       };
     }
-  }, [delayPassed, isRunning, sendRequest]);
+  }, [delayPassed, isRunning]);
 
 
 
   // /// Send API Request
-  // const sendRequest = async () => {
-  //   try {
-  //     await axios
-  //       .post(
-  //         `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
-  //         {
-  //           authRequestId: decodedauthRequestId,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         if (res.status === 200) {
-  //           setIsRunning(false);
-  //           window.location.href = "/plan/success/";
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   } catch (error) {
-  //     // console.log(error);
-  //   }
-
-  //   setCounter((prevCounter) => prevCounter + 1);
-
-  //   if (counter >= 60) {
-  //     setIsRunning(false);
-  //   }
-  // };
-
-  const sendRequest = useCallback(async () => {
+  const sendRequest = async () => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
-        { authRequestId: decodedauthRequestId },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
+          {
+            authRequestId: decodedauthRequestId,
           },
-        }
-      );
-  
-      if (response.status === 200) {
-        setIsRunning(false);
-        window.location.href = "/plan/success/";
-      }
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            setIsRunning(false);
+            window.location.href = "/plan/success/";
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       // console.log(error);
-      if (error.response?.status === 401) {
-        router.push('/login/');
-      }
     }
-  
+
     setCounter((prevCounter) => prevCounter + 1);
-  
+
     if (counter >= 60) {
       setIsRunning(false);
     }
-  }, [decodedauthRequestId, token, counter, router]);
+  };
+
+  // const sendRequest = useCallback(async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
+  //       { authRequestId: decodedauthRequestId },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  
+  //     if (response.status === 200) {
+  //       setIsRunning(false);
+  //       window.location.href = "/plan/success/";
+  //     }
+  //   } catch (error) {
+  //     // console.log(error);
+  //     if (error.response?.status === 401) {
+  //       router.push('/login/');
+  //     }
+  //   }
+  
+  //   setCounter((prevCounter) => prevCounter + 1);
+  
+  //   if (counter >= 60) {
+  //     setIsRunning(false);
+  //   }
+  // }, [decodedauthRequestId, token, counter, router]);
 
 
 
