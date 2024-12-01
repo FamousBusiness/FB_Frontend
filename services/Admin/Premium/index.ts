@@ -33,7 +33,7 @@ export const GetAllPlans = async () => {
     // console.log("data", data);
     return data.data;
   } catch (error) {
-    console.log("Error in getting brands by ID (service) =>", error);
+    // console.log("Error in getting brands by ID (service) =>", error);
   }
 };
 

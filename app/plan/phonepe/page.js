@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback  } from 'react';
 import { Card, Typography, Divider, Box, CardContent
 } from '@mui/material';
 import QrCodeIcon from '@mui/icons-material/QrCode';
@@ -141,39 +141,70 @@ export default function PhonePeAutoPay() {
           clearInterval(intervalId);
         };
       }
-    }, [delayPassed, isRunning]);
+    }, [delayPassed, isRunning, sendRequest]);
 
 
 
     // Send API Requests
-    const sendRequest = async () => {
+    // const sendRequest = async () => {
+    //   try {
+    //         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
+    //           authRequestId: decodedAuthRequestId
+    //       },{
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //           'Authorization': `Bearer ${token}`
+    //         }
+    //     });
+
+    //     if (response.status === 200) {
+    //       setIsRunning(false);
+    //       window.location.href = '/plan/success/'
+    //     }
+    //   } catch (error) {
+    //     // console.log(error);
+
+    //     if (error.response.status === 401) {
+    //         router.push('/login/')
+    //     }
+    //   }
+
+    //   setCounter((prevCounter) => prevCounter + 1);
+    //     if (counter >= 60) {
+    //       setIsRunning(false);
+    //     }
+    // };
+
+    // Define the sendRequest function using useCallback
+    const sendRequest = useCallback(async () => {
       try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,{
-              authRequestId: decodedAuthRequestId
-          },{
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/premium-plan-api/autopay/payment/status/`,
+          {
+            authRequestId: decodedAuthRequestId, // Ensure this is correctly defined elsewhere
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             }
-        });
+          }
+        );
 
         if (response.status === 200) {
           setIsRunning(false);
-          window.location.href = '/plan/success/'
+          window.location.href = '/plan/success/';
         }
       } catch (error) {
-        // console.log(error);
-
-        if (error.response.status === 401) {
-            router.push('/login/')
+        if (error.response?.status === 401) {
+          router.push('/login/');
         }
       }
 
       setCounter((prevCounter) => prevCounter + 1);
-        if (counter >= 60) {
-          setIsRunning(false);
-        }
-    };
+      if (counter >= 60) {
+        setIsRunning(false);
+      }
+      
+    }, [counter, token, router]);
 
     
     // If access token not available in cookies

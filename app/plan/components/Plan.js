@@ -48,6 +48,7 @@ function Plan() {
     return (
         <Row justify='center'>
             <Col lg={24} xxl={24} md={24} sm={24} xs={24} xl={24}>
+            
                 {data && <Card className='  relative shadow-sm'>
                     <div className=' absolute rounded-t-lg top-0 w-full left-0  text-xl sm:text-3xl font-bold text-center bg-slate-100 sm:mb-10 pt-8 pb-16'>
                         Upgrade to Business Plan!
@@ -257,7 +258,8 @@ function Plan() {
                                 </Row>
                             </div>}
                         </div>)}
-                    {plan === 'Trial_Plan' && (
+
+                    {plan === 'One Month Free' && (
                         <div>
                             {data.Trial_Plan && data.Trial_Plan.length > 0 && <div className=' mt-40'>
                                 <Row justify='center' gutter={[24, 24]}>
