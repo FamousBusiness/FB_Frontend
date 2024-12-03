@@ -316,8 +316,10 @@ function Plan() {
                                                             : <Flex gap={4} align='center'><FaCircleXmark className=' text-red-500 drop-shadow-lg shadow-green-500' /><Text disabled>  Super Seller Tag</Text></Flex>}
                                                     </div>
                                                 </Col>
+                                                
                                                 <Col span={24}>
-                                                    <TrialPlan premium={item.id} />
+                                                    {/* <TrialPlan premium={item.id} /> */}
+                                                    <HandlePayment id={item.plan.id} amount={item.plan.price} />
                                                 </Col>
                                                 {/* <Col span={24}>
                                                         <Flex justify='center' align='center'><Text mark>Daily Spend only ₹ {((item.plan.price) / 365).toFixed()}</Text> </Flex>
