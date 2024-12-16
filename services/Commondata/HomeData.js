@@ -1,11 +1,12 @@
 // useHomeData.js
-// "use client";
+"use client";
+
 import useSWR from 'swr';
 import { useGlobalState } from '../LocationDetector/GlobalState';
 import { serverUrl } from '@/utils/Server';
 import { useAuth } from '@/context/AuthContext';
 import Cookies from 'js-cookie';
-
+import { useState, useEffect } from 'react';
 
 
 const fetcher = async (url, csrftoken) => {
@@ -26,7 +27,7 @@ const fetcher = async (url, csrftoken) => {
     // console.log("from home data fetch", data);
     return data.results;
   } catch (error) {
-    console.error('Error fetching data:', error);
+    // console.error('Error fetching data:', error);
     throw error; // Re-throw the error for the calling function to handle
   }
 };
@@ -36,8 +37,28 @@ const fetcher = async (url, csrftoken) => {
 export const useHomeData = () => {
   const { locationState } = useGlobalState();
   const { csrftoken } = useAuth()
+  const [apiUrl, setApiURL] = useState('');
+
+  //// Modify API URL According to the api Url
+  useEffect(()=> {
+    const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
+
+    if (is_development === 'True') {
+      setApiURL('http://127.0.0.1:8000')
+    } else {
+      setApiURL('https://api.famousbusiness.in')
+    }
+  }, []);
+
   
-  const { data: homedata, error } = useSWR([`${serverUrl}/api/listings/?city=${locationState?.city}&state=${locationState?.state}`, csrftoken],
+   // Fetch data only when apiUrl is set
+   const shouldFetch = apiUrl
+  
+
+  const { data: homedata, error } = useSWR(
+    shouldFetch ?
+      [`${apiUrl}/api/listings/?city=${locationState?.city}&state=${locationState?.state}`, csrftoken]
+      : null,
     fetcher,
     {
       // revalidateOnMount: true,

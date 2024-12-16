@@ -3,7 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { AudioOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import { usePathname } from 'next/navigation';
+
+
+
 const getRandomInt = (max, min = 0) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+
+
+
 const searchResult = (query) =>
   new Array(getRandomInt(5))
     .join('.')

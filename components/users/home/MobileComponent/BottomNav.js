@@ -1,12 +1,13 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { IoHomeOutline, IoBriefcaseOutline } from "react-icons/io5";
-import { motion } from "framer-motion";
-import { MessageOutlined } from "@ant-design/icons";
+// import { IoHomeOutline, IoBriefcaseOutline } from "react-icons/io5";
+// import { motion } from "framer-motion";
+// import { MessageOutlined } from "@ant-design/icons";
 import BottomDrawer from "./bottomDrawer";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   RiHome4Fill,
   RiHome4Line,

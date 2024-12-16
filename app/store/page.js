@@ -237,7 +237,8 @@ export default function Store() {
                 {category.products.map((product) => (
                     <Box  size={{xs:6, sm:4, md:2}} key={product.id}
                       sx={{
-                        flex: '0 0 auto'
+                        flex: '0 0 auto',
+                        cursor: "pointer",
                       }}>
 
                       <Card sx={{ width: '14.5rem', height: 220 }} onClick={()=> handleRedirectProductPage(product.id)}>

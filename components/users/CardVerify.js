@@ -50,7 +50,7 @@ function CardVerify({ item }) {
       <Row gutter={[16, 16]}>
         {/* Business Name */}
         <Col span={24} className=" text-lg font-bold ">
-          <Flex gap="small" horizontal={true} align="center">
+          <Flex gap="small" horizontal="true" align="center">
             <BiSolidBusiness className=" text-purple-600 text-2xl" />
             <span className=" text-lg truncate line-clamp-1">
               {item.business_name ? item.business_name : "Business Name"}
@@ -115,25 +115,28 @@ function CardVerify({ item }) {
                 )}
               </Carousel>
             </Col>
+
             {/* Business Details */}
             <Col span={17}>
               <Row gutter={[8, 4]}>
                 {/* Business Rating */}
                 <Col span={24}>
-                  <Flex gap="small" align="center" horizontal={true}>
+                  <Flex gap="small" align="center" horizontal="true">
                     <BiCategory className=" text-blue-500 text-xl"></BiCategory>
                     <GetCategory business={item} />
                   </Flex>
                 </Col>
+                
                 <Col span={24}>
                   <div className=" text-semibold text-base">
-                    <Flex gap="small" align="center" horizontal={true}>
+                    <Flex gap="small" align="center" horizontal="true"> 
                       <IoShieldCheckmarkSharp className=" text-green-600 text-xl" />
                       <span className=" text-black font-bold">GSTIN: </span>{" "}
                       {item.GSTIN}
                     </Flex>
                   </div>
                 </Col>
+
                 <Col span={24}>
                   <Row align="middle" gutter={8}>
                     <Col className=" font-bold text-white bg-green-600 rounded-lg p1">
@@ -152,6 +155,7 @@ function CardVerify({ item }) {
                     </Col>
                   </Row>
                 </Col>
+
                 {/* Business Address */}
                 <Col span={24} className=" text-lg font-semibold">
                   {item.state || item.city || item.pincode

@@ -23,11 +23,21 @@ function Top() {
   const { locationState } = useGlobalState()
   const [leadsCount, setLeadsCount] = useState(0)
   const { homedata, isLoading, isError } = useHomeData();
+  const [apiUrl, setApiURL]              = useState('');
   const router = useRouter()
 
   const city = locationState.city;
   const state = locationState.state;
 
+  useEffect(()=> {
+    const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
+    
+    if (is_development === 'True') {
+      setApiURL('http://127.0.0.1:8000')
+    } else {
+      setApiURL('https://api.famousbusiness.in')
+    }
+  }, []);
 
   // console.log('apiURL', environmentMode())
 
@@ -36,25 +46,33 @@ function Top() {
   // console.log('apiUrl', apiUrl)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const leadsData = await get_all_leads(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/all-leads/${city}/${state}/`);
-        const results = await leadsData.results;
-        if (user) {
-          const total = results.Leads.length + results.Individual_Leads.length + results.Other_Category_Leads.length
-          setLeadsCount(total);
+    if (apiUrl) {
+      const fetchData = async () => {
+        try {
+          const leadsData = await get_all_leads(`${apiUrl}/lead-api/all-leads/${city}/${state}/`);
+          const results = await leadsData.results;
+  
+          if (user) {
+            const total = results.Leads.length + results.Individual_Leads.length + results.Other_Category_Leads.length
+            setLeadsCount(total);
+  
+          }
+          else {
+            setLeadsCount(results.Leads.length);
+          }
+  
+        } catch (error) {
+          console.error('Error fetching leads:', error);
         }
-        else {
-          setLeadsCount(results.Leads.length);
-        }
+      };
+  
+      fetchData();
 
-      } catch (error) {
-        console.error('Error fetching leads:', error);
-      }
-    };
+    } else {
+       console.log('Not able to get API URL')
+    }
 
-    fetchData();
-  }, [user, city, state]);
+  }, [user, city, state, apiUrl]);
 
 
 

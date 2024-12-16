@@ -25,6 +25,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [focus, setFous] = useState(false);
 
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -81,7 +82,7 @@ const Navbar = () => {
               <Row justify='space-between' gutter={4} align='middle'>
                 <Col span={6}>
                   <Link href='/' className=' text-base'><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></Link></Col>
-                {!pathName.includes('/job') && <Col span={10}>
+                    {!pathName.includes('/job') && <Col span={10}>
                   <LocAuto />
                 </Col>}
                 
@@ -159,7 +160,8 @@ const Navbar = () => {
               </Row>
             </Col>
           </Row>
-                          
+
+        
           {(pathName === '/brands' || pathName !== '/') ? null : (
             <motion.div className=' relative' animate={{
               visibility: isScrolled ? 'hidden' : 'visible', height: isScrolled ? 0 : 'auto',
