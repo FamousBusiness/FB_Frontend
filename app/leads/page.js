@@ -1,7 +1,7 @@
 "use client";
 
 import { Row, Col, Skeleton, Empty, Button, Typography, Divider, Segmented, ConfigProvider } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import ModalLead from '@/components/users/home/leads/ModalLead';
 import { useAuth } from '@/context/AuthContext';
@@ -13,8 +13,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
-import { useEffect } from 'react';
-import Image from 'next/image';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 const { Title } = Typography;
 
@@ -22,7 +22,7 @@ const { Title } = Typography;
 
 
 
-
+///// Lead Page
 function Page() {
     const [activeKey, setActiveKey] = useState('1');
     const { locationState } = useGlobalState();
@@ -35,15 +35,22 @@ function Page() {
     const state = locationState.state;
     const city = locationState.city;
     const accessToken = Cookies.get('accessToken');
+    const [apiUrl, setApiURL] = useState(
+        process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
+    );
+     
+    ///// API URL check
+    const shouldFetch = !!apiUrl; 
 
-    const { data, error, isValidating } = useSWR(`https://api.famousbusiness.in/lead-api/all-leads/${city}/${state}/?page=${page}`, get_all_leads);
+    const { data, error, isValidating } = useSWR(shouldFetch ? 
+        `${apiUrl}/lead-api/all-leads/${city}/${state}/?page=${page}` : null, get_all_leads);
 
-
+    
     /// Get Lead Banner data
     useEffect(()=> {
-        if (city && accessToken) {
+        if (city && accessToken && apiUrl) {
 
-            axios.get(`${process.env.NEXT_PUBLIC_API_URL}/lead-api/lead/banner/?city=${city}`, {
+            axios.get(`${apiUrl}/lead-api/lead/banner/?city=${city}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -68,7 +75,7 @@ function Page() {
             console.log('City and token did not found')
         }
         
-    }, [accessToken, city]);
+    }, [accessToken, city, apiUrl]);
     
 
 
@@ -115,13 +122,14 @@ function Page() {
         const { Leads, paid_leads, Individual_Leads, Other_Category_Leads, premium_plan_leads, plan_viewed_leads } = result;
         const totalLeads = countLeads(paid_leads) + countLeads(premium_plan_leads);
 
+
         if (!user) {
             return (
                 <>
                     <Segmented
 
                         options={[
-                            { label: `All Orders (${leadTootal})`, value: '1' },
+                            { label: `All Leads (${leadTootal})`, value: '1' },
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}
@@ -148,11 +156,11 @@ function Page() {
                     <Segmented
                         className=' mb-4 overflow-x-auto'
                         options={[
-                            { label: ` My Category Orders (${countLeads(Leads)})`, value: '1' },
-                            { label: `My Viewed Orders (${countLeads(plan_viewed_leads)})`, value: '9' },
-                            { label: `My Orders (${countLeads(Individual_Leads)})`, value: '3' },
-                            { label: `My Paid Orders (${totalLeads})`, value: '2' },
-                            { label: `Other Category Orders (${countLeads(Other_Category_Leads)})`, value: '4' }
+                            { label: `My Category Leads (${countLeads(Leads)})`, value: '1' },
+                            { label: `My Viewed Leads (${countLeads(plan_viewed_leads)})`, value: '9' },
+                            { label: `My Leads (${countLeads(Individual_Leads)})`, value: '3' },
+                            { label: `My Paid Leads (${totalLeads})`, value: '2' },
+                            { label: `Other Category Leads (${countLeads(Other_Category_Leads)})`, value: '4' }
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}

@@ -1,29 +1,48 @@
 
 "use client"
 import React from 'react';
-import { get_all_categories } from '@/services/Admin/category';
 import { Col, Row, Skeleton } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import AllCategory from './AllCategory';
 import useSWR from 'swr';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
+import { useState, useEffect } from 'react';
 // import { EnvironmentMode } from '@/components/environment';
 
 
 
 
+
 function TrendingBusiness() {
-    const { locationState } = useGlobalState();
+    const { locationState }   = useGlobalState();
+    const [apiUrl, setApiURL] = useState('');
+
 
     // const apiUrl = environmentMode() // API URL
+    useEffect(()=> {
+        const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
+        
+        if (is_development === 'True') {
+            setApiURL('http://127.0.0.1:8000')
+        } else {
+            setApiURL('https://api.famousbusiness.in')
+        }
+    }, []);
     
-    const { data: categories, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/listings/category/`, async (url) => {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+    
+    ///// Call API based on this value
+    const shouldFetch = !!apiUrl; 
+    
+    const { data: categories, error } = useSWR(
+        shouldFetch ? `${apiUrl}/api/listings/category/` : null, 
+
+        async (url) => {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
         });
 
         const data = await response.json();

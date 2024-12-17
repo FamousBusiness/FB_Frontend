@@ -50,9 +50,9 @@ export const useHomeData = () => {
     }
   }, []);
 
-  
+
    // Fetch data only when apiUrl is set
-   const shouldFetch = apiUrl
+   const shouldFetch = !!apiUrl
   
 
   const { data: homedata, error } = useSWR(

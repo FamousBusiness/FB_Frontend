@@ -16,8 +16,9 @@ const { Text } = Typography
 import LoginForm from '@/utils/LandingPageModel';
 // import PayNowModal from './PayNowModal';
 import Paragraph from 'antd/es/typography/Paragraph';
-// import Image from 'next/image';
 
+// import Image from 'next/image';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
@@ -33,9 +34,10 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [checkout, setCheckOut] = useState(false);
 
-    const remain = Math.max(2 - item.views, 0);
+    const remain = Math.max(3 - item.views, 0);
 
     const offer = (amount / 10) + amount;
+
     const showModal = async () => {
 
         if (item.status !== 'expired') {
@@ -168,8 +170,15 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 <Col span={24} onClick={showModal}>
                                     <Row gutter={[10, 10]} align='middle'>
                                         <Col span={24}>
-                                            {/* <p className=" text-lg font-semibold" >Customer Details</p> */}
-                                            <p className=" text-lg font-semibold" >{item?.created_by || 'Customer Details'}</p>
+                                            <div style={{display:'flex', justifyContent:'flex-start'}}>
+                                                <div style={{marginTop:2}}>
+                                                    <AccountCircleIcon sx={{fontSize:'35px'}} color='primary'/>
+                                                </div>
+
+                                                <p className="text-lg font-semibold" style={{marginLeft:5, marginTop:2}}>
+                                                    {item?.created_by || 'Customer Details'}
+                                                </p>
+                                            </div>
                                         </Col>
 
                                         <Col span={24}>
@@ -186,11 +195,11 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
 
                                 <Col span={24}>
-                                    <Progress strokeColor='green' percent={item.views * 50} showInfo={false} />
-                                    <Flex align='baseline' justify='space-between'>
+                                    <Progress strokeColor='green' percent={100} showInfo={false} />
+                                    {/* <Flex align='baseline' justify='space-between'>
                                         <p className=' text-sm font-light italic' >left: {remain}</p>
                                         <p className=' text-sm font-light italic' >total: 2</p>
-                                    </Flex>
+                                    </Flex> */}
 
                                     <Row justify='center' align='middle' className=' mt-2'>
                                         <Col span={10} >
@@ -210,10 +219,10 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                             {/* <Text type='secondary'>Pending task</Text> */}
                                         </Col>
                                         <Col>
-                                            <Flex gap={3}>
-                                                <EyeFilled />
-                                                <Text type='secondary'>{item.views}</Text>
-                                            </Flex>
+                                            {/* <Flex gap={3}> */}
+                                                {/* <EyeFilled /> */}
+                                                {/* <Text type='secondary'>{item.views}</Text>
+                                            </Flex> */}
                                         </Col>
                                     </Row>
                                 </Col>
@@ -242,7 +251,12 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                         </div>
                     </Col> */}
                     <Col span={24}>
-                        <Space size={10} align='center' direction='horizontal'><BiSolidUser className=' text-lg' /><Link target='_blank' href={`https://famousbusiness.in/userprofile/${data.created_by}?z_id=${data.business_page}`} className=' text-xl py-2 font-semibold '>{data.created_by}</Link></Space>
+                        <Space size={10} align='center' direction='horizontal'><BiSolidUser className=' text-lg' />
+
+                            <Link target='_blank' href={`https://famousbusiness.in/userprofile/${data.created_by}?z_id=${data.business_page}`} className=' text-xl py-2 font-semibold '>
+                            {data.created_by}
+                            </Link>
+                        </Space>
                     </Col>
 
                     <Col span={24}>

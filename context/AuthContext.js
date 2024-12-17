@@ -13,7 +13,10 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 	const router = useRouter();
 
-	// const apiURL = EnvironmentMode(); // Environment Mode
+	const [apiUrl, setAPIUrl] =  useState(
+		process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000/api' : 'https://api.famousbusiness.in/api'
+	);
+
 
 	const [authTokens, setAuthTokens] = useState(() => {
 		if (typeof window !== 'undefined') {
@@ -31,6 +34,7 @@ const AuthProvider = ({ children }) => {
 		}
 		return null
 	});
+
 
 	const [userdata, setUserData] = useState(() => {
 		if (typeof window !== 'undefined') {
@@ -63,7 +67,7 @@ const AuthProvider = ({ children }) => {
 	const registerUser = async (values) => {
 		try {
 			setUseloading(true);
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/register/`, {
+			const response = await fetch(`${apiUrl}/register/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -85,6 +89,7 @@ const AuthProvider = ({ children }) => {
 					console.error('Unexpected response:', data);
 					message.error('Registration failed. Please try again.');
 				}
+
 			} else {
 				// Handle error response status codes
 				if (data.mobile_number && data.mobile_number[0].length > 0) {
@@ -97,7 +102,7 @@ const AuthProvider = ({ children }) => {
 				}
 			}
 		} catch (error) {
-			console.error('Error during registration:', error);
+			// console.error('Error during registration:', error);
 			// Handle network error or other errors
 			message.error('An error occurred. Please try again later.');
 		}
@@ -108,7 +113,7 @@ const AuthProvider = ({ children }) => {
 		try {
 			setUseloading(true);
 
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/client-register/`, {
+			const response = await fetch(`${apiUrl}/client-register/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -154,7 +159,7 @@ const AuthProvider = ({ children }) => {
 		try {
 			setUseloading(true);
 
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/login/`, {
+			const response = await fetch(`${apiUrl}/login/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -185,10 +190,12 @@ const AuthProvider = ({ children }) => {
 				}));
 
 				Cookies.set('accessToken', data.token.access);
+				localStorage.setItem('accessToken', data.token.access)
 
 				setUser(jwt_decode(data.token.access));
 
 				Cookies.set('authTokens', JSON.stringify(data.token), { expires: 15 });
+				localStorage.setItem('authTokens', JSON.stringify(data.token))
 
 				if (pathname) {
 					return; // Redirect to the specified pathname if provided
@@ -205,7 +212,7 @@ const AuthProvider = ({ children }) => {
 
 			}
 		} catch (error) {
-			console.error('Error during login:', error);
+			// console.error('Error during login:', error);
 			alert('An error occurred during login.');
 		}
 	};
@@ -215,7 +222,7 @@ const AuthProvider = ({ children }) => {
 	const logoutUser = useCallback(async () => {
 		try {
 			const refreshToken = authTokens?.refresh; // replace with your method of obtaining the refresh token
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/logout/`, {
+			const response = await fetch(`${apiUrl}/logout/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -250,7 +257,7 @@ const AuthProvider = ({ children }) => {
 	const updateToken = useCallback(async () => {
 
 		try {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/token/refresh/`, {
+			const response = await fetch(`${apiUrl}/token/refresh/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -262,8 +269,10 @@ const AuthProvider = ({ children }) => {
 			if (response.status === 200) {
 				setAuthTokens(data)
 				Cookies.set('accessToken', data.access);
+				localStorage.setItem('accessToken', data.access)
 				setUser(jwt_decode(data.access))
 				Cookies.set('authTokens', JSON.stringify(data), { expires: 14 })
+				localStorage.setItem('authTokens', JSON.stringify(data))
 			} else {
 				logoutUser();
 			}
