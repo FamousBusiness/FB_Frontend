@@ -189,7 +189,7 @@ function Page() {
             setError(true);
         })
 
-    }, [accessToken, apiUrl]);
+    }, [accessToken, apiUrl, city, state]);
 
 
 
