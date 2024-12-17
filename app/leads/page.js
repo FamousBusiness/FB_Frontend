@@ -2,20 +2,20 @@
 
 import { Row, Col, Skeleton, Empty, Button, Typography, Divider, Segmented, ConfigProvider, Spin } from 'antd';
 import React, { useState, useEffect } from 'react';
-import useSWR from 'swr';
 import ModalLead from '@/components/users/home/leads/ModalLead';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import PaidLeads from './Components/PaidLead';
-import PincodeByCity from '@/components/users/location/PincodeByCity';
-import PremiumMember from './Components/PremiumMember';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axiosInstance from '@/utils/utils';
 import Pagination from '@mui/material/Pagination';
+// import useSWR from 'swr';
+// import PincodeByCity from '@/components/users/location/PincodeByCity';
+// import PremiumMember from './Components/PremiumMember';
+// import { get_all_leads } from '@/services/Admin/Leads';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const { Title } = Typography;
@@ -71,17 +71,18 @@ function Page() {
         }
     };
 
-
+    
     // API simulation for data fetching
     const fetchLeadsData = async (key) => {
         setLoading(true);
+
         try {
             let response;
             let Leaddata;
 
             switch (key) {
                 case '1':
-                    response = await axiosInstance.get(
+                    response = await axios.get(
                         `${apiUrl}/lead-api/business/category/leads/${city}/${state}/?page=${page}`, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -95,7 +96,7 @@ function Page() {
                     break;
 
                 case '3':
-                    response = await axiosInstance.get(
+                    response = await axios.get(
                         `${apiUrl}/lead-api/individual/leads/${city}/${state}/?page=${page}`,
                         {
                             headers: {
@@ -111,7 +112,7 @@ function Page() {
                     break;
 
                 case '9':
-                    response = await axiosInstance.get(
+                    response = await axios.get(
                         `${apiUrl}/lead-api/viewed/leads/${city}/${state}/?page=${page}`, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -126,7 +127,7 @@ function Page() {
                     break;
 
                 case '2':
-                    response = await axiosInstance.get(
+                    response = await axios.get(
                         `${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${page}`, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -140,7 +141,7 @@ function Page() {
                     break;
 
                 case '4':
-                    response = await axiosInstance.get(
+                    response = await axios.get(
                         `${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${page}`, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
@@ -170,7 +171,7 @@ function Page() {
     useEffect(() => {
         setUnAuthenticated(true);
 
-        axiosInstance.get(`${apiUrl}/lead-api/all/leads/${city}/${state}`, {
+        axios.get(`${apiUrl}/lead-api/all/leads/${city}/${state}`, {
             headers: accessToken ? 
             {
                 Authorization: `Bearer ${accessToken}`,
@@ -198,7 +199,7 @@ function Page() {
 
         if (activeKey && activeKey === '1') {
 
-            axiosInstance.get(
+            axios.get(
                 `${apiUrl}/lead-api/all/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -216,7 +217,7 @@ function Page() {
             });
 
         } else if (activeKey && activeKey === '3') {
-            axiosInstance.get(
+            axios.get(
                 `${apiUrl}/lead-api/individual/leads/${city}/${state}/?page=${value}`,
                 {
                     headers: {
@@ -237,7 +238,7 @@ function Page() {
                 });
 
         } else if (activeKey && activeKey === '9') {
-            axiosInstance.get(
+            axios.get(
                 `${apiUrl}/lead-api/viewed/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -256,7 +257,7 @@ function Page() {
             })
 
         } else if (activeKey && activeKey === '2') {
-            axiosInstance.get(
+            axios.get(
                 `${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -274,7 +275,7 @@ function Page() {
             });
 
         } else if (activeKey && activeKey === '4') {
-            axiosInstance.get(
+            axios.get(
                 `${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -354,7 +355,7 @@ function Page() {
         return leads ? leads.length : 0;
     };
 
-    console.log('allLeads', allLeads)
+    // console.log('allLeads', allLeads)
 
     /// 
     const filterLeadsByPincode = (pincode) => {
