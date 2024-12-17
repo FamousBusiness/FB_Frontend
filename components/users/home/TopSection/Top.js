@@ -46,34 +46,34 @@ function Top() {
 
   // console.log('apiUrl', apiUrl)
 
-  useEffect(() => {
-    if (apiUrl) {
-      const fetchData = async () => {
-        try {
-          const leadsData = await get_all_leads(`${apiUrl}/lead-api/all-leads/${city}/${state}/`);
-          const results = await leadsData.results;
+  // useEffect(() => {
+  //   if (apiUrl) {
+  //     const fetchData = async () => {
+  //       try {
+  //         const leadsData = await get_all_leads(`${apiUrl}/lead-api/all-leads/${city}/${state}/`);
+  //         const results = await leadsData.results;
   
-          if (user) {
-            const total = results.Leads.length + results.Individual_Leads.length + results.Other_Category_Leads.length
-            setLeadsCount(total);
+  //         if (user) {
+  //           const total = results.Leads.length + results.Individual_Leads.length + results.Other_Category_Leads.length
+  //           setLeadsCount(total);
   
-          }
-          else {
-            setLeadsCount(results.Leads.length);
-          }
+  //         }
+  //         else {
+  //           setLeadsCount(results.Leads.length);
+  //         }
   
-        } catch (error) {
-          console.error('Error fetching leads:', error);
-        }
-      };
+  //       } catch (error) {
+  //         console.error('Error fetching leads:', error);
+  //       }
+  //     };
   
-      fetchData();
+  //     fetchData();
 
-    } else {
-       console.log('Not able to get API URL')
-    }
+  //   } else {
+  //      console.log('Not able to get API URL')
+  //   }
 
-  }, [user, city, state, apiUrl]);
+  // }, [user, city, state, apiUrl]);
 
 
 

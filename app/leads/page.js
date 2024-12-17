@@ -1,6 +1,6 @@
 "use client";
 
-import { Row, Col, Skeleton, Empty, Button, Typography, Divider, Segmented, ConfigProvider } from 'antd';
+import { Row, Col, Skeleton, Empty, Button, Typography, Divider, Segmented, ConfigProvider, Spin } from 'antd';
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import ModalLead from '@/components/users/home/leads/ModalLead';
@@ -14,6 +14,8 @@ import Cookies from 'js-cookie';
 import { get_all_leads } from '@/services/Admin/Leads';
 import { Carousel } from 'antd';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axiosInstance from '@/utils/utils';
+import Pagination from '@mui/material/Pagination';
 
 
 const { Title } = Typography;
@@ -38,31 +40,278 @@ function Page() {
     const [apiUrl, setApiURL] = useState(
         process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
     );
-     
+    const [loading, setLoading]   = useState(false);  // Loader state
+    const [unAUthenticatedloading, setUnAuthenticated] = useState(false); //// 
+    const [allLeads, setAllLeads] = useState([]); //// All Leads
+    const [paginationCount, setPaginationCount] = useState(0);
+    const [error, setError] = useState(false);
+    const [leadsData, setLeadsData] = useState({
+        '1': null,
+        '3': null,
+        '9': null,
+        '2': null,
+        '4': null,
+    }); // Data state for each segment
+
+
     ///// API URL check
-    const shouldFetch = !!apiUrl; 
+    // const shouldFetch = !!apiUrl; 
+    const paginationValue = paginationCount ? Math.ceil(paginationCount / 100) : 0
 
-    const { data, error, isValidating } = useSWR(shouldFetch ? 
-        `${apiUrl}/lead-api/all-leads/${city}/${state}/?page=${page}` : null, get_all_leads);
+    // const { data, error, isValidating } = useSWR(shouldFetch ? 
+    //     `${apiUrl}/lead-api/all-leads/${city}/${state}/?page=${page}` : null, get_all_leads);
 
-    
+
+    ///// Tab change
+    const handleTabChange = (value) => {
+        setActiveKey(value);
+
+        if (!leadsData[value]) {
+            fetchLeadsData(value);
+        }
+    };
+
+
+    // API simulation for data fetching
+    const fetchLeadsData = async (key) => {
+        setLoading(true);
+        try {
+            let response;
+            let Leaddata;
+
+            switch (key) {
+                case '1':
+                    response = await axiosInstance.get(
+                        `${apiUrl}/lead-api/business/category/leads/${city}/${state}/?page=${page}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        }
+                    })
+
+                    Leaddata = response.data.results
+                    setPaginationCount(response.data.count)
+                    setLeadsData((prev) => ({ ...prev, [key]: Leaddata.category_leads }));
+                    break;
+
+                case '3':
+                    response = await axiosInstance.get(
+                        `${apiUrl}/lead-api/individual/leads/${city}/${state}/?page=${page}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                                'Content-Type': 'application/json',
+                            }
+                        });
+
+
+                    Leaddata = response.data.results
+                    setPaginationCount(response.data.count)
+                    setLeadsData((prev) => ({ ...prev, [key]: Leaddata.Individual_Leads }));
+                    break;
+
+                case '9':
+                    response = await axiosInstance.get(
+                        `${apiUrl}/lead-api/viewed/leads/${city}/${state}/?page=${page}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+
+                    Leaddata = response.data.results
+                    setPaginationCount(response.data.count)
+                    setLeadsData((prev) => ({ ...prev, [key]: Leaddata.plan_viewed_leads }));
+                    break;
+
+                case '2':
+                    response = await axiosInstance.get(
+                        `${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${page}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    Leaddata = response.data.results
+                    setPaginationCount(response.data.count)
+                    setLeadsData((prev) => ({ ...prev, [key]: Leaddata.paid_leads }));
+                    break;
+
+                case '4':
+                    response = await axiosInstance.get(
+                        `${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${page}`, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                    );
+
+                    Leaddata = response.data.results
+                    setPaginationCount(response.data.count)
+                    setLeadsData((prev) => ({ ...prev, [key]: Leaddata.Other_Category_Leads }));
+                    break;
+
+                default:
+                    response = null;
+            }
+
+        } catch (error) {
+            console.error('Error fetching leads:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    //// Fetch all the Leads according to Authenticate or not
+    useEffect(() => {
+        setUnAuthenticated(true);
+
+        axiosInstance.get(`${apiUrl}/lead-api/all/leads/${city}/${state}`, {
+            headers: accessToken ? 
+            {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            } : {}
+
+        }).then((res) => {
+            // console.log(res.data)
+            setAllLeads(res.data.results.Leads);
+            setPaginationCount(res.data.count);
+            setError(false);
+            setUnAuthenticated(false);
+
+        }).catch((error) => {
+            // console.log(error);
+            setError(true);
+        })
+
+    }, [accessToken, apiUrl]);
+
+
+
+    ////// Get paginated Data
+    const handleGetPaginatedData = (event, value) => {
+
+        if (activeKey && activeKey === '1') {
+
+            axiosInstance.get(
+                `${apiUrl}/lead-api/all/leads/${city}/${state}/?page=${value}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                }
+            }).then((res) => {
+                // console.log(res)
+                setPaginationCount(res.data.count)
+                setAllLeads(res.data.results.Leads);
+                setError(false)
+
+            }).catch((error) => {
+                // console.log(error)
+                setError(true)
+            });
+
+        } else if (activeKey && activeKey === '3') {
+            axiosInstance.get(
+                `${apiUrl}/lead-api/individual/leads/${city}/${state}/?page=${value}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    }
+                }).then((res) => {
+                    // console.log(res)
+                    let paginationData = res.data.results
+                    setPaginationCount(res.data.count)
+                    setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.Individual_Leads }));
+                    setError(false)
+
+                }).catch((error) => {
+                    // console.log(error)
+                    setError(true)
+
+                });
+
+        } else if (activeKey && activeKey === '9') {
+            axiosInstance.get(
+                `${apiUrl}/lead-api/viewed/leads/${city}/${state}/?page=${value}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                }
+            }).then((res) => {
+                let paginationData = res.data.results
+                setPaginationCount(res.data.count)
+                setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.plan_viewed_leads }));
+                setError(false)
+
+            }).catch((error) => {
+                // console.log(error);
+                setError(true)
+
+            })
+
+        } else if (activeKey && activeKey === '2') {
+            axiosInstance.get(
+                `${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${value}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                }
+            }).then((res) => {
+                let paginationData = res.data.results
+                setPaginationCount(res.data.count)
+                setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.paid_leads }))
+                setError(false)
+
+            }).catch((error) => {
+                // console.log(error);
+                setError(true)
+            });
+
+        } else if (activeKey && activeKey === '4') {
+            axiosInstance.get(
+                `${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${value}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                }
+            }
+            ).then((res) => {
+                let paginationData = res.data.results
+                setPaginationCount(res.data.count)
+                setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.Other_Category_Leads }));
+                setError(false)
+
+            }).catch((error) => {
+                // console.log(error);
+                setError(true);
+            });
+        }
+    }
+
+
     /// Get Lead Banner data
-    useEffect(()=> {
+    useEffect(() => {
         if (city && accessToken && apiUrl) {
 
             axios.get(`${apiUrl}/lead-api/lead/banner/?city=${city}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-    
-            }).then((res)=> {
+
+            }).then((res) => {
                 // console.log(res);
                 if (res.status === 200) {
                     setLeadBanner(res.data.lead_banner_data);
                     setNoLeadBanner(false)
                 }
-    
-            }).catch((error)=> {
+
+            }).catch((error) => {
                 // console.log(error);
                 if (error.response.status === 400) {
                     setNoLeadBanner(true);
@@ -74,13 +323,14 @@ function Page() {
         } else {
             console.log('City and token did not found')
         }
-        
+
     }, [accessToken, city, apiUrl]);
-    
 
 
 
-    if (!data && isValidating) {
+
+
+    if (!allLeads) {
         return (
             <div className='p-3'>
                 <Row gutter={[12, 12]}>
@@ -99,11 +349,12 @@ function Page() {
         return <div>Error fetching data</div>;
     };
 
-    
+
     const countLeads = (leads) => {
         return leads ? leads.length : 0;
     };
 
+    console.log('allLeads', allLeads)
 
     /// 
     const filterLeadsByPincode = (pincode) => {
@@ -115,93 +366,140 @@ function Page() {
         }
     };
 
-    
+
     const renderContent = () => {
-        const result = data && data.results;
-        const leadTootal = data && data.count;
-        const { Leads, paid_leads, Individual_Leads, Other_Category_Leads, premium_plan_leads, plan_viewed_leads } = result;
-        const totalLeads = countLeads(paid_leads) + countLeads(premium_plan_leads);
+        const leadTootal = paginationCount;
+        // const result     = data && data.results;
+        // const { Leads, paid_leads, Individual_Leads, Other_Category_Leads, premium_plan_leads, plan_viewed_leads } = result;
+        // const totalLeads = countLeads(paid_leads) + countLeads(premium_plan_leads);
 
-
+{/* <RenderLeadContent leads={filteredLeads || Leads} /> */}
         if (!user) {
             return (
                 <>
-                    <Segmented
-
-                        options={[
-                            { label: `All Leads (${leadTootal})`, value: '1' },
-                        ]}
-                        onChange={handleTabChange}
-                        value={activeKey}
-                    />
-                    <RenderLeadContent leads={filteredLeads || Leads} />
+                    {unAUthenticatedloading ? 
+                        (
+                        <>
+                            <div className='flex justify-center items-center'>
+                                <Spin size="large" />
+                            </div>
+                        </>
+                    )
+                    :
+                    (
+                        <>
+                        <Segmented
+                            options={[
+                                { label: `All Leads (${leadTootal})`, value: '1' },
+                            ]}
+                            onChange={handleTabChange}
+                            value={activeKey}
+                        />
+                        
+                        <RenderLeadContent leads={allLeads && allLeads} />
+                    </>
+                    )}
                 </>
             );
         };
 
 
-    return (
-            <>  
-            <div className=' overflow-x-auto mb-4'>
-               
-                <ConfigProvider
-                    theme={{
-                        components: {
-                            Segmented: {
-                                itemSelectedBg: 'rgba(210, 238, 130)'
+        return (
+            <>
+                <div className=' overflow-x-auto mb-4'>
+
+                    <ConfigProvider
+                        theme={{
+                            components: {
+                                Segmented: {
+                                    itemSelectedBg: 'rgba(210, 238, 130)'
+                                },
                             },
-                        },
-                    }}
-                >
-                    <Segmented
+                        }}
+                    >
+                        {/* <Segmented
                         className=' mb-4 overflow-x-auto'
                         options={[
                             { label: `My Category Leads (${countLeads(Leads)})`, value: '1' },
                             { label: `My Viewed Leads (${countLeads(plan_viewed_leads)})`, value: '9' },
-                            { label: `My Leads (${countLeads(Individual_Leads)})`, value: '3' },
                             { label: `My Paid Leads (${totalLeads})`, value: '2' },
-                            { label: `Other Category Leads (${countLeads(Other_Category_Leads)})`, value: '4' }
+                            { label: `My Leads (${countLeads(Individual_Leads)})`, value: '3' },
+                            { label: `Other Category Leads (${countLeads(Other_Category_Leads)})`, value: '4' },
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}
-                    />
+                    /> */}
 
-                </ConfigProvider>
+                        <Segmented
+                            className='mb-4 overflow-x-auto'
+                            options={[
+                                { label: `My Category Leads (${countLeads(allLeads && allLeads)})`, value: '1' },
+                                // { label: `My Category Leads (${countLeads(allLeads ? allLeads : leadsData['1'] || [])})`, value: '1' },
+                                { label: `My Viewed Leads (${countLeads(leadsData['9'] || [])})`, value: '9' },
+                                { label: `My Leads (${countLeads(leadsData['3'] || [])})`, value: '3' },
+                                { label: `My Paid Leads (${countLeads(leadsData['2'] || [])})`, value: '2' },
+                                { label: `Other Category Leads (${countLeads(leadsData['4'] || [])})`, value: '4' }
+                            ]}
+                            onChange={handleTabChange}
+                            value={activeKey}
+                        />
 
-            </div>
-                {activeKey === '3' && <RenderLeadContent leads={Individual_Leads} type={true} />}
+                    </ConfigProvider>
+                </div>
 
-                {activeKey === '9' && (plan_viewed_leads && plan_viewed_leads.length > 0 ?
-                    <RenderPlanViewedLeads leads={plan_viewed_leads} />
-                    : <Empty />)
-                }
+                {loading ? (
+                    <div className='flex justify-center items-center'>
+                        <Spin size="large" />
+                    </div>
+                ) : (
+                    <>
+                        {activeKey === '1' && <RenderLeadContent leads={allLeads && allLeads} type={false} />}
+                        {/* {activeKey === '1' && <RenderLeadContent leads={leadsData['1']} type={false} />} */}
 
-                {activeKey === '1' && <RenderLeadContent leads={Leads} type={false} />}
+                        {activeKey === '3' && <RenderLeadContent leads={leadsData['3']} type={true} />}
 
-                {activeKey === '2' && (
-                    <RenderPaidLeads paidLeads={paid_leads} premiumLeads={premium_plan_leads} />
+                        {activeKey === '9' && (
+                            leadsData['9'] && leadsData['9'].length > 0 ?
+                                <RenderPlanViewedLeads leads={leadsData['9']} />
+                                : <Empty />
+                        )}
+
+                        {activeKey === '2' && (
+                            <RenderPaidLeads
+                                paidLeads={leadsData['2']?.paid_leads || []}
+                                premiumLeads={leadsData['2']?.premium_plan_leads || []}
+                            />
+                        )}
+
+                        {activeKey === '4' && <RenderLeadContent leads={leadsData['4']} type={false} />}
+
+                        <Pagination
+                            count={paginationValue}
+                            color="primary"
+                            sx={{ mt: 10 }}
+                            onChange={handleGetPaginatedData}
+                        />
+                    </>
                 )}
-
-                {activeKey === '4' && <RenderLeadContent leads={Other_Category_Leads} type={false} />}
             </>
         );
     };
 
 
-    const RenderLeadContent = ({ leads, type }) => {
-        // const sortedLeads = leads && leads.length > 0
-        //     ? [...leads].sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-        //     : leads;
-        const sortedLeads = leads && leads.lenght > 0 ?
-          [...leads].sort((a, b) => {
-            if (a.expired === b.expired) {
-                return new Date(b.created_at) - new Date(a.created_at);
-            }
 
-            return a.expired - b.expired;
-          }) 
-          :
-          leads;
+    ////// Render Authenticated Leads
+    const RenderLeadContent = ({ leads, type }) => {
+
+        const sortedLeads = leads && leads.lenght > 0 ?
+            [...leads].sort((a, b) => {
+                if (a.expired === b.expired) {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                }
+
+                return a.expired - b.expired;
+            })
+            :
+            leads;
 
         if (sortedLeads && sortedLeads.length > 0) {
             return (
@@ -213,10 +511,12 @@ function Page() {
                     ))}
                 </Row>
             );
+
         } else {
             return <Empty />;
         }
     };
+
 
     // Viewed Lead
     const RenderPlanViewedLeads = ({ leads }) => (
@@ -244,7 +544,7 @@ function Page() {
             </Col>
             <Col span={24}>
                 <Title level={2}>Premium User Leads</Title>
-                
+
                 <Divider type='horizontal' />
                 {premiumLeads && premiumLeads.length > 0 ?
                     <Row gutter={[16, 16]}>
@@ -257,14 +557,10 @@ function Page() {
             </Col>
         </Row>
     );
-    
 
-    const handleTabChange = (value) => {
-        setActiveKey(value);
-    };
-    
 
-    
+
+
     return (
         <div className='min-h-screen  relative p-2'>
             {/* <Carousel autoplay slidesToScroll={true} effect='fade'>
@@ -295,7 +591,7 @@ function Page() {
 
                             {banner.image && (
                                 <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
-                                    <img 
+                                    <img
                                         src={banner.image}
                                         alt='Image'
                                         style={{
@@ -315,7 +611,7 @@ function Page() {
 
                             {banner.video && (
                                 <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
-                                    <video 
+                                    <video
                                         src={banner.video}
                                         style={{
                                             lineHeight: '160px',
@@ -350,7 +646,7 @@ function Page() {
                     {renderContent()}
                 </Col>
 
-                <Col span={8}>
+                {/* <Col span={8}>
                     {data.next && !user && (
                         <Button
                             block
@@ -360,7 +656,7 @@ function Page() {
                             Load More
                         </Button>
                     )}
-                </Col>
+                </Col> */}
             </Row>
         </div>
     );
