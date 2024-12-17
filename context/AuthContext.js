@@ -190,12 +190,12 @@ const AuthProvider = ({ children }) => {
 				}));
 
 				Cookies.set('accessToken', data.token.access);
-				localStorage.setItem('accessToken', data.token.access)
+				// localStorage.setItem('accessToken', data.token.access)
 
 				setUser(jwt_decode(data.token.access));
 
 				Cookies.set('authTokens', JSON.stringify(data.token), { expires: 15 });
-				localStorage.setItem('authTokens', JSON.stringify(data.token))
+				// localStorage.setItem('authTokens', JSON.stringify(data.token))
 
 				if (pathname) {
 					return; // Redirect to the specified pathname if provided
@@ -235,7 +235,7 @@ const AuthProvider = ({ children }) => {
 				// Logout successful on the server, clear local stat
 				Cookies.remove('accessToken');
 				Cookies.remove('authTokens');
-				localStorage.removeItem("userData");
+				// localStorage.removeItem("userData");
 				setAuthTokens(null);
 				setUser(null);
 				setUserData(null)
@@ -269,10 +269,10 @@ const AuthProvider = ({ children }) => {
 			if (response.status === 200) {
 				setAuthTokens(data)
 				Cookies.set('accessToken', data.access);
-				localStorage.setItem('accessToken', data.access)
+				// localStorage.setItem('accessToken', data.access)
 				setUser(jwt_decode(data.access))
 				Cookies.set('authTokens', JSON.stringify(data), { expires: 14 })
-				localStorage.setItem('authTokens', JSON.stringify(data))
+				// localStorage.setItem('authTokens', JSON.stringify(data))
 			} else {
 				logoutUser();
 			}
