@@ -73,7 +73,7 @@ function ContactInformation() {
       }).catch((error)=> {
           // console.log(error)
       })
-   }, []);
+   }, [apiURL]);
 
 
     // Get the input data

@@ -96,7 +96,7 @@ export default function LeadForm() {
     }).catch((error) => {
       console.log(error)
     })
-  }, []);
+  }, [apiURL]);
 
 
   // Submit Form Data
