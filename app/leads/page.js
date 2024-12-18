@@ -47,6 +47,7 @@ function Page() {
     const [viewedLeadCount, setViewedLeadCount] = useState(0);
     const [paidLeadCount, setPaidLeadCount] = useState(0);
     const [otherCategoryLeadCount, setOtherCategoryLeadCount] = useState(0);
+    const [paginationValue, setPaginationValue] = useState(0);
     const [error, setError] = useState(false);
     const [leadsData, setLeadsData] = useState({
         '1': null,
@@ -58,8 +59,29 @@ function Page() {
 
 
     ///// API URL check
-    const shouldFetch = !!apiUrl; 
-    const paginationValue = paginationCount ? Math.ceil(paginationCount / 100) : 0
+    // const shouldFetch = !!apiUrl; 
+
+    // Update Pagination Value according to activeKey
+    useEffect(()=> {
+        if (activeKey) {
+            if (activeKey === '1') {
+                setPaginationValue(paginationCount ? Math.ceil(paginationCount / 100) : 0) 
+    
+            } else if (activeKey === '3') {
+                setPaginationValue(individualLeadCount ? Math.ceil(individualLeadCount / 100) : 0)
+    
+            } else if (activeKey === '9') {
+                setPaginationValue(viewedLeadCount ? Math.ceil(viewedLeadCount / 100) : 0)
+    
+            } else if (activeKey === '2') {
+                setPaginationValue(paidLeadCount ? Math.ceil(paidLeadCount / 100) : 0)
+    
+            } else if (activeKey === '4') {
+                setPaginationValue(otherCategoryLeadCount ? Math.ceil(otherCategoryLeadCount / 100) : 0)
+            }
+        };
+
+    }, [activeKey, paginationCount, individualLeadCount, viewedLeadCount, otherCategoryLeadCount, paidLeadCount]);
 
     // const { data, error, isValidating } = useSWR(shouldFetch ? 
     //     `${apiUrl}/lead-api/all-leads/${city}/${state}/?page=${page}` : null, get_all_leads);
