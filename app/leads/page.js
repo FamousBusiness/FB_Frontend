@@ -9,7 +9,6 @@ import PaidLeads from './Components/PaidLead';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Carousel } from 'antd';
-import axiosInstance from '@/utils/utils';
 import Pagination from '@mui/material/Pagination';
 // import useSWR from 'swr';
 // import PincodeByCity from '@/components/users/location/PincodeByCity';
@@ -55,7 +54,7 @@ function Page() {
 
 
     ///// API URL check
-    // const shouldFetch = !!apiUrl; 
+    const shouldFetch = !!apiUrl; 
     const paginationValue = paginationCount ? Math.ceil(paginationCount / 100) : 0
 
     // const { data, error, isValidating } = useSWR(shouldFetch ? 
@@ -72,7 +71,7 @@ function Page() {
     };
 
     
-    // API simulation for data fetching
+    // // API simulation for data fetching
     const fetchLeadsData = async (key) => {
         setLoading(true);
 
@@ -374,7 +373,8 @@ function Page() {
         // const { Leads, paid_leads, Individual_Leads, Other_Category_Leads, premium_plan_leads, plan_viewed_leads } = result;
         // const totalLeads = countLeads(paid_leads) + countLeads(premium_plan_leads);
 
-{/* <RenderLeadContent leads={filteredLeads || Leads} /> */}
+            {/* <RenderLeadContent leads={filteredLeads || Leads} /> */}
+
         if (!user) {
             return (
                 <>
@@ -429,7 +429,7 @@ function Page() {
                         ]}
                         onChange={handleTabChange}
                         value={activeKey}
-                    /> */}
+                    />  */}
 
                         <Segmented
                             className='mb-4 overflow-x-auto'
@@ -455,7 +455,6 @@ function Page() {
                 ) : (
                     <>
                         {activeKey === '1' && <RenderLeadContent leads={allLeads && allLeads} type={false} />}
-                        {/* {activeKey === '1' && <RenderLeadContent leads={leadsData['1']} type={false} />} */}
 
                         {activeKey === '3' && <RenderLeadContent leads={leadsData['3']} type={true} />}
 
@@ -474,6 +473,22 @@ function Page() {
 
                         {activeKey === '4' && <RenderLeadContent leads={leadsData['4']} type={false} />}
 
+                        {/* {activeKey === '1' && <RenderLeadContent leads={Leads} type={false} />}
+
+                        {activeKey === '3' && <RenderLeadContent leads={Individual_Leads} type={true} />}
+
+                        {activeKey === '9' && (
+                                <RenderPlanViewedLeads leads={plan_viewed_leads} />
+                        )}
+
+                        {activeKey === '2' && (
+                            <RenderPaidLeads
+                                paidLeads={paid_leads}
+                                premiumLeads={premium_plan_leads}
+                            />
+                        )}
+
+                        {activeKey === '4' && <RenderLeadContent leads={Other_Category_Leads} type={false} />} */}
                         <Pagination
                             count={paginationValue}
                             color="primary"
