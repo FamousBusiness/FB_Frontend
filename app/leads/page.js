@@ -43,6 +43,10 @@ function Page() {
     const [unAUthenticatedloading, setUnAuthenticated] = useState(false); //// 
     const [allLeads, setAllLeads] = useState([]); //// All Leads
     const [paginationCount, setPaginationCount] = useState(0);
+    const [individualLeadCount, setIndividualLeadCount] = useState(0);
+    const [viewedLeadCount, setViewedLeadCount] = useState(0);
+    const [paidLeadCount, setPaidLeadCount] = useState(0);
+    const [otherCategoryLeadCount, setOtherCategoryLeadCount] = useState(0);
     const [error, setError] = useState(false);
     const [leadsData, setLeadsData] = useState({
         '1': null,
@@ -106,7 +110,7 @@ function Page() {
 
 
                     Leaddata = response.data.results
-                    setPaginationCount(response.data.count)
+                    setIndividualLeadCount(response.data.count)
                     setLeadsData((prev) => ({ ...prev, [key]: Leaddata.Individual_Leads }));
                     break;
 
@@ -121,7 +125,7 @@ function Page() {
 
 
                     Leaddata = response.data.results
-                    setPaginationCount(response.data.count)
+                    setViewedLeadCount(response.data.count)
                     setLeadsData((prev) => ({ ...prev, [key]: Leaddata.plan_viewed_leads }));
                     break;
 
@@ -135,7 +139,7 @@ function Page() {
                     });
 
                     Leaddata = response.data.results
-                    setPaginationCount(response.data.count)
+                    setPaidLeadCount(response.data.count)
                     setLeadsData((prev) => ({ ...prev, [key]: Leaddata.paid_leads }));
                     break;
 
@@ -150,7 +154,7 @@ function Page() {
                     );
 
                     Leaddata = response.data.results
-                    setPaginationCount(response.data.count)
+                    setOtherCategoryLeadCount(response.data.count)
                     setLeadsData((prev) => ({ ...prev, [key]: Leaddata.Other_Category_Leads }));
                     break;
 
@@ -226,7 +230,7 @@ function Page() {
                 }).then((res) => {
                     // console.log(res)
                     let paginationData = res.data.results
-                    setPaginationCount(res.data.count)
+                    // setPaginationCount(res.data.count)
                     setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.Individual_Leads }));
                     setError(false)
 
@@ -245,7 +249,7 @@ function Page() {
                 }
             }).then((res) => {
                 let paginationData = res.data.results
-                setPaginationCount(res.data.count)
+                // setPaginationCount(res.data.count)
                 setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.plan_viewed_leads }));
                 setError(false)
 
@@ -264,7 +268,7 @@ function Page() {
                 }
             }).then((res) => {
                 let paginationData = res.data.results
-                setPaginationCount(res.data.count)
+                // setPaginationCount(res.data.count)
                 setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.paid_leads }))
                 setError(false)
 
@@ -283,7 +287,7 @@ function Page() {
             }
             ).then((res) => {
                 let paginationData = res.data.results
-                setPaginationCount(res.data.count)
+                // setPaginationCount(res.data.count)
                 setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.Other_Category_Leads }));
                 setError(false)
 
@@ -422,12 +426,13 @@ function Page() {
                         <Segmented
                             className='mb-4 overflow-x-auto'
                             options={[
-                                { label: `My Category Leads (${countLeads(allLeads && allLeads)})`, value: '1' },
+                                { label: `My Category Leads (${paginationCount || 0})`, value: '1' },
+                                // { label: `My Category Leads (${countLeads(allLeads && allLeads)})`, value: '1' },
                                 // { label: `My Category Leads (${countLeads(allLeads ? allLeads : leadsData['1'] || [])})`, value: '1' },
-                                { label: `My Viewed Leads (${countLeads(leadsData['9'] || [])})`, value: '9' },
-                                { label: `My Leads (${countLeads(leadsData['3'] || [])})`, value: '3' },
-                                { label: `My Paid Leads (${countLeads(leadsData['2'] || [])})`, value: '2' },
-                                { label: `Other Category Leads (${countLeads(leadsData['4'] || [])})`, value: '4' }
+                                { label: `My Viewed Leads (${viewedLeadCount || 0})`, value: '9' },
+                                { label: `My Leads (${individualLeadCount || 0})`, value: '3' },
+                                { label: `My Paid Leads (${paidLeadCount || 0})`, value: '2' },
+                                { label: `Other Category Leads (${otherCategoryLeadCount || 0})`, value: '4' }
                             ]}
                             onChange={handleTabChange}
                             value={activeKey}
