@@ -36,6 +36,9 @@ export default function RootLayout({ children }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3619066091276324"
           crossOrigin="anonymous"
         ></script>
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3619066091276324"
+     crossorigin="anonymous"></script> */}
+
       </head>
 
 

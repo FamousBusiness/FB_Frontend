@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 
 
@@ -47,30 +48,35 @@ type LeadRequestData = {
 
 
 export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
-  
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/lead-api/business-page-lead-view/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("accessToken")}`,
-        },
-        body: JSON.stringify(requestdata),
+      // const [apiUrl, setApiURL] = useState(
+      //         process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
+      //     );
+      const apiUrl = 'http://127.0.0.1:8000'
+      
+      try {
+        const res = await fetch(
+          `${apiUrl}/lead-api/business-page-lead-view/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Cookies.get("accessToken")}`,
+            },
+            body: JSON.stringify(requestdata),
+          }
+        );
+
+        const data = await res.json();
+        // console.log('data', data)
+
+        if (!res.ok) {
+          const errorMessage = data.msg || 'An error occured'
+          throw new Error(errorMessage);
+        }
+
+        return data;
+      } catch (error) {
+        // console.log("Error in getting brands by ID (service) =>", error);
+        throw error;
       }
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      const errorMessage = data.msg || 'An error occured'
-      throw new Error(errorMessage);
-    }
-
-    return data;
-  } catch (error) {
-    // console.log("Error in getting brands by ID (service) =>", error);
-    throw error;
-  }
 };

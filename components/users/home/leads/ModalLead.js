@@ -16,9 +16,14 @@ const { Text } = Typography
 import LoginForm from '@/utils/LandingPageModel';
 // import PayNowModal from './PayNowModal';
 import Paragraph from 'antd/es/typography/Paragraph';
-
+import { Avatar } from 'antd';
 // import Image from 'next/image';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Button as JoyButton } from '@mui/joy';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import GoogleAD from '@/app/leads/Components/GoogleAd';
 
 
 
@@ -33,15 +38,31 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [checkout, setCheckOut] = useState(false);
+    const [mobileNumber, setMobileNumber] = useState('');
 
     const remain = Math.max(3 - item.views, 0);
 
     const offer = (amount / 10) + amount;
 
+    
+    ///// Redirect to Whatsapp and Mobile number
+    const handleButtonRedirect = (name, value)=> {
+        if (name === 'phone') {
+            router.push(`tel:${value}`)
+        } else if (name === 'whatsapp') {
+            router.push(``)
+        } else if (name === 'email') {
+            router.push(`mailto:${value}`)
+        }
+    };
+
+
+    ///// Show Lead Data
     const showModal = async () => {
 
         if (item.status !== 'expired') {
             if (authTokens) {
+
                 try {
                     const res = await AuthLeads(indivisual === true ? { individual_lead_id: leadId } : { lead: leadId });
 
@@ -53,6 +74,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                         setCheckOut(true);
                     }
                 } catch (error) {
+
                     if (error.message === 'No Available Premium Plan balance to view the lead Please Purchase') {
                         window.location.href = '/plan/'
                     } else if (error.message === 'You can not view this category lead has to purchase the lead') {
@@ -96,10 +118,10 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     setAmount("");
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     };
 
@@ -240,19 +262,30 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                 footer={null}
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
-                title={"Business Details"}
+                title={"Customer Details"}
             >
 
-                {data && <Row justify='center' gutter={[12, 8]}>
-                    {/* <Col>
-                        <div className=' relative flex flex-col justify-center items-center'>
-                            <Player autoplay loop src='/leads/businessMan.json' style={{ width: 250, height: 250 }} alt='Lead' />
-                            <div className=' absolute text-xl font-bold bottom-2 text-green-700 dark:text-green-600'>Business</div>
-                        </div>
-                    </Col> */}
+                {data && <Row justify='center'  gutter={[12, 8]}>
+                    
                     <Col span={24}>
-                        <Space size={10} align='center' direction='horizontal'><BiSolidUser className=' text-lg' />
+                        <Space size={10} align='center' direction='horizontal' style={{display:'flex', justifyContent: 'center'}}>
+                            <Avatar
+                                style={{
+                                backgroundColor: '#f56a00',
+                                verticalAlign: 'middle',
+                                }}
+                                size={64}
+                                gap={2}
+                            >
+                               <b style={{fontSize:'30px'}}>{data.created_by ? data.created_by[0]: 'U'}</b>
+                            </Avatar>
+                        </Space>
+                    </Col>
 
+                    <Col span={24}>
+                        <Space size={10} align='center' direction='horizontal' style={{display:'flex', justifyContent:'center'}}>
+
+                            {/* <BiSolidUser className=' text-lg' /> */}
                             <Link target='_blank' href={`https://famousbusiness.in/userprofile/${data.created_by}?z_id=${data.business_page}`} className=' text-xl py-2 font-semibold '>
                             {data.created_by}
                             </Link>
@@ -260,6 +293,37 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                     </Col>
 
                     <Col span={24}>
+                        <div className=' text-xl py-2 font-semibold '>Requirement:</div>
+                        <div className=' p-1 border border-1 rounded-lg' style={{marginBottom:6}}>{data.requirement}</div>
+                    </Col>
+
+                    <Col span={24}>
+                        <Row gutter={[12, 12]}>
+                            <Col span={24}>
+                                <div style={{display:'flex', justifyContent:'space-between'}}>
+                                    <JoyButton startDecorator={<LocalPhoneIcon />} color="success" onClick={()=> {handleButtonRedirect('phone', data?.mobile_number); setMobileNumber(data?.mobile_number)}}>
+                                        {mobileNumber ? mobileNumber : 'Call Now'}
+                                    </JoyButton>
+
+                                    <JoyButton startDecorator={<WhatsAppIcon />} sx={{backgroundColor:'#Ffa500', color:'white'}} onClick={()=> router.push(`https://wa.me/${data?.mobile_number}`)}>
+                                        Whatsapp
+                                    </JoyButton>
+
+                                    <JoyButton  startDecorator={<EmailIcon />} onClick={()=> router.push(`mailto:${data?.email}`)}>
+                                        Email
+                                    </JoyButton>
+                               </div>
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    <Col span={24}>
+                        <Row gutter={[12, 12]}>
+                            <GoogleAD />
+                        </Row>
+                    </Col>
+                    
+                    {/* <Col span={24}>
                         <Row gutter={[12, 12]}>
                             <Col span={24}>
                                 <Space size={10} direction='horizontal' ><PhoneFilled /><Link href={`tel:${data?.mobile_number}`}>{data?.mobile_number}</Link></Space>
@@ -269,11 +333,8 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                                 <Space size={10} direction='horizontal'  ><MailFilled /><Link href={`mailto:${data?.email}`}>{data?.email}</Link></Space>
                             </Col>
                         </Row>
-                    </Col>
-                    <Col span={24}>
-                        <div className=' text-xl py-2 font-semibold '>Requirement:</div>
-                        <div className=' p-3 border border-1 rounded-lg'>{data.requirement}</div>
-                    </Col>
+                    </Col> */}
+                    
                 </Row>}
             </Modal>
             {/* <PayNowModal open={checkout} handleShow={showRazorpay} onClose={() => setCheckOut(false)} amount={amount} /> */}
