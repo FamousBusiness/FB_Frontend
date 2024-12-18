@@ -150,9 +150,9 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
     return (
         <>
             <Row>
-                {/* Desktop */}
                 <Col sm={24} xs={24} md={24} xl={24} lg={24} xxl={24}>
                     <Badge.Ribbon color={item.status === 'High Priority' ? 'blue' : 'green'} className={` py-2 font-bold`} text={item.status === 'High Priority' ? 'Open' : item.status || 'Open'}>
+                        
                         <div className={`cursor-pointer bg-white shadow-xl ${item.status === 'expired' && 'grayscale'} flex flex-col relative overflow-hidden rounded-2xl border border-1 p-3 justify-around h-full w-full`}>
                             <div className=' bg-[linear-gradient(to_right,theme(colors.yellow.400),theme(colors.yellow.100),theme(colors.amber.400),theme(colors.fuchsia.200),theme(colors.yellow.400),theme(colors.yellow.100),theme(colors.yellow.400))] bg-[length:200%_auto] animate-gradient absolute rounded-tl-lg  font-bold w-10/12 left-0 top-0 py-2 flex flex-row space-x-1 rounded-br-full px-2 text-start text-black items-center '><FaLocationDot />
                                 <div>

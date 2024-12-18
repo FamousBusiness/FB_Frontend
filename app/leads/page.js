@@ -418,18 +418,6 @@ function Page() {
                             },
                         }}
                     >
-                        {/* <Segmented
-                        className=' mb-4 overflow-x-auto'
-                        options={[
-                            { label: `My Category Leads (${countLeads(Leads)})`, value: '1' },
-                            { label: `My Viewed Leads (${countLeads(plan_viewed_leads)})`, value: '9' },
-                            { label: `My Paid Leads (${totalLeads})`, value: '2' },
-                            { label: `My Leads (${countLeads(Individual_Leads)})`, value: '3' },
-                            { label: `Other Category Leads (${countLeads(Other_Category_Leads)})`, value: '4' },
-                        ]}
-                        onChange={handleTabChange}
-                        value={activeKey}
-                    />  */}
 
                         <Segmented
                             className='mb-4 overflow-x-auto'
@@ -444,7 +432,6 @@ function Page() {
                             onChange={handleTabChange}
                             value={activeKey}
                         />
-
                     </ConfigProvider>
                 </div>
 
@@ -452,6 +439,7 @@ function Page() {
                     <div className='flex justify-center items-center'>
                         <Spin size="large" />
                     </div>
+                    
                 ) : (
                     <>
                         {activeKey === '1' && <RenderLeadContent leads={allLeads && allLeads} type={false} />}
@@ -473,22 +461,6 @@ function Page() {
 
                         {activeKey === '4' && <RenderLeadContent leads={leadsData['4']} type={false} />}
 
-                        {/* {activeKey === '1' && <RenderLeadContent leads={Leads} type={false} />}
-
-                        {activeKey === '3' && <RenderLeadContent leads={Individual_Leads} type={true} />}
-
-                        {activeKey === '9' && (
-                                <RenderPlanViewedLeads leads={plan_viewed_leads} />
-                        )}
-
-                        {activeKey === '2' && (
-                            <RenderPaidLeads
-                                paidLeads={paid_leads}
-                                premiumLeads={premium_plan_leads}
-                            />
-                        )}
-
-                        {activeKey === '4' && <RenderLeadContent leads={Other_Category_Leads} type={false} />} */}
                         <Pagination
                             count={paginationValue}
                             color="primary"
