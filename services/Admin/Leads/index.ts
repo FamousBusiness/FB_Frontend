@@ -52,6 +52,7 @@ export const AuthLeads = async (requestdata: LeadRequestData): Promise<any> => {
       //         process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
       //     );
       const apiUrl = 'https://api.famousbusiness.in'
+      // const apiUrl = 'http://127.0.0.1:8000'
       
       try {
         const res = await fetch(

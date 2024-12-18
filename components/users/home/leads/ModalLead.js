@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Row, Space, Badge, Progress, Flex, message, Result, Typography, notification } from 'antd';
-import { EyeFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
+// import { EyeFilled, MailFilled, PhoneFilled } from '@ant-design/icons';
 // import { Player } from '@lottiefiles/react-lottie-player';
-import { BiSolidUser } from 'react-icons/bi';
+// import { BiSolidUser } from 'react-icons/bi';
 import Link from 'next/link';
 import { FaLocationDot } from 'react-icons/fa6';
 import { useAuth } from '@/context/AuthContext';
@@ -12,7 +12,6 @@ import moment from 'moment';
 import Cookies from "js-cookie";
 import { useRouter } from 'next/navigation';
 import { AuthLeads } from '@/services/Admin/Leads';
-const { Text } = Typography
 import LoginForm from '@/utils/LandingPageModel';
 // import PayNowModal from './PayNowModal';
 import Paragraph from 'antd/es/typography/Paragraph';
@@ -24,10 +23,15 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import GoogleAD from '@/app/leads/Components/GoogleAd';
+import { useTheme, useMediaQuery } from '@mui/material';
 
+const { Text } = Typography
 
 
 const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
+    const theme = useTheme()
+    const isSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+
     const { authTokens, user, userdata } = useAuth()
     const router = useRouter()
     const [notLoggedIn, setNotLoggedIn] = useState(false);
@@ -44,7 +48,7 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
 
     const offer = (amount / 10) + amount;
 
-    
+
     ///// Redirect to Whatsapp and Mobile number
     const handleButtonRedirect = (name, value)=> {
         if (name === 'phone') {
@@ -301,17 +305,24 @@ const ModalLead = ({ item, icon, color, title, limit, indivisual }) => {
                         <Row gutter={[12, 12]}>
                             <Col span={24}>
                                 <div style={{display:'flex', justifyContent:'space-between'}}>
-                                    <JoyButton startDecorator={<LocalPhoneIcon />} color="success" onClick={()=> {handleButtonRedirect('phone', data?.mobile_number); setMobileNumber(data?.mobile_number)}}>
-                                        {mobileNumber ? mobileNumber : 'Call Now'}
+
+                                    <JoyButton
+                                        startDecorator={<LocalPhoneIcon />} 
+                                        color="success" 
+                                        onClick={()=> {handleButtonRedirect('phone', data?.mobile_number); setMobileNumber(data?.mobile_number)}}>
+                                        {isSmDown ? (mobileNumber ? mobileNumber : '') : (mobileNumber ? mobileNumber : 'Call Now')}
                                     </JoyButton>
 
-                                    <JoyButton startDecorator={<WhatsAppIcon />} sx={{backgroundColor:'#Ffa500', color:'white'}} onClick={()=> router.push(`https://wa.me/${data?.mobile_number}`)}>
-                                        Whatsapp
+                                    <JoyButton 
+                                        startDecorator={<WhatsAppIcon />} 
+                                        sx={{backgroundColor:'#Ffa500', color:'white'}} 
+                                        onClick={()=> router.push(`https://wa.me/${data?.mobile_number}`)}>
+                                        {!isSmDown && 'Whatsapp'}
                                     </JoyButton>
 
-                                    <JoyButton  startDecorator={<EmailIcon />} onClick={()=> router.push(`mailto:${data?.email}`)}>
+                                    {/* <JoyButton  startDecorator={<EmailIcon />} onClick={()=> router.push(`mailto:${data?.email}`)}>
                                         Email
-                                    </JoyButton>
+                                    </JoyButton> */}
                                </div>
                             </Col>
                         </Row>
