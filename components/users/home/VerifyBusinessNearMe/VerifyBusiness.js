@@ -32,13 +32,13 @@ function VerifyBusiness() {
             </Row>
         </div>
         );
-    }
+    };
 
     
     // If there's an error, display an error message
     if (isError) {
         return <p>Error loading data.</p>;
-    }
+    };
 
     // Functions to handle next and previous for the first carousel
     const handleNextOne = () => {
@@ -49,6 +49,7 @@ function VerifyBusiness() {
         carouselRefOne.current.prev();
     };
 
+    
     return (
         <>
             {/* Desktop view: Carousel with CardVerify */}

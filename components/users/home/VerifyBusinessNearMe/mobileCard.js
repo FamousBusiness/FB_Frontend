@@ -12,11 +12,16 @@ import Image from "next/image";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Whatsapp from "../../Filter/Whatsapp";
 import Paragraph from "antd/es/typography/Paragraph";
+
+
+
 function MobileCard({ items }) {
   const router = useRouter();
   const handlePage = () => {
     router.push(`/userprofile/${items.business_name}?z_id=${items.id}`);
   };
+
+
   return (
     <Badge.Ribbon
       text="Authorized Dealer"
@@ -28,6 +33,7 @@ function MobileCard({ items }) {
       >
         <Row justify="start" align="middle" gutter={[12, 12]}>
           {items.authorized && <Col span={24}></Col>}
+
           <Col span={10}>
             {items.business_images &&
             Array.isArray(items.business_images) &&
@@ -56,6 +62,7 @@ function MobileCard({ items }) {
                     : null
                 )}
               </Carousel>
+
             ) : (
               <div className=" h-44 w-full relative">
                 <Image
@@ -68,6 +75,7 @@ function MobileCard({ items }) {
               </div>
             )}
           </Col>
+          
           <Col onClick={handlePage} span={14}>
             {/* Business details */}
             <Row align="middle" gutter={[2, 6]}>

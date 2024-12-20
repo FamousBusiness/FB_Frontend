@@ -10,6 +10,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Carousel } from 'antd';
 import Pagination from '@mui/material/Pagination';
+import CircularProgressWithLabel from './Components/Loader';
+import CircularProgress from '@mui/material/CircularProgress';
 // import useSWR from 'swr';
 // import PincodeByCity from '@/components/users/location/PincodeByCity';
 // import PremiumMember from './Components/PremiumMember';
@@ -48,6 +50,7 @@ function Page() {
     const [paidLeadCount, setPaidLeadCount] = useState(0);
     const [otherCategoryLeadCount, setOtherCategoryLeadCount] = useState(0);
     const [paginationValue, setPaginationValue] = useState(0);
+    const [myCategoryLeadLoading, setMyCategoryLeadLoading] = useState(true);
     const [error, setError] = useState(false);
     const [leadsData, setLeadsData] = useState({
         '1': null,
@@ -209,6 +212,7 @@ function Page() {
             setPaginationCount(res.data.count);
             setError(false);
             setUnAuthenticated(false);
+            setMyCategoryLeadLoading(false)
 
         }).catch((error) => {
             // console.log(error);
@@ -282,12 +286,12 @@ function Page() {
             })
 
         } else if (activeKey && activeKey === '2') {
-            axios.get(
-                `${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${value}`, {
+            axios.get(`${apiUrl}/lead-api/paid/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 }
+
             }).then((res) => {
                 let paginationData = res.data.results
                 // setPaginationCount(res.data.count)
@@ -300,14 +304,12 @@ function Page() {
             });
 
         } else if (activeKey && activeKey === '4') {
-            axios.get(
-                `${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${value}`, {
+            axios.get(`${apiUrl}/lead-api/business/other/category/leads/${city}/${state}/?page=${value}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 }
-            }
-            ).then((res) => {
+            }).then((res) => {
                 let paginationData = res.data.results
                 // setPaginationCount(res.data.count)
                 setLeadsData((prev) => ({ ...prev, [activeKey]: paginationData.Other_Category_Leads }));
@@ -320,7 +322,7 @@ function Page() {
         }
     }
 
-
+    
     /// Get Lead Banner data
     useEffect(() => {
         if (city && accessToken && apiUrl) {
@@ -362,7 +364,8 @@ function Page() {
                 <Row gutter={[12, 12]}>
                     {array.map((index) => (
                         <Col lg={8} xxl={8} sm={12} xs={12} md={8} xl={8} key={index}>
-                            <Skeleton.Input active style={{ height: 200 }} block />
+                            {/* <Skeleton.Input active style={{ height: 200 }} block /> */}
+                            <CircularProgress />
                         </Col>
                     ))}
                 </Row>
@@ -518,13 +521,17 @@ function Page() {
 
         if (sortedLeads && sortedLeads.length > 0) {
             return (
-                <Row gutter={[16, 16]}>
-                    {sortedLeads.map((lead, index) => (
-                        <Col lg={8} xxl={8} sm={24} xs={24} md={8} xl={8} key={index}>
-                            <ModalLead indivisual={type} limit={10} color='green' title='Leads' item={lead} />
-                        </Col>
-                    ))}
-                </Row>
+                myCategoryLeadLoading ? 
+                    <CircularProgress /> : 
+                    (
+                        <Row gutter={[16, 16]}>
+                            {sortedLeads.map((lead, index) => (
+                                <Col lg={8} xxl={8} sm={24} xs={24} md={8} xl={8} key={index}>
+                                    <ModalLead indivisual={type} limit={10} color='green' title='Leads' item={lead} />
+                                </Col>
+                            ))}
+                        </Row>
+                    )
             );
 
         } else {

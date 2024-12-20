@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
-import { Carousel, Col, Row, Space, Tooltip, Typography } from "antd";
+
+import React, { useEffect, useState } from "react";
+import { Carousel, Col, Row, Space, Spin, Typography } from "antd";
 import Top from "@/components/users/home/TopSection/Top";
 import TrendingBusiness from "@/components/users/home/BusinessCategoryNearme/TrendingBusiness";
 import VerifyBusiness from "@/components/users/home/VerifyBusinessNearMe/VerifyBusiness";
@@ -8,6 +9,8 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 import { Poppins } from "next/font/google";
+import axios from "axios";
+import HomeLeadFormTagWise from "@/components/LeadFormTag/LeadFormTag";
 // import Brands from '@/components/users/home/Brands/Brands';
 // import Index from '@/components/users/home/Combo';
 // import ProfilePop from '@/utils/ProfilePop';
@@ -32,11 +35,35 @@ const { Text, Title } = Typography;
 // Home Page
 function Page() {
   const controls = useAnimation();
+  const [leadFormtag, setLeadFormTag] = useState([]);  ///// Lead form tag
+  const [tagLoading, setTagLoading]   = useState(true);  ////// Lead Form tag Loading4
+  const [apiUrl, setApiURL] = useState(
+          process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
+      );
 
 
+  
   useEffect(() => {
     controls.start({ opacity: 1 });
   }, [controls]);
+
+  
+
+  ///// Get all the Lead Form tag wise
+  useEffect(()=> {
+      axios.get(`${apiUrl}/lead-api/lead/form/tag/`).then((res)=> {
+          // console.log(res)
+
+          if (res.status === 200) {
+            setTagLoading(false)
+            setLeadFormTag(res.data)
+          }
+      }).catch((error)=> {
+          // console.log(error)
+
+      })
+
+  }, [apiUrl]);
 
 
 
@@ -305,8 +332,6 @@ function Page() {
           </Col>
           {/* Business Tools For Mobile View */}
 
-          {/* Trending Business */}
-
           {/* Verify Business Near ME */}
           <Col span={24}>
             <Row justify="center" className=" bg-white drop-shadow-lg py-2">
@@ -317,12 +342,34 @@ function Page() {
                   Business Near Me
                 </p>
               </Col>
+
               <Col xl={24} md={24} xs={24} sm={24} xxl={24} lg={24}>
                 <VerifyBusiness />
               </Col>
             </Row>
           </Col>
 
+
+         {tagLoading ? 
+          <Spin />
+         : 
+         leadFormtag.map((leadTag, index)=> (
+          <Col span={24} key={index}>
+              <Row justify="center" className=" bg-white drop-shadow-lg py-2">
+                <Col span={23}>
+                  <p
+                    className={`${poppins.className} text-lg sm:text-xl text-gray-500`}
+                  >
+                    {leadTag.tag}
+                  </p>
+                </Col>
+
+                <Col xl={24} md={24} xs={24} sm={24} xxl={24} lg={24}>
+                    <HomeLeadFormTagWise leadFormData={leadTag.leadforms} />
+                </Col>
+              </Row>
+          </Col>
+         ))}
           {/* Ads Near ME */}
           {/* <Col span={23}>
                         <BasicCard/>
@@ -358,6 +405,7 @@ function Page() {
           </Link>
         </div>
       </div>
+
     </motion.div>
 
   );

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SellIcon from '@mui/icons-material/Sell';
 import { Button as JoyButton } from '@mui/joy';
+import { Spin } from 'antd';
 
 
 
@@ -31,6 +32,7 @@ export default function LeadForm() {
   const [sentence, updateSentence] = useState('');
   const [error, setError] = useState('');
   const [LeadID, setLeadID] = useState(0);
+  const [loading, setLoading] = useState(true); //// Loading
   const [apiURL, setAPIUrl] = useState(
     process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in')
   const [mediaUrl, setMediaUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? true : false);
@@ -77,6 +79,7 @@ export default function LeadForm() {
 
     const query_category = params.get('category')
     const query_lead = params.get('lead')
+    const query_lead_form_id = params.get('form_id')
 
     setLeadID(query_lead)
 
@@ -85,32 +88,36 @@ export default function LeadForm() {
     };
 
     axios.post(`${apiURL}/lead-api/lead/form/`, {
-      category: query_category
+      lead_form_id: parseInt(query_lead_form_id)
 
     }).then((res) => {
       // console.log(res)
       if (res.status === 200 && res.data.success === true) {
         setLeadFormData(res.data.lead_form_data)
+        setLoading(false);
       }
 
     }).catch((error) => {
-      console.log(error)
+      // console.log(error)
     })
   }, [apiURL]);
 
 
   // Submit Form Data
   const handleSubmitForm = () => {
-    setDisableButton(true);
 
-    if (!sentence) {
-      setError('Please fill up the questions')
+    if (LeadFormData.q1_required && LeadFormData.q2_required && LeadFormData.q3_required && LeadFormData.q4_required && !sentence) {
+        setError('Please fill up the questions')
+
     } else if (LeadFormData.city_required && !formData.city) {
-      setError('Pleas fil your city')
+        setError('Pleas fil your city')
+
     } else if (LeadFormData.state_required && !formData.state) {
-      setError('Please Fill your State')
+        setError('Please Fill your State')
+
     } else {
       setError('')
+      setDisableButton(true);
 
       axios.post(`${apiURL}/lead-api/lead/form/question/`, {
         requirements: sentence,
@@ -146,6 +153,10 @@ export default function LeadForm() {
 
   return (
     <>
+    {loading ? 
+      <Spin />  :
+      
+    (
       <Box
         sx={{
           display: 'flex',
@@ -228,7 +239,7 @@ export default function LeadForm() {
                 </b>
               )}
             </Typography>
-
+            
             {/* Input Fields */}
             {LeadFormData.q1_required &&
               <TextField
@@ -260,7 +271,7 @@ export default function LeadForm() {
                 variant="outlined"
                 fullWidth
                 name='question_3'
-                value={formData.q3_required}
+                value={formData.question_3}
                 onChange={handleChangeFormData}
                 sx={{ mt: 2 }}
               />
@@ -322,6 +333,7 @@ export default function LeadForm() {
           <p style={{ color: 'red' }}>{error && error}</p>
         </Card>
       </Box>
+    )}
     </>
   );
 };
