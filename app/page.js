@@ -360,7 +360,11 @@ function Page() {
                   <p
                     className={`${poppins.className} text-lg sm:text-xl text-gray-500`}
                   >
-                    {leadTag.tag}
+                    <span style={{color:'green'}}>
+                      <b>
+                        {leadTag.tag}
+                      </b>
+                    </span>
                   </p>
                 </Col>
 

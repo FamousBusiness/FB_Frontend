@@ -364,8 +364,7 @@ function Page() {
                 <Row gutter={[12, 12]}>
                     {array.map((index) => (
                         <Col lg={8} xxl={8} sm={12} xs={12} md={8} xl={8} key={index}>
-                            {/* <Skeleton.Input active style={{ height: 200 }} block /> */}
-                            <CircularProgress />
+                            <Skeleton.Input active style={{ height: 200 }} block />
                         </Col>
                     ))}
                 </Row>
@@ -523,6 +522,7 @@ function Page() {
             return (
                 myCategoryLeadLoading ? 
                     <CircularProgress /> : 
+                    
                     (
                         <Row gutter={[16, 16]}>
                             {sortedLeads.map((lead, index) => (
@@ -535,7 +535,8 @@ function Page() {
             );
 
         } else {
-            return <Empty />;
+            return <CircularProgress /> ;
+            // <Empty />;
         }
     };
 
