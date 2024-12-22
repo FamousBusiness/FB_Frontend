@@ -23,6 +23,12 @@ import axios from "axios";
 import { PiUserSquare } from "react-icons/pi";
 import useSWR from "swr";
 import moment from "moment";
+import {Button as MUIButton} from '@mui/material';
+
+
+
+
+
 
 const Address = ({ id }) => {
   const [form] = Form.useForm();
@@ -31,6 +37,7 @@ const Address = ({ id }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { data: business, error, mutate } = useSWR(id, get_product_by_id);
+
 
   if (!business) {
     return (
@@ -46,9 +53,12 @@ const Address = ({ id }) => {
       </div>
     );
   }
+
+
   if (error) {
     return <Result status="error" title="Something went wrong" />;
   }
+
 
   const handlePinCodeChange = async (value) => {
     if (value.length === 6) {
@@ -73,21 +83,28 @@ const Address = ({ id }) => {
     }
   };
 
+
   const handleCity = (value) => {
     form.setFieldsValue({
       city: value,
     });
   };
 
+
+  
+
   const onFinish = async (values) => {
+
     try {
       setLoading(true);
       const formattedOpeningTime = values.opening_time
         ? values.opening_time.format("HH:mm")
         : null;
+
       const formattedClosingTime = values.closing_time
         ? values.closing_time.format("HH:mm")
         : null;
+
       // Create a new object with formatted times
       const formattedValues = {
         ...values,
@@ -103,6 +120,7 @@ const Address = ({ id }) => {
             formattedClosingTime !== business["closing_time"]
           );
         }
+
         return (
           formattedValues[key] !== business[key] ||
           key === "business_name" ||
@@ -111,9 +129,11 @@ const Address = ({ id }) => {
       });
 
       const changedValues = {};
+
       changedFields.forEach((key) => {
         changedValues[key] = formattedValues[key];
       });
+
 
       // Check if there are any changes before updating
       if (Object.keys(changedValues).length > 0) {
@@ -144,6 +164,7 @@ const Address = ({ id }) => {
       : null,
   };
 
+
   return (
     <Form
       initialValues={initialValues}
@@ -160,11 +181,13 @@ const Address = ({ id }) => {
         <Col span={24}>
           <UploadImage mutate={mutate} business={business} />
         </Col>
+
         <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
           <Form.Item name="business_name" label="Business Name">
             <Input addonBefore={<IoBusinessOutline />} />
           </Form.Item>
         </Col>
+
         <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
           <Category1 label={true} required={false} />
         </Col>
@@ -193,6 +216,7 @@ const Address = ({ id }) => {
             <Input addonBefore={<WhatsAppOutlined />} className=" w-full" />
           </Form.Item>
         </Col>
+
         <Col sm={24} xs={24} md={23} xxl={8} xl={8} lg={8}>
           {/* Extra mobile number */}
           <ExtraMobile />
@@ -212,6 +236,7 @@ const Address = ({ id }) => {
             <Input addonBefore={<MailOutlined />} type="email" />
           </Form.Item>
         </Col>
+
         <Col sm={24} xs={24} md={24} xxl={12} xl={12} lg={12}>
           <Form.Item name="website_url" label="Website">
             <Input addonBefore={<GlobalOutlined />} placeholder="website" />
@@ -243,6 +268,7 @@ const Address = ({ id }) => {
         <Col span={24}>
           <AddressForm handlePinCodeChange={handleCity} />
         </Col>
+
         <Col sm={24} xs={24} md={24} xxl={24} xl={24} lg={24}>
           <Form.Item name="business_info" label="About The Business">
             <Input.TextArea showCount rows={8} maxLength={2000} />
@@ -254,6 +280,7 @@ const Address = ({ id }) => {
             <Input className="w-full" placeholder="YYYY" />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="GSTIN" label="GSTIN">
             <Input
@@ -262,21 +289,25 @@ const Address = ({ id }) => {
             />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="CIN_No" label="CIN">
             <Input placeholder="562535xxx" addonBefore={<HiDocumentText />} />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="director" label="Director">
             <Input placeholder="Mr.Rajendra" addonBefore={<PiUserSquare />} />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="RoC" label="RoC">
             <Input placeholder="Roc.." />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="DIN" label="DIN">
             <Input placeholder="5635xxx" />
@@ -288,24 +319,28 @@ const Address = ({ id }) => {
             <Input placeholder="12635xxx" />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="nature" label="Nature Of Business">
             <Input addonBefore={<MdOutlineNature />} />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="turn_over" label="Annual Turnover">
             <Input addonBefore={<FaIndianRupeeSign />} />
           </Form.Item>
         </Col>
+
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="employee_count" label="Number of Employees">
             <Input placeholder="1000" addonBefore={<BsPersonArmsUp />} />
           </Form.Item>
         </Col>
-        <Col sm={24} xs={24} md={24} xxl={24} xl={24} lg={24}>
-          <div className="pt-4 w-full z-20 fixed left-0  text-center bottom-0">
-            <Row align="top" justify="center" gutter={12}>
+
+        {/* <Col sm={24} xs={24} md={24} xxl={24} xl={24} lg={24}>
+          <div className="pt-4 w-full z-20 fixed left-0  text-center bottom-0" style={{ padding: "8px", background: "white" }}>
+            <Row align="middle" justify="center" gutter={12}>
               <Col xl={12} sm={12} xs={12} md={12} xxl={12} lg={12}>
                 <Form.Item>
                   <Button
@@ -322,8 +357,21 @@ const Address = ({ id }) => {
               </Col>
             </Row>
           </div>
-        </Col>
+        </Col> */}
       </Row>
+
+        <Form.Item>
+          <Button
+              block
+              style={{ background: "green", color: "white" }}
+              loading={loading}
+              size="large"
+              type="primary"
+              htmlType="submit"
+            >
+              SAVE
+          </Button>
+        </Form.Item>
     </Form>
   );
 };

@@ -70,7 +70,6 @@ export default function LeadFormTagCard({item}) {
                     </Button>
                 </CardContent>
             </Card>
-
             
             {open && 
                 <HomeLeadFormModal setOpen={setOpen} open={open} item={item} />

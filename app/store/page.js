@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Typography, Container, Card, CardContent, CardMedia, Box, Menu, MenuItem, } from '@mui/material';
+import { Typography, Container, Card, CardContent, CardMedia, Box } from '@mui/material';
 import Image from 'next/image';
 import Grid from '@mui/material/Grid2';
 import { Carousel } from 'antd';
@@ -12,8 +12,10 @@ import Tooltip from '@mui/material/Tooltip';
 
 
 
+
+
 ////// Store Home page
-export default function Store() {
+function Page() {
       const [anchorEl, setAnchorEl]               = useState(null);
       const [currentMenu, setCurrentMenu]         = useState([]);
       const [categoryLoading, setCategoryLoading] = useState(true); //// Category Loading
@@ -134,39 +136,46 @@ export default function Store() {
             mb: 1,
           }}
         >
+
       {categoryLoading ? 
          <CircularProgress /> :
 
          topCategory.map((item, index) => (
-          
-          <Box
-            key={index}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginRight: { xs: 2, md: 4 },
-              cursor: 'pointer',
-            }}
-            onClick={(e) => {handleClick(e, item.subcategory_names); setCategoryID(item.id); }}
-          >
-            <Tooltip title={item.type}>
-              <Image
-                src={item.image ? item.image : '/store/t_shirt.webp'}
-                width={40}
-                height={35}
-                alt='img'
-                style={{ marginBottom: '4px' }}
-              />
-            </Tooltip>
-            <Typography variant="caption">{item.name}</Typography>
-          </Box>
+          <>
+            <Box
+              key={index}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginRight: { xs: 2, md: 4 },
+                cursor: 'pointer',
+                position: 'relative',
+                height:'80px'
+              }}
+              onClick={(e) => {handleClick(e, item.subcategory_names); setCategoryID(item.id); }}
+            >
+              <Tooltip title={item.type}>
+                <Image
+                  src={item.image ? item.image : '/store/t_shirt.webp'}
+                  width={70}
+                  height={65}
+                  alt='img'
+                  style={{ marginBottom: '4px' }}
+                />
+              </Tooltip>
+
+              <Typography variant="p" style={{position:'absolute', bottom:0, textAlign:'center', width:'100%', fontSize:'15px'}}>
+                 {item.type}
+              </Typography>
+            </Box>
+          </>
         ))
       }
     
 
       {/* Dropdown Menu */}
-      <Menu
+      {/* <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
@@ -179,7 +188,7 @@ export default function Store() {
             {subItem}
           </MenuItem>
         ))}
-      </Menu>
+      </Menu> */}
     </Box>
 
 
@@ -267,3 +276,6 @@ export default function Store() {
   </Container>
   );
 }
+
+
+export default Page;

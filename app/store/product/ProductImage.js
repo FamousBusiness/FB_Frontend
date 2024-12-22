@@ -1,6 +1,8 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { Box, ImageList, ImageListItem, Paper, Button, useTheme, useMediaQuery, Stack } from '@mui/material';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
+import { Box, ImageList, ImageListItem, Paper, Button, useTheme, useMediaQuery } from '@mui/material';
+// import FlashOnIcon from '@mui/icons-material/FlashOn';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Image from 'next/image';
 
@@ -8,7 +10,7 @@ import Image from 'next/image';
 
 
 
-export default function ImageGallery({Images = []}) {
+function ImageGallery({Images = []}) {
   const [selectedImage, setSelectedImage] = useState('');
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -26,9 +28,8 @@ export default function ImageGallery({Images = []}) {
 
 
 
-
 return (
-  <Paper sx={{display:'flex', flexDirection:'row', alignItems:'flex-start', padding:5, height:{xs:'420px', sm:'520px'}}} elevation={0}>
+  <Paper sx={{display:'flex', flexDirection:'row', alignItems:'flex-start', padding:0, height:{ xs:'420px', sm:'520px'}}} elevation={0}>
 
       <Box sx={{
             overflowY:'auto', 
@@ -41,7 +42,7 @@ return (
             },
             scrollbarWidth: 'none', 
           }}
-            >
+          >
         <ImageList cols={1} gap={8}>
           {Images && 
             Images.map((item, index) => (
@@ -72,7 +73,8 @@ return (
             borderRadius: '8px',
             alignSelf: 'center',
             height:{xs:'500px', sm:'100%'},
-            width:'100%'
+            width:{xs:'100%', sm:'100%'},
+            marginLeft:{xs:0, sm:-10}
           }}
         />
 
@@ -87,8 +89,9 @@ return (
                 <Button
                   variant="contained"
                   color="primary"
-                  fullWidth
                   startIcon={<ShoppingCartIcon />}
+                  fullWidth
+                  sx={{p:2}}
                 >
                   Cart
                 </Button>
@@ -96,13 +99,13 @@ return (
                 <Button
                   variant="contained"
                   color="warning"
+                  sx={{ml:2, mr:2, p:2}}
                   fullWidth
-                  sx={{ml:2, mr:2}}
                 >
                   BUY ON EMI
                 </Button>
 
-                <Button
+                {/* <Button
                   variant="outlined"
                   color="primary"
                   fullWidth
@@ -110,7 +113,7 @@ return (
                   sx={{ p: { xs: 0, sm: 0, mb:2 } }}
                 >
                   BUY NOW
-                </Button>
+                </Button> */}
             </>
           )}
 
@@ -119,4 +122,8 @@ return (
     </Paper>
 
   );
-}
+};
+
+
+
+export default ImageGallery;

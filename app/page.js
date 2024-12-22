@@ -84,7 +84,7 @@ function Page() {
             <Row justify="center" className=" bg-white drop-shadow-lg p-2">
 
               {/* Top Heading  */}
-              <Col xl={23} xxl={23} xs={0} md={23} sm={0} lg={23}>
+              <Col xl={23} xxl={23} xs={0} md={23} sm={0} lg={23}>  
                 <Row gutter={4} align="middle">
                   <Col>
                     <div
@@ -226,7 +226,7 @@ function Page() {
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
-                      Online Tender
+                      Online Orders
                     </div>
                   </div>
                 </Link>
@@ -362,7 +362,7 @@ function Page() {
                   >
                     <span style={{color:'green'}}>
                       <b>
-                        {leadTag.tag}
+                        {leadTag?.tag || ''}
                       </b>
                     </span>
                   </p>

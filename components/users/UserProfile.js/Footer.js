@@ -13,8 +13,10 @@ import { FaSquareFacebook } from 'react-icons/fa6';
 function Footer({ BusinessName }) {
   const pathName = usePathname()
 
-  return (<>
-    {pathName.includes('/failure') || pathName.includes('/success') || pathName.includes('/admin') || pathName.includes('/userprofile') || pathName.includes('/brands/Branddeatails') || pathName.includes('/login') || pathName.includes('/registration') || pathName.includes('/job/employerdash') || pathName.includes('/job/employeedash') ? null :
+  return (
+  <>
+    {
+    pathName.includes('/failure') || pathName.includes('/success') || pathName.includes('/admin') || pathName.includes('/userprofile') || pathName.includes('/brands/Branddeatails') || pathName.includes('/login') || pathName.includes('/registration') || pathName.includes('/job/employerdash') || pathName.includes('/job/employeedash') ? null :
     
       <div className=" relative dark:text-black sm:rounded-2xl shadow-sm m-0 sm:m-4 bg-white pt-6 pb-6">
         <Row justify='center' align='middle'>
@@ -22,41 +24,55 @@ function Footer({ BusinessName }) {
             <Row justify='start' align='top'>
               <Col span={18} >
                 <Row justify='start' gutter={[{ xs: 8, sm: 8, md: 8, lg: 24, xl: 24 }, 12]}>
+
                   <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
                     <div className=" text-3xl text-start font-extrabold text-blueGray-700">{BusinessName ? `${BusinessName.business_name}` : (<><span className=' text-blue-600'>Famous </span><span className=' text-green-700'>Business</span></>)}</div>
                   </Col>
+
+
                   <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                     {BusinessName ? <div className=" text-lg font-bold text-blueGray-700">{BusinessName.business_name}</div> :
                       <div><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></div>}
                     <div className=" text-sm font-medium  text-blueGray-600">Thank you for being a valued customer!</div>
                   </Col>
+
+
                   <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
                     <Row align='middle' gutter={[{ xs: 8, sm: 8, md: 8, lg: 24, xl: 24 }, 12]}>
+
                       <Col span={3}  >
                         <Player src='/Footer/secure.json' autoplay loop />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/visa.svg' width={200} height={200} alt='visa' />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/payment.svg' width={200} height={200} alt='paytm' />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/mastercard.svg' width={200} height={200} alt='master' />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/upi.svg' width={200} height={200} alt='upi' />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/paytm.svg' width={100} height={100} alt='paytm' />
                       </Col>
+
                       <Col span={3}>
                         <Image src='/payments/google-pay.svg' width={100} height={100} alt='gpay' />
                       </Col>
+
                     </Row>
                   </Col>
                 </Row>
               </Col>
+
               <Col xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} className=' relative'>
                 <Row justify='center' >
                   <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
@@ -67,6 +83,7 @@ function Footer({ BusinessName }) {
               </Col>
             </Row>
           </Col>
+          
           <Col xs={24} md={24} sm={24} lg={0} xl={0} xxl={0}>
             <Row align='middle' justify='space-around'>
               <Col span={3}  >

@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { IoBusiness } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 import MenuBar1 from './MenuBar';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 
 
 
@@ -24,6 +25,19 @@ const Navbar = () => {
   const [search, setSearch] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const [focus, setFous] = useState(false);
+  const [removePlan, setRemovePlan] = useState(false);
+
+
+  // chek whether the path starts with store or not 
+  useEffect(()=> {
+      const url = new URL(window.location.href)
+      const firstPath = url.pathname.split("/")[1];
+
+      if (firstPath === 'store') {
+          setRemovePlan(true);
+      }
+
+  }, []);
 
 
   useEffect(() => {
@@ -51,6 +65,7 @@ const Navbar = () => {
     setLocation(value);
   }
 
+
   const handleSubmit = (value) => {
     const category = 'All category';
     // Set default productID to 'all-products' or pass the actual product ID
@@ -58,6 +73,7 @@ const Navbar = () => {
     router.push(`/Search/${location}/${value}`);
     setSearch(`/Search/${location}/${value}`);
   }
+
 
   const handleFreeListingClick = () => {
     if (user && userdata.business) {
@@ -95,7 +111,7 @@ const Navbar = () => {
             <Col xs={0} sm={0} md={5} lg={5} xl={5}>
               <Row justify='center'>
                 <Col >
-                  <Link className=" text-3xl font-bold" href="/">
+                  <Link className=" text-3xl font-bold" href="/" style={{textDecoration:'none'}}>
                     <span className=' text-blue-600'>Famous </span><span className=' text-green-700'>Business</span>
                   </Link>
                 </Col>
@@ -137,23 +153,34 @@ const Navbar = () => {
                           <Tooltip title='Login Now' arrow placement='bottom' open={false}>
                             <Button size='large' href="/login" type='primary' style={{ fontWeight: 'bold' }} shape='round' >Log In</Button>
                           </Tooltip>)}
-
                       </div>
                     </Col>
 
-                    <Col span={7}>
-                      <Link href="/plan">
-                        <div className=' border-2 border-orange-300 hover:border-2  hover:border-black hover:text-white duration-300 hover:bg-gradient-to-r from-zinc-300 to-orange-400 cursor-pointer font-bold flex flex-row items-center justify-center  dark:text-gray-600 px-1 py-2 text-center  '>
-                          <Image src='/plans/premium.svg' width={20} height={20} alt='plan' /> <span className=' ml-1'>Plan</span>
-                        </div>
-                      </Link>
-                    </Col>
 
-                    <Col span={4}>
+                    {/* Plan */}
+                    {removePlan ? (
+                        <Col span={16}>
+                            <Link href="/" style={{textDecoration:'none'}}>
+                                <StorefrontIcon sx={{marginBottom:'5px'}} fontSize='large' /><span style={{ marginLeft:'5px', fontSize:'20px'}}>Become a Seller</span>
+                            </Link>
+                        </Col>
+
+                    ) : ( 
+                      <Col span={7}>
+                        <Link href="/plan">
+                          <div className=' border-2 border-orange-300 hover:border-2  hover:border-black hover:text-white duration-300 hover:bg-gradient-to-r from-zinc-300 to-orange-400 cursor-pointer font-bold flex flex-row items-center justify-center  dark:text-gray-600 px-1 py-2 text-center  '>
+                            <Image src='/plans/premium.svg' width={20} height={20} alt='plan' /> <span className=' ml-1'>Plan</span>
+                          </div>
+                        </Link>
+                      </Col>
+                    )}
+
+                      
+                    {/* <Col span={4}>
                         <a href={'/Download/Famous_Business (1).apk'} download>
                           <Image src="/app-download.svg" width={60} height={60} alt='' />
                         </a>
-                    </Col>
+                    </Col> */}
 
                   </Row>
                 </Col>

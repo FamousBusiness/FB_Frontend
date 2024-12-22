@@ -12,9 +12,9 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 
+
 ///// Category wise product page
 function Page() { 
-
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true); //// Loading 
     const [error, setError]             = useState(''); //// Error Message
@@ -91,7 +91,7 @@ function Page() {
       >
         {/* Header Breadcrumb */}
         <Typography variant="h6" color="textSecondary" gutterBottom>
-          Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
+            Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
         </Typography>
 
         <Box

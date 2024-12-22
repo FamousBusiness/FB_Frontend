@@ -1,14 +1,9 @@
+'use client';
+
 import React, { useState } from 'react';
 import {
-  Box, Table, TableBody, TableRow, TableCell,
-  Typography,
-  Button,
-  TextField,
-  Chip,
-  Stack,
-  Divider,
-  InputAdornment,
-  Paper,
+  Box, Table, TableBody, TableRow, TableCell, Typography, Button, TextField,
+  Chip, Stack, Divider, InputAdornment, Paper
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -16,7 +11,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 
-export default function ProductDetails({productData}) {
+
+function ProductDetails({productData}) {
     const [pincode, setPincode] = useState('');
     const handlePincodeChange = (e) => setPincode(e.target.value);
 
@@ -113,7 +109,7 @@ export default function ProductDetails({productData}) {
                     }}
                     sx={{ maxWidth: 200 }}
                 />
-            <Button variant="contained" color="error">Deliver in 5 hrs</Button>
+            <Button variant="contained" color="error">Available</Button>
           </Box>
 
 
@@ -167,4 +163,8 @@ export default function ProductDetails({productData}) {
 
   </Box>
   );
-}
+};
+
+
+
+export default ProductDetails;

@@ -16,23 +16,30 @@ import {
   FileTextFilled,
   CustomerServiceOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
+// import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PiSuitcaseSimple } from "react-icons/pi";
-import Image from "next/image";
-import { RiUser3Fill, RiUser3Line } from "react-icons/ri";
+import Person2Icon from '@mui/icons-material/Person2';
+
+
+
+
 
 const BottomDrawer = () => {
   const { authTokens, logoutUser, userdata } = useAuth();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
   const router = useRouter();
+
+
   const showDrawer = () => {
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
   };
+
   const handleLogout = () => {
     logoutUser();
   };
@@ -41,19 +48,23 @@ const BottomDrawer = () => {
     setOpen(false);
     router.push(path);
   };
+
+
   return (
     <>
       {/* Profile Button */}
       <button
-        onClick={showDrawer}
+        onClick={()=> showDrawer()}
         type="button"
         className="inline-flex flex-col items-center justify-center px-5 group"
       >
-        {authTokens ? <RiUser3Fill size={24} fill="blue" /> : <RiUser3Line size={24} />}
-        <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
-          Profile
-        </span>
+        {authTokens ? <Person2Icon color="primary" /> : <Person2Icon color="primary" />}
+          <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
+            Profile
+          </span>
       </button>
+
+
       <Drawer
         width="80%"
         title="My Profile"
@@ -78,6 +89,7 @@ const BottomDrawer = () => {
                 Profile
               </Menu.Item>
             )}
+
             <Menu.Item
               onClick={() => handleRouter("/registration")}
               key="business"
@@ -85,6 +97,7 @@ const BottomDrawer = () => {
             >
               List the Business
             </Menu.Item>
+
             {userdata && userdata.business ? (
               <Menu.Item
                 onClick={() =>
@@ -93,8 +106,9 @@ const BottomDrawer = () => {
                 key="editprofile"
                 icon={<EditOutlined />}
               >
-                Edit Business Profile
+                  Edit Business Profile
               </Menu.Item>
+
             ) : (
               <Menu.Item
                 onClick={() => handleRouter("/job/profile")}
@@ -103,8 +117,11 @@ const BottomDrawer = () => {
               >
                 Job Profile
               </Menu.Item>
+
             )}
+
             {userdata && userdata.business && (
+
               <Menu.Item
                 onClick={() => handleRouter("/job/postjob")}
                 key="postjob"
@@ -112,6 +129,7 @@ const BottomDrawer = () => {
               >
                 Post Job
               </Menu.Item>
+
             )}
 
             {userdata && userdata.business ? (
@@ -123,6 +141,7 @@ const BottomDrawer = () => {
                 Job Dashboard
               </Menu.Item>
             ) : (
+
               <Menu.Item
                 onClick={() => handleRouter("/job/employeedash")}
                 key="emdashboard"
@@ -130,7 +149,9 @@ const BottomDrawer = () => {
               >
                 Job Dashboard
               </Menu.Item>
+
             )}
+
             {userdata && userdata.business && (
               <Menu.Item
                 onClick={() => handleRouter("/plan/dashboard")}
@@ -140,51 +161,61 @@ const BottomDrawer = () => {
                 My Plan
               </Menu.Item>
             )}
+
             <Divider />
-            <Menu.Item
-              onClick={() => handleRouter("/plan")}
-              key="plan"
-              icon={<CreditCardOutlined />}
-            >
-              Premium Plan
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleRouter("/leads")}
-              key="leads"
-              icon={<StarOutlined />}
-            >
-              Live Customers
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleRouter("/notification")}
-              key="notifications"
-              icon={<BellOutlined />}
-            >
-              Notifications
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleRouter("/about/policy")}
-              key="policy"
-              icon={<FileTextFilled />}
-            >
-              Policy
-            </Menu.Item>
+
+              <Menu.Item
+                onClick={() => handleRouter("/plan")}
+                key="plan"
+                icon={<CreditCardOutlined />}
+              >
+                Premium Plan
+              </Menu.Item>
+
+              <Menu.Item
+                onClick={() => handleRouter("/leads")}
+                key="leads"
+                icon={<StarOutlined />}
+              >
+               Leads
+              </Menu.Item>
+
+              <Menu.Item
+                onClick={() => handleRouter("/notification")}
+                key="notifications"
+                icon={<BellOutlined />}
+              >
+                Notifications
+              </Menu.Item>
+
+              <Menu.Item
+                onClick={() => handleRouter("/about/policy")}
+                key="policy"
+                icon={<FileTextFilled />}
+              >
+                Policy
+              </Menu.Item>
+
             <Divider />
-            <Menu.Item
-              onClick={() => handleRouter("/about/Contact")}
-              key="support"
-              icon={<CustomerServiceOutlined />}
-            >
-              Customer Support
-            </Menu.Item>
-            <Menu.Item
-              key="logout"
-              icon={<LogoutOutlined />}
-              onClick={handleLogout}
-            >
-              Logout
-            </Menu.Item>
+
+              <Menu.Item
+                onClick={() => handleRouter("/about/Contact")}
+                key="support"
+                icon={<CustomerServiceOutlined />}
+              >
+                Customer Support
+              </Menu.Item>
+
+              <Menu.Item
+                key="logout"
+                icon={<LogoutOutlined />}
+                onClick={handleLogout}
+              >
+                Logout
+              </Menu.Item>
+            
           </Menu>
+          
         ) : (
           <div>
             <Button
@@ -203,7 +234,9 @@ const BottomDrawer = () => {
 
       <LoginForm visible={login} onClose={() => setLogin(false)} />
     </>
+
   );
 };
+
 
 export default BottomDrawer;

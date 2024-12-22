@@ -12,7 +12,7 @@ import LeadFormTagCard from './LeadFormTagCard';
 ///// Lead form tag
 export default function HomeLeadFormTagWise({ leadFormData = [] }) {
     const carouselRefOne = useRef();
-    const [apiURL, setAPIUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in');
+    // const [apiURL, setAPIUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in');
 
     const handleNextOne = () => {
         carouselRefOne.current.next();
@@ -31,12 +31,10 @@ export default function HomeLeadFormTagWise({ leadFormData = [] }) {
                 <Col span={24}>
                     {/* <Row justify='center' gutter={[0, 8]} align='middle'> */}
                     <Row justify='center' gutter={[16, 16]} align='middle'>
-                        {/* <Col> */}
                         <Col xs={2} sm={1}>
                             <LeftOutlined onClick={handlePrevOne} className='text-3xl hover:text-white hover:bg-blue-400 hover:shadow-md hover:-translate-x-1 duration-75 p-2 border border-1 rounded-full' />
                         </Col>
 
-                        {/* <Col xl={22} xxl={22} sm={0} xs={0} md={0} lg={22} className='relative place-content-center'> */}
                         <Col xs={20} sm={22} md={22} lg={22} className="relative">
                             <Carousel 
                                 dots={false} 
@@ -64,7 +62,8 @@ export default function HomeLeadFormTagWise({ leadFormData = [] }) {
                                     <div key={item.id} className='p-1'>
                                         <LeadFormTagCard key={item.id} item={item} />
                                     </div>
-                                ))}
+                                ))} 
+                               
                             </Carousel>
                         </Col>
 

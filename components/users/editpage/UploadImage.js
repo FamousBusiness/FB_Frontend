@@ -4,6 +4,10 @@ import { Modal, Upload, Image, message, Col, Row, Button, Flex } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import Cookies from 'js-cookie';
 
+
+
+
+
 const UploadImage = ({ business, mutate }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -81,6 +85,8 @@ const UploadImage = ({ business, mutate }) => {
     </div>
   );
 
+
+  
   const customRequest = async ({ file, onSuccess }) => {
     // console.log('Upload', file);
     const formData = new FormData();

@@ -6,6 +6,11 @@ import CountUp from 'react-countup';
 import { Player } from '@lottiefiles/react-lottie-player';
 import Link from 'next/link';
 import { FaUser } from 'react-icons/fa6';
+import StoreIcon from '@mui/icons-material/Store';
+
+
+
+
 
 const MenuBar = () => {
   const [counterValue, setCounterValue] = useState(100000);
@@ -25,10 +30,13 @@ const MenuBar = () => {
     };
   }, []);
 
+
+
   return (
     <Row justify='space-between' align='middle'>
       <Col span={23}>
         <Row justify='space-between' gutter={[{ xs: 8, sm: 16, md: 24, lg: 80 }, 0]} align='middle'>
+          
           <Col span={4}>
             <div className=' flex flex-col justify-start items-center '>
               <Player src='/Lotties/liveSig.json' style={{ height: '80px', width: '80px', position: 'absolute', zIndex: 1, marginTop: '-32px', marginRight: '24px' }} autoplay loop />
@@ -36,24 +44,29 @@ const MenuBar = () => {
               <div><CountUp start={90000} end={counterValue} style={{ fontWeight: 'bold', fontSize: '25px', color: 'red' }} duration={27} /></div>
             </div>
           </Col>
+          
           <Col>
             <Link href='/' className=' text-center items-center flex flex-col'>
               <Image src="/HomeNavbar/home.svg" width={50} height={50} alt='marketplace' />
               <div className=' font-bold text-black'>Home</div>
             </Link>
           </Col>
+
           <Col>
-            <Link className=' text-center items-center flex flex-col' href='/marketing'>
-              <Image src="/HomeNavbar/marketing.svg" width={50} height={50} alt='marketing' />
-              <div className=' font-bold text-black'>Marketing</div>
+            <Link className=' text-center items-center flex flex-col' href='/store'>
+              {/* <Image src="/HomeNavbar/marketing.svg" width={50} height={50} alt='marketing' /> */}
+              <StoreIcon color='primary' sx={{fontSize:'3.2rem'}} />
+              <div className=' font-bold text-black'>Store</div>
             </Link>
           </Col>
+
           <Col>
             <Link target='_blank' href={`https://wa.me/919883835373`} className=' text-center items-center flex flex-col'>
               <Image src="/HomeNavbar/messenger.svg" width={50} height={50} alt='messanger' />
               <div className=' font-bold text-black'>Technical Support</div>
             </Link>
           </Col>
+
           <Col>
             <Link className=' text-center items-center flex flex-col' href='/'>
               <Image src="/HomeNavbar/wallet.svg" width={50} height={50} alt='wallet' />

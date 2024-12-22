@@ -1,6 +1,7 @@
-import page from "@/app/admin/listing/listmanagement/addnewlist/page";
-import { message } from "antd";
 import Cookies from "js-cookie";
+
+
+
 export const update_a_product = async (formData: any, id: number) => {
   try {
     const res = await fetch(
@@ -25,11 +26,14 @@ export const update_a_product = async (formData: any, id: number) => {
   }
 };
 
+
+
 export const get_product_by_id = async (id: number) => {
   try {
     const res = await fetch(`/api/common/product/get_product_id?id=${id}`, {
       method: "GET",
     });
+    
     if (!res.ok) {
       // If the response status is not within the range 200-299
       throw new Error(`Failed to fetch product (status ${res.status})`);
@@ -44,6 +48,9 @@ export const get_product_by_id = async (id: number) => {
 };
 
 // Get all products by category id
+
+
+
 
 export const get_product_by_category_id = async (
   category: string,
@@ -83,6 +90,9 @@ export const get_product_by_category_id = async (
     throw error; // Re-throw the error to handle it in the calling code
   }
 };
+
+
+
 export const get_all_brands = async (url: string) => {
   try {
     const res = await fetch(`${url}`, {

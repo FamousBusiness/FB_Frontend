@@ -63,7 +63,7 @@ const CustomSelect = ({ mode, handlePinCodeChange, selectedCity, setSelectedCity
     <Select
       showSearch
       placeholder="Select a city"
-      mode={mode}gt5
+      mode={mode}
       optionFilterProp="children"
       onChange={handlePinCodeChange?(value)=>handlePinCodeChange(value):onChange}
       onSearch={handleSearch}

@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Tabs, Tab, Typography, Divider } from '@mui/material';
 import { useState } from 'react';
 
@@ -26,7 +28,7 @@ function TabPanel(props) {
 
 
 
-export default function Specifications() {
+function Specifications() {
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -107,4 +109,8 @@ export default function Specifications() {
       </TabPanel>
     </Box>
   );
-}
+};
+
+
+
+export default Specifications;

@@ -30,21 +30,25 @@ function MenuBar1() {
                             Home
                         </Link>
                     </Menu.Item>
+
                     <Menu.Item key="2">
                         <Link href="/about">
                            About Us
                         </Link>
                     </Menu.Item>
-                        <Menu.Item key="3">
-                            <Link href="/lead">
-                                Leads 
-                            </Link>
-                        </Menu.Item>
+
+                    <Menu.Item key="3">
+                        <Link href="/lead">
+                            Leads
+                        </Link>
+                    </Menu.Item>
+
                     <Menu.Item key="5">
                         <Link href="/about/Contact">
                            Contact
                         </Link>
                     </Menu.Item>
+
                 </Menu>
             </Drawer>
         </>

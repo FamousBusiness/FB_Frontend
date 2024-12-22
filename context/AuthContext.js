@@ -235,6 +235,7 @@ const AuthProvider = ({ children }) => {
 				// Logout successful on the server, clear local stat
 				Cookies.remove('accessToken');
 				Cookies.remove('authTokens');
+				
 				localStorage.removeItem("userData");
 				setAuthTokens(null);
 				setUser(null);
@@ -264,15 +265,20 @@ const AuthProvider = ({ children }) => {
 				},
 				body: JSON.stringify({ 'refresh': authTokens?.refresh }),
 			});
+
 			const data = await response.json();
 
 			if (response.status === 200) {
 				setAuthTokens(data)
+
 				Cookies.set('accessToken', data.access);
 				localStorage.setItem('accessToken', data.access)
+
 				setUser(jwt_decode(data.access))
+
 				Cookies.set('authTokens', JSON.stringify(data), { expires: 14 })
 				localStorage.setItem('authTokens', JSON.stringify(data))
+
 			} else {
 				logoutUser();
 			}
@@ -280,6 +286,7 @@ const AuthProvider = ({ children }) => {
 			if (loading) {
 				setLoading(false);
 			}
+
 		} catch (e) {
 			console.error(e);
 		}

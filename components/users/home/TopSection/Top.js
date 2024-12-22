@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Carousel1 from './Carousel'
 import { useHomeData } from '@/services/Commondata/HomeData';
-import { get_all_leads } from '@/services/Admin/Leads';
+// import { get_all_leads } from '@/services/Admin/Leads';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { useRouter } from 'next/navigation';
@@ -129,7 +129,7 @@ function Top() {
         <div className=' bg-green-600 rounded-lg relative flex flex-col justify-center items-center w-full h-60  py-2'>
           <div className=' flex flex-col items-center'>
             <div className=' text-2xl font-bold text-white'>ONLINE</div>
-            <div className=' text-base  font-bold text-white'>TENDER</div>
+            <div className=' text-base  font-bold text-white'>OREDERS</div>
             {/* <div className=' text-white font-bold absolute top-24'>Bid The Projects</div> */}
           </div>
           <Player
@@ -139,7 +139,7 @@ function Top() {
             autoplay
           />
           <div className=' text-lg font-sans font-semibold px-2 '>
-            <Link href='/tender' ><div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>Get Started</div></Link>
+            <Link href='/store' ><div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View Orders</div></Link>
           </div>
         </div>
       </Col>
@@ -160,7 +160,7 @@ function Top() {
                 autoplay />
               <div className=' text-lg font-sans font-semibold mt-2 px-2  '>
                 <Link href='/leads' >
-                  <div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View</div>
+                  <div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View Leads</div>
                 </Link>
               </div>
             </div>

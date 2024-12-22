@@ -7,6 +7,8 @@ import { usePathname, useRouter } from "next/navigation";
 // import { MessageOutlined } from "@ant-design/icons";
 import BottomDrawer from "./bottomDrawer";
 import Link from "next/link";
+import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+
 // import Image from "next/image";
 import {
   RiHome4Fill,
@@ -16,6 +18,9 @@ import {
   RiVipCrown2Fill,
   RiVipCrown2Line,
 } from "react-icons/ri";
+
+
+
 
 function BottomNav() {
   const router = useRouter();
@@ -47,12 +52,13 @@ function BottomNav() {
   return (
     <>
       {pathname.includes("/userprofile") ? null : (
+
         <div
-          style={{ boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset" }}
-          className="fixed md:hidden  flex justify-center py-4 dark:bg-white bg-white lg:hidden  p-2 xl:hidden 2xl:hidden bottom-0 left-0 z-50 w-full min-h-50  dark:border-gray-600"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset", marginBottom: -1, border:'1px solid black' }}
+          className="fixed md:hidden  flex justify-center py-4 dark:bg-white bg-white lg:hidden  p-2 xl:hidden 2xl:hidden bottom-0 left-0 z-50 w-full min-h-50  dark:border-gray-600" 
         >
           <div>
-            <div className="grid h-full max-w-lg grid-cols-4 gap-4 mx-auto font-medium">
+            <div className="grid h-full max-w-lg grid-cols-5 gap-2 mx-auto font-medium">
               {/* Home Button */}
               <button
                 onClick={() => router.push("/")}
@@ -77,13 +83,31 @@ function BottomNav() {
                 {pathname == "/leads" ? (
                   <RiMessage2Fill size={24} fill="blue" />
                 ) : (
-                  <RiMessage2Line size={24}/>
+                  <RiMessage2Line size={24} fill="blue"/>
                 )}
                 <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
                   Leads
                 </span>
               </button>
+
               {/* Marketing Button */}
+              <Link
+                href={`/store`}
+                className={`inline-flex flex-col  rounded-md  items-center justify-center px-5  group`}
+              >
+                {pathname == "/plan" ? (
+                  // <RiVipCrown2Fill size={24} fill="blue" />
+                  <StorefrontRoundedIcon color="primary" />
+                ) : (
+                  // <RiVipCrown2Line size={24} />
+                  <StorefrontRoundedIcon color="primary" />
+                )}
+                <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
+                  Store
+                </span>
+              </Link>
+
+
               <Link
                 href={`/plan`}
                 className={`inline-flex flex-col  rounded-md  items-center justify-center px-5  group`}
@@ -91,7 +115,7 @@ function BottomNav() {
                 {pathname == "/plan" ? (
                   <RiVipCrown2Fill size={24} fill="blue" />
                 ) : (
-                  <RiVipCrown2Line size={24} />
+                  <RiVipCrown2Line size={24} fill="blue" />
                 )}
                 <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
                   Plan

@@ -5,20 +5,27 @@ import { Row, Col } from 'antd'
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 
+
+
+
 function Page() {
     const { user, userdata } = useAuth()
     const router = useRouter()
     const searchParam = useSearchParams()
     const id = searchParam.get('id');
     const brand = searchParam.get('brand');
+
+
     useEffect(() => {
         if (!user) {
             router.push('/');
-        }
-        else if (user.user_id !== 1 && user.user_id !== 2 && (userdata && userdata.business !== parseInt(id))) {
+
+        } else if (user.user_id !== 1 && user.user_id !== 2 && (userdata && userdata.business !== parseInt(id))) {
             router.push('/');
         }
     }, [user, id, router, userdata]);
+
+
     return (
         <div className=' relative overflow-hidden'>
             <Row justify='center'>

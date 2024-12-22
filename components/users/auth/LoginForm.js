@@ -83,6 +83,7 @@ const LoginForm = () => {
                             >
                                 <Input size='large' prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Mobile Number / Email" />
                             </Form.Item>
+
                             <Form.Item
                                 name="password"
                                 rules={[
@@ -99,11 +100,13 @@ const LoginForm = () => {
                                     placeholder="Password"
                                 />
                             </Form.Item>
+
                             <Form.Item>
                                 <Link className=' font-sans font-semibold ' href="/login/forgot">
                                     Forgot password?
                                 </Link>
                             </Form.Item>
+                            
                             <Row justify='center' gutter={[12, 12]} align='middle'>
 
                                 <Col span={10}>

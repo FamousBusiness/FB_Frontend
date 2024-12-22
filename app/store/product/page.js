@@ -1,15 +1,19 @@
 "use client"
 
-import { Paper } from '@mui/material';
+import React from 'react'; 
 import ProductDetails from './ProductDetails';
 import ImageGallery from './ProductImage';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+import { Paper, Box } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import Grid from '@mui/material/Grid2';
 
 
 
-export default function Page() {
+
+
+function Page() {
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true);
     const [error, setError]             = useState('');
@@ -52,6 +56,29 @@ export default function Page() {
   return (
     <>
       <Paper elevation={3}>
+        <Box sx={{ padding: 2 }}>
+          <Grid container spacing={2}>
+
+
+          
+            <Grid size={{xs:12, md:4.5 }} >
+              <Box sx={{ marginTop: 2 }}>
+                <ImageGallery Images={Images} />
+              </Box>
+            </Grid>
+
+        
+            <Grid size={{ xs:12, md:7.5 }}>
+              <Box sx={{ marginTop: 2 }}>
+                <ProductDetails productData={productData} />
+              </Box>
+            </Grid>
+
+          </Grid>
+        </Box>
+      </Paper>
+
+    {/* <Paper elevation={3}>
         <div className="container" style={{ padding: 2 }}>
           <div className="row">
             <div className="col-sm-12 col-md-6" style={{ marginTop: 7 }}>
@@ -67,7 +94,11 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </Paper>
+      </Paper> */}
+
     </>
   );
 }
+
+
+export default Page;
