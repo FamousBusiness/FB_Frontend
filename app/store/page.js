@@ -28,6 +28,7 @@ function Page() {
       const [categoryId, setCategoryID]           = useState(0);  //// selected category ID
       const [subCatgoryName, setSubCategoryName]  = useState(''); //// Selected subcategory Name
       const [productID, setProductID]             = useState('');  /// Clicked product ID
+      const [apiURL, setAPIURL]                   = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in')
 
 
       const handleClick = (event, subItems) => {
@@ -63,7 +64,7 @@ function Page() {
 
       //// Get all the top categories
       useEffect(()=> {
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/store/category`).then((res)=> {
+        axios.get(`${apiURL}/api/ecom/v1/store/category`).then((res)=> {
           // console.log(res.data.results)
 
           if (res.status === 200) {
@@ -82,7 +83,7 @@ function Page() {
 
     //// Get all the Banner
     useEffect(()=> {
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/store/banner`).then((res)=> {
+        axios.get(`${apiURL}/api/ecom/v1/store/banner`).then((res)=> {
           // console.log(res.data.results)
 
           if (res.status === 200) {
@@ -101,7 +102,7 @@ function Page() {
 
     ///// Get all the product
     useEffect(()=> {
-      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/store/home/product`).then((res)=> {
+      axios.get(`${apiURL}/api/ecom/v1/store/home/product`).then((res)=> {
         // console.log(res.data.results)
 
         if (res.status === 200) {
@@ -165,7 +166,17 @@ function Page() {
                 />
               </Tooltip>
 
-              <Typography variant="p" style={{position:'absolute', bottom:0, textAlign:'center', width:'100%', fontSize:'15px'}}>
+              <Typography variant="p" 
+                sx={{
+                  position:'absolute', 
+                  bottom:-3, 
+                  textAlign:'center', 
+                  fontSize: {xs:'10px', sm: '12px', md:'15px'},
+                  width:'100%',
+                  overflow:{xs:'hidden', sm:'hidden', md:'visible'},
+                  whiteSpace:{xs: 'normal', sm:'normal', md:'nowrap'},
+                }}
+                >
                  {item.type}
               </Typography>
             </Box>

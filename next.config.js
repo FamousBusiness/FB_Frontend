@@ -14,7 +14,7 @@ module.exports = {
     SERVER_API_SECRET: process.env.SERVER_API_SECRET,
   },
   images: {
-    domains: ['https://api.famousbusiness.in','https://mdwebzotica.famousbusiness.in','https://images.unsplash.com'],
+    domains: ['https://api.famousbusiness.in','https://mdwebzotica.famousbusiness.in','https://images.unsplash.com', 'http://127.0.0.1:8000'],
 
     remotePatterns: [
       {
@@ -33,6 +33,12 @@ module.exports = {
         protocol: 'https',
         hostname: 'api.famousbusiness.in',
         port: '',
+        // pathname: '/account123/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '8000',
         // pathname: '/account123/**',
       },
     ],
