@@ -78,7 +78,7 @@ function Page() {
 
         });
 
-    }, []);
+    }, [apiURL]);
 
 
     //// Get all the Banner
@@ -97,7 +97,7 @@ function Page() {
 
         });
 
-    }, []);
+    }, [apiURL]);
 
 
     ///// Get all the product
@@ -115,7 +115,7 @@ function Page() {
           setError('Something went wrong')
 
       })
-  }, []);
+  }, [apiURL]);
 
 
 
