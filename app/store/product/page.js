@@ -8,6 +8,7 @@ import { Paper, Box } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import Grid from '@mui/material/Grid2';
+import BottomProductNav from '../Navbar/ProductBottomNav';
 
 
 
@@ -19,6 +20,7 @@ function Page() {
     const [error, setError]             = useState('');
     const [Images, setImages]           = useState([]);
     const [productID, setProductID]     = useState('');
+    const [apiURL, setAPIURL]           = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in')
 
     
     ///// Get the data from query params
@@ -34,8 +36,7 @@ function Page() {
     useEffect(()=> {
       if (productID) {
 
-        axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/product/?product_id=${productID}`).then((res)=> {
-
+        axios.get(`${apiURL}/api/ecom/v1/product/?product_id=${productID}`).then((res)=> {
             if (res.status === 200) {
               setLoading(false)
               setProductData(res.data.results)
@@ -47,9 +48,8 @@ function Page() {
             setError('Something went wrong');
 
         });
-
       }
-    }, [productID]);
+    }, [productID, apiURL]);
 
 
 
@@ -59,23 +59,27 @@ function Page() {
         <Box sx={{ padding: 2 }}>
           <Grid container spacing={2}>
 
-
-          
             <Grid size={{xs:12, md:4.5 }} >
               <Box sx={{ marginTop: 2 }}>
-                <ImageGallery Images={Images} />
+                  <ImageGallery 
+                    Images={Images} 
+                    />
               </Box>
             </Grid>
-
         
             <Grid size={{ xs:12, md:7.5 }}>
               <Box sx={{ marginTop: 2 }}>
-                <ProductDetails productData={productData} />
+                <ProductDetails 
+                  productData={productData} 
+                  />
               </Box>
             </Grid>
-
           </Grid>
         </Box>
+
+        <BottomProductNav 
+            productData={productData}
+          />
       </Paper>
 
     {/* <Paper elevation={3}>
