@@ -4,8 +4,7 @@ import { Typography, Container, Card, CardContent, CardMedia, Box } from '@mui/m
 import Image from 'next/image';
 import Grid from '@mui/material/Grid2';
 import { Carousel } from 'antd';
-import { useState, useEffect } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import Tooltip from '@mui/material/Tooltip';
@@ -142,9 +141,9 @@ function Page() {
          <CircularProgress /> :
 
          topCategory.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <Box
-              key={index}
+              // key={index}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -180,28 +179,13 @@ function Page() {
                  {item.type}
               </Typography>
             </Box>
-          </>
+          </React.Fragment>
         ))
       }
     
 
-      {/* Dropdown Menu */}
-      {/* <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        PaperProps={{
-          style: { maxHeight: 200, width: '20ch' },
-        }}
-      >
-        {currentMenu.map((subItem, index) => (
-          <MenuItem key={index} onClick={()=> {handleClose(); setSubCategoryName(subItem); }}>
-            {subItem}
-          </MenuItem>
-        ))}
-      </Menu> */}
+   
     </Box>
-
 
     {/* Banner */}
     <Grid container spacing={1} sx={{ marginTop: 2 }}>

@@ -6,6 +6,9 @@ import { useTheme, useMediaQuery  } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Badge from '@mui/material/Badge';
 import { useEffect, useState } from 'react';
+import { useDataContext } from '../DataContext';
+import { useAuth } from '@/context/AuthContext';
+import LoginForm from '@/utils/LandingPageModel';
 
 
 
@@ -17,6 +20,8 @@ export default function BottomProductNav(productData=[]) {
     const [addedToCart, setAddedToCart]     = useState(false);
     const [productDetail, setProductDetail] = useState(0);
     const [productID, setProductID]         = useState(0);
+    const [login, setLogin]                 = useState(false);  //// Open Login Modal state
+    const { authTokens }                    = useAuth(); 
     const [storageProduct, setStorageProduct] = useState(() => {
         // Initialize state with data from localStorage
         if (typeof window !== 'undefined') {
@@ -24,8 +29,10 @@ export default function BottomProductNav(productData=[]) {
           return storedProducts ? JSON.parse(storedProducts) : [];
         }
         return [];
-    });  
+    });
 
+    const { viewCart } =  useDataContext();
+    // console.log('viewCart', viewCart)
 
 
     /// Set product id if productdata is availabel
@@ -61,8 +68,20 @@ export default function BottomProductNav(productData=[]) {
     }, [storageProduct]);
 
 
+     //// Clicked on Buy on EMI 
+     const handleBuyOnEMIClicked = ()=> {
+        if (authTokens) {
+            setLogin(false);
+        } else {
+          setLogin(true);
+        }
+    };
+
+
 return (
-        isSmallScreen && (
+    <>
+    
+    {isSmallScreen && (
         <ButtonGroup
             buttonFlex={1}
             aria-label="flex button group"
@@ -85,13 +104,13 @@ return (
             }}
         >
 
-            {addedToCart ? (
+            {viewCart ? (
                 <IconButton sx={{p:1}}>
                     <Badge badgeContent={1} color="primary">
                         <AddShoppingCartIcon sx={{fontSize:'40px'}}/>
                     </Badge>
+                    {console.log('viewCart', viewCart)}
                 </IconButton>
-
             ) : (
                 <IconButton sx={{p:1}} onClick={handleClickCart}>
                     <AddShoppingCartIcon sx={{fontSize:'40px'}}/>
@@ -104,11 +123,14 @@ return (
                 From 2,000/m
             </Button>
 
-            <Button sx={{backgroundColor:'black', color:'white'}}>
+            <Button sx={{backgroundColor:'black', color:'white'}} onClick={handleBuyOnEMIClicked}>
                 Buy Now
             </Button>
 
     </ButtonGroup>
+    )}
 
-    ));
-};
+    <LoginForm visible={login} onClose={() => setLogin(false)} />
+
+</>
+)};

@@ -6,12 +6,16 @@ import { product } from '@/data/data';
 import SoftwarePage from '../SoftwarePage';
 import { useParams } from 'next/navigation';
 import CheckoutForm from '../CheckoutForm';
+
+
+
 function Page() {
     const param = useParams()
     const [open, setOpen] = useState(false)
-    console.log(param.pi);
+   
     const data = product.filter((item) => item.product_id === parseInt(param.pi))
     const filterData = data[0]
+
     return (
         <div className='relative'>
             <Row className='relative' gutter={[0, 12]}>
@@ -24,6 +28,7 @@ function Page() {
                     </div>
                 </Col>
             </Row>
+            
             <div className=' sm:invisible fixed w-full p-2 z-50 bottom-0 left-0'>
                 <Button block size='large' type='primary' onClick={() => setOpen(true)}>
                     Order

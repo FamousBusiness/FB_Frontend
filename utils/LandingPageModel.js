@@ -7,6 +7,7 @@ import LoginWithOTP from './LoginWithOTP';
 import LoginWithPassword from './LoginWithPassword';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid2';
 
 
 
@@ -37,7 +38,7 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
     };
 
     
-    //////// 
+    //////// Back to main page
     const handleBack = ()=> {
         if (startOTPLogin) {
             setShowBackButton(false);
@@ -74,74 +75,77 @@ const LoginForm = ({ visible, onClose, onCloseCount, width }) => {
             >
                 <ModalClose />
 
-                <Row justify='space-between' align='middle' gutter={12}>
-                    <Col sm={24} xs={24} md={12} xxl={12} lg={12} xl={12}>
-                       
+              
+                <Grid container spacing={2}>
+                    <Grid size={{ xs:12 }}>
                         {showBackButton && 
                             <IconButton onClick={()=> handleBack()}>
                                 <KeyboardBackspaceIcon />
                             </IconButton>
                         }
+                    </Grid>
 
-                        <Col span={24}>
+                    <Grid size={{ xs: 12 }}>
+                        <p className=" text-base ml-2 sm:text-3xl font-bold">
+                            <span className=' text-blue-600'>Famous </span><span className=' text-green-700'>Business</span>
+                        </p>
 
-                            <p className=" text-base ml-2 sm:text-3xl font-bold">
-                                <span className=' text-blue-600'>Famous </span><span className=' text-green-700'>Business</span>
-                            </p>
+                        <p className=' ml-2  mt-2 text-base font-semibold text-gray-800'>Sign In to get The Best Deals & Offers </p>
+                    </Grid>
 
-                            <p className=' ml-2  mt-2 text-base font-semibold text-gray-800'>Sign In to get The Best Deals & Offers </p>
-                        </Col>
+            {vanishButton && 
+                <>
+                    <Grid size={{ xs: 12}}>
+                        <div className=' p-4 sm:p-8'>
+                        <Form className="login-form" layout='vertical'>
+                            <Form.Item>
+                                <Button 
+                                    block 
+                                    size='large' 
+                                    style={{ width: '100%', background: '#3c89d0',color:'white' }} 
+                                    className="login-form-button"
+                                    onClick={()=> handleStartPasswordLogin()}
+                                    >
+                                    Login With Password
+                                </Button>
+                            </Form.Item>
 
-                        {vanishButton && 
-                            <div className=' p-4 sm:p-8'>
-                                <Form
-                                    className="login-form"
-                                    layout='vertical'>
-                                    <Form.Item>
-                                        <Button 
-                                            block 
-                                            size='large' 
-                                            style={{ width: '100%', background: '#3c89d0',color:'white' }} 
-                                            className="login-form-button"
-                                            onClick={()=> handleStartPasswordLogin()}
-                                            >
-                                            Login With Password
-                                        </Button>
-                                    </Form.Item>
+                            <Form.Item>
+                                <Button 
+                                    block size='large' 
+                                    style={{ width: '100%', background: '#3c89d0',color:'white' }} 
+                                    className="login-form-button"
+                                    onClick={()=> handleStartOTPLogin()}
+                                    >
+                                    Login With OTP
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                        <Divider />
 
-                                    <Form.Item>
-                                        <Button 
-                                            block size='large' 
-                                            style={{ width: '100%', background: '#3c89d0',color:'white' }} 
-                                            className="login-form-button"
-                                            onClick={()=> handleStartOTPLogin()}
-                                            >
-                                            Login With OTP
-                                        </Button>
-                                    </Form.Item>
-                                </Form>
-
-                                <Divider />
-                            </div>
-                        }
-                    </Col>
-                </Row>
+                        </div>
+                    </Grid>
+                </>
+            }    
+        </Grid>
 
 
-                {startOTPLogin && 
-                   <LoginWithOTP 
-                        onClose={onClose}
-                   />
-                }
+            {startOTPLogin && 
+                <LoginWithOTP 
+                    onClose={onClose}
+                />
+            }
 
-                {startPassWordLogin && 
-                    <LoginWithPassword 
-                        onClose={onClose}
-                    />
-                }
+            {startPassWordLogin && 
+                <LoginWithPassword 
+                    onClose={onClose}
+                />
+            }
 
             </ModalDialog>
         </Modal>
+        
+
 
 
     );

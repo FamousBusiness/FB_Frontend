@@ -5,6 +5,10 @@ import { Box, ImageList, ImageListItem, Paper, Button, useTheme, useMediaQuery }
 // import FlashOnIcon from '@mui/icons-material/FlashOn';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Image from 'next/image';
+import { useDataContext } from '../DataContext';
+import { useAuth } from '@/context/AuthContext';
+import LoginForm from '@/utils/LandingPageModel';
+
 
 
 
@@ -15,20 +19,45 @@ function ImageGallery({Images = []}) {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-  };
+  const { viewCart, setViewCart } =  useDataContext(); /// View cart button
+  const { authTokens }    = useAuth();
+  const [login, setLogin] = useState(false);
 
-  // Update selectedImage when Images change or on initial load
-  useEffect(() => {
-    if (Images.length > 0) {
-      setSelectedImage(Images[0].image); // Set first image as default
-    }
-  }, [Images]); 
+  
+
+    const handleImageClick = (image) => {
+      setSelectedImage(image);
+    };
+
+
+    // Update selectedImage when Images change or on initial load
+    useEffect(() => {
+      if (Images.length > 0) {
+        setSelectedImage(Images[0].image); // Set first image as default
+      }
+    }, [Images]); 
+
+
+    ////// Added to Cart Clicked
+    const handleProductAddedtoCart = ()=> {
+        setViewCart(true);
+    };
+
+
+    //// Clicked on Buy on EMI 
+    const handleBuyOnEMIClicked = ()=> {
+        if (authTokens) {
+            setLogin(false);
+        } else {
+          setLogin(true);
+        }
+    };
 
 
 
 return (
+
+<>
   <Paper sx={{display:'flex', flexDirection:'row', alignItems:'flex-start', padding:0, height:{ xs:'420px', sm:'520px'}}} elevation={0}>
 
       <Box sx={{
@@ -86,21 +115,38 @@ return (
             </>
           ) : (
             <>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  startIcon={<ShoppingCartIcon />}
-                  fullWidth
-                  sx={{p:2}}
-                >
-                  Cart
-                </Button>
+
+
+                {viewCart ?
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ShoppingCartIcon />}
+                    fullWidth
+                    sx={{p:2}}
+                  >
+                    View Cart
+                  </Button> 
+                  :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ShoppingCartIcon />}
+                    fullWidth
+                    sx={{p:2}}
+                    onClick={handleProductAddedtoCart}
+                    >
+                    Cart
+                  </Button>
+                }
+
 
                 <Button
                   variant="contained"
                   color="warning"
                   sx={{ml:2, mr:2, p:2}}
                   fullWidth
+                  onClick={handleBuyOnEMIClicked}
                 >
                   BUY ON EMI
                 </Button>
@@ -121,6 +167,8 @@ return (
       </Box>
     </Paper>
 
+    <LoginForm visible={login} onClose={() => setLogin(false)} />
+</>
   );
 };
 

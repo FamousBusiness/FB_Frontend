@@ -39,7 +39,7 @@ const Navbar = () => {
 
   }, []);
 
-
+  
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;

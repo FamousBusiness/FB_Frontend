@@ -1,12 +1,13 @@
 import React from 'react';
 import {  UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Row, Col, Flex, Divider } from 'antd';
+import { Button, Form, Input, Divider } from 'antd';
 import { useAuth } from '@/context/AuthContext';
 import Image from 'next/image';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { message } from 'antd';
+import Grid from '@mui/material/Grid2';
 
 
 
@@ -43,6 +44,7 @@ export default function LoginWithOTP({onClose}) {
     const [visibleContinueButton, setVisibleContinueButton]  = useState(true);
     const [visibleLoginButton, setVisibleLoginButton]        = useState(false);
     const [error, setError] = useState('');
+    const [apiURL, setAPIURL]  = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in')
 
 
     ////// Send OTP 
@@ -59,7 +61,7 @@ export default function LoginWithOTP({onClose}) {
     
            // Send API Request for OTP
            try{
-               const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send/login/otp/`, {
+               const response = await fetch(`${apiURL}/api/send/login/otp/`, {
                  method: 'POST',
                  headers: {
                    'Content-Type': 'application/json',
@@ -101,18 +103,20 @@ export default function LoginWithOTP({onClose}) {
      // Submit OTP to API
     const handleSubmitLogin = async ()=> {
         if (otpValue === '') {
-            setError('Please type otp')
+            setError('Please type otp');
+
         } else {
-            setError('')
+            setError('');
+
             try {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login/otp/`, {
+                    const response = await fetch(`${apiURL}/api/login/otp/`, {
                         method: 'POST',
                         headers: {
                         'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                        mobile_number: mobileNumber,
-                        otp: otpValue
+                            mobile_number: mobileNumber,
+                            otp: otpValue
                         }),
                     });
             
@@ -139,12 +143,13 @@ export default function LoginWithOTP({onClose}) {
                         window.location.reload()
 
                     } else if (response.status === 400 || response.status === 401) {
-                    // Display a message for invalid credentials
-                    alert('Login failed. Please check your credentials.');
+                        // Display a message for invalid credentials
+                        alert('Login failed. Please check your credentials.');
             
                     } else {
-                    // Handle other errors gracefully
-                    alert('An error occurred during login.');
+                        // Handle other errors gracefully
+                        alert('An error occurred during login.');
+
                     }
             } catch (error) {
                 console.error('Error during login:', error);
@@ -163,13 +168,12 @@ export default function LoginWithOTP({onClose}) {
 
 return (
    
-    <Row justify='space-between' align='middle' gutter={12}>
-        <Col sm={24} xs={24} md={12} xxl={12} lg={12} xl={12}>
-            <div className=' p-4 sm:p-8'>
-                <Form
-                    className="login-form"
-                    layout='vertical'
-                >
+    // <Row justify='space-between' align='middle' gutter={12}>
+    <Grid container spacing={2} justifyContent='space-between' alignItems='center'>
+        <Grid size={{ xs: 12 }}>
+
+            <div className='p-2 sm:p-2'>
+                <Form className="login-form" layout='vertical'>
                     <Form.Item
                         label="Mobile Number/Email"
                         name="mobile_number"
@@ -224,7 +228,6 @@ return (
                             </Button>
                         </Form.Item>
                     }
-
                     
                     {visibleLoginButton && 
                         <Form.Item>
@@ -249,16 +252,15 @@ return (
                     Login with Google
                 </Button> */}
             </div>
-        </Col>
-        <Col sm={0} xs={0} md={12} xl={12} xxl={12} lg={12} className=' relative'>
+        </Grid>
+
+        {/* <Col sm={0} xs={0} md={12} xl={12} xxl={12} lg={12} className=' relative'> */}
+        {/* <Grid size={{ xs:'none' }}  className='relative'>
             <Flex className=' min-h-min' justify='center' align='flex-end'>
                 <Image src="/Model.png" width={500} height={500} alt='login' />
             </Flex>
-        </Col>
-    </Row>
-
-    //     </ModalDialog>
-    // </Modal>
+        </Grid> */}
+    </Grid>
 
     );
 };

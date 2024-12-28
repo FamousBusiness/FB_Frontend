@@ -7,7 +7,7 @@ export const data = [{
         {
           "date": "11 sep",
           "type": "All listing",
-          "value": 14500
+          "value": 23010
         },
         {
           "date": "11 sep",
@@ -102,12 +102,13 @@ export const product = [
 
     },
     "rating": 18862,
-    "price": 90000,
-    "offer": Math.floor(Math.random() * 21) + 10,
+    "price": 23010,
+    "offer": 0,
 
     "description": "An app for pharmacy.",
     "image_url": "/Software/jewellary.png"
   },
+  
   {
     "product_id": 2,
     "about":'Pharmaceutical businesses demand efficient management and organization. Our Pharmacy Business App streamlines prescription management, inventory, and customer interactions. With a robust platform, it simplifies pharmacy operations, ensuring accuracy and customer satisfaction. Revolutionize your pharmacy business with our innovative app solution.',

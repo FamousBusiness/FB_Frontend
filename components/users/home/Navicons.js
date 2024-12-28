@@ -53,10 +53,9 @@ const MenuBar = () => {
           </Col>
 
           <Col>
-            <Link className=' text-center items-center flex flex-col' href='/store'>
-              {/* <Image src="/HomeNavbar/marketing.svg" width={50} height={50} alt='marketing' /> */}
+            <Link className=' text-center items-center flex flex-col' href='https://store.famousbusiness.in/'>
               <StoreIcon color='primary' sx={{fontSize:'3.2rem'}} />
-              <div className=' font-bold text-black'>Store</div>
+              <div className='font-bold text-black'>Store</div>
             </Link>
           </Col>
 

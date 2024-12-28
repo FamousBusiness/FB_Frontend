@@ -4,6 +4,7 @@ import { Button, Form, Input, Row, Col, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import Grid from '@mui/material/Grid2';
 
 
 
@@ -60,8 +61,8 @@ export default function LoginWithPassword({onClose}) {
 
 
     return (
-        <Row justify='space-between' align='middle' gutter={12}>
-            <Col sm={24} xs={24} md={12} xxl={12} lg={12} xl={12}>
+        <Grid container justifyContent='space-between' alignContent='center' spacing={2}>
+            <Grid size={{ xs: 12 }}>
                 <div className=' p-4 sm:p-8'>
                     <Form
                         className="login-form"
@@ -120,7 +121,7 @@ export default function LoginWithPassword({onClose}) {
 
                     </Form>
                 </div>
-            </Col>
-        </Row>
+            </Grid>
+        </Grid>
     );
 };

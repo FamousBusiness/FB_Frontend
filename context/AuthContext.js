@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
 		if (typeof window !== 'undefined') {
 			// Check if running on the client-side
 			return Cookies.get('authTokens') ? JSON.parse(Cookies.get('authTokens')) : null;
+			// return localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null ;
 		}
 		return null;
 	});
@@ -31,6 +32,7 @@ const AuthProvider = ({ children }) => {
 		if (typeof window !== 'undefined') {
 			// Check if running on the client-side
 			return Cookies.get('accessToken') ? jwt_decode(Cookies.get('accessToken')) : null;
+			// return localStorage.getItem('accessToken') ? jwt_decode(localStorage.getItem('accessToken')) : null ;
 		}
 		return null
 	});

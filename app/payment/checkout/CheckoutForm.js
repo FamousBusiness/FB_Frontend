@@ -9,19 +9,24 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from 'next/navigation';
 
+
+
 function CheckoutForm({ data }) {
     const amout = parseInt(data.price);
-    const Gst = (amout * 18) / 100;
+    const Gst = 0;
+    // const Gst = (amout * 18) / 100;
     const total = amout + Gst;
     const [open, setOpen] = useState(false)
     const { authTokens } = useAuth()
     const [checkout, setCheckOut] = useState(false);
     const router = useRouter()
+
     const showRazorpay = async () => {
         // await loadScript();
         let bodyData = new FormData();
         bodyData.append("amount", amout);
         bodyData.append("name", data.product_name);
+
         try {
             setCheckOut(false);
             const { data } = await Axios.post(`${process.env.NEXT_PUBLIC_API_URL}/soft-api/payment-initiate/`, bodyData, {
@@ -49,6 +54,7 @@ function CheckoutForm({ data }) {
             setOpen(true);
         }
     }
+
     return (
         <div className=' p-8  bg-slate-100'>
             <Row gutter={[0, 24]} >
@@ -64,32 +70,41 @@ function CheckoutForm({ data }) {
                         <Col span={9} className=' text-base font-bold'>
                             Amout(INR)
                         </Col>
+
                         <Col className=' text-base font-bold' span={9}>
                             ₹ {amout}
                         </Col>
+
                         <Col className=' text-base font-bold' span={9}>
                             GST(18%)
                         </Col>
+
                         <Col className=' text-base font-bold' span={9}>
                             ₹ {Gst}
                         </Col>
+
                         <Col span={24}>
                             <hr />
                         </Col>
+
                         <Col span={9} className=' text-lg font-bold'>
                             Subtotal(INR)
                         </Col>
+
                         <Col span={9} className=' text-lg font-bold'>
                             ₹ {total}
                         </Col>
+
                         <Col span={24} className=' text-center'>
                             Subtotal does not include applicable taxes.
                         </Col>
+
                         <Col span={24}>
                             <div onClick={HandlePayment} className=' py-4 cursor-pointer text-center w-full bg-indigo-500 rounded-md text-white font-bold text-xl'>
                                 {checkout ? <Spin /> : 'Order Now'}
                             </div>
                         </Col>
+
                         {/* Secure payment icons */}
                         <Col lg={24} md={24} xxl={24} sm={0} xs={0} xl={24}>
                             <Row justify='center' align='middle' gutter={[10, 12]}>

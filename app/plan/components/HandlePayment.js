@@ -81,6 +81,7 @@ function HandlePayment({ id, amount }) {
             setLogin(true);
         }
     };
+    
 
     return (<>
         <Button disabled={disableButton} 
