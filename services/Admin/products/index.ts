@@ -3,9 +3,13 @@ import Cookies from "js-cookie";
 
 
 export const update_a_product = async (formData: any, id: number) => {
+  const serverUrl = process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True'
+        ? 'http://127.0.0.1:8000/api' 
+        : 'https://api.famousbusiness.in/api';
+
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/listings/businesspage-update/${id}/`,
+      `${serverUrl}/listings/businesspage-update/${id}/`,
       {
         method: "PUT",
         headers: {
@@ -21,6 +25,7 @@ export const update_a_product = async (formData: any, id: number) => {
     }
     const data = await res.json();
     return data;
+
   } catch (error) {
     console.log("Error in updating Product (service) =>", error);
   }
@@ -41,8 +46,9 @@ export const get_product_by_id = async (id: number) => {
     const data = await res.json();
     const business = data.data;
     return business.Business_data;
+
   } catch (error) {
-    console.error("Error in getting product by ID (service) =>", error);
+    // console.error("Error in getting product by ID (service) =>", error);
     throw error; // Re-throw the error to propagate it further if needed
   }
 };

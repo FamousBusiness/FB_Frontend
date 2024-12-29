@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Form, Select } from 'antd';
-import { get_all_categories } from "@/services/Admin/category";
+import { get_all_categories } from '@/services/Admin/category';
 
 
 
 
 
-const FetchAllCategories = ({ label, required }) => {
+const FetchCategories = ({ label, required }) => {
   const [items, setItems] = useState([]);
   const [categoryID, setCategoryId] = useState(0);
 
@@ -58,4 +58,4 @@ const FetchAllCategories = ({ label, required }) => {
 };
 
 
-export default FetchAllCategories;
+export default FetchCategories;

@@ -10,10 +10,10 @@ import React, { useEffect } from 'react'
 
 function Page() {
     const { user, userdata } = useAuth()
-    const router = useRouter()
+    const router      = useRouter()
     const searchParam = useSearchParams()
-    const id = searchParam.get('id');
-    const brand = searchParam.get('brand');
+    const id          = searchParam.get('id');
+    const brand       = searchParam.get('brand');
 
 
     useEffect(() => {
@@ -35,6 +35,7 @@ function Page() {
             </Row>
         </div>
     )
-}
+};
+
 
 export default Page;

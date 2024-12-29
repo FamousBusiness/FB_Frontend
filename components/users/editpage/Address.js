@@ -15,7 +15,7 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import { BsPersonArmsUp } from "react-icons/bs";
 import { MdOutlineNature } from "react-icons/md";
 import { get_product_by_id, update_a_product } from "@/services/Admin/products";
-import Category1 from "@/components/admin/Listing/CategorySelect";
+// import Category1 from "@/components/admin/Listing/CategorySelect";
 import { useRouter } from "next/navigation";
 import UploadImage from "./UploadImage";
 import AddressForm from "./ComplateAddress";
@@ -23,7 +23,8 @@ import axios from "axios";
 import { PiUserSquare } from "react-icons/pi";
 import useSWR from "swr";
 import moment from "moment";
-import {Button as MUIButton} from '@mui/material';
+// import {Button as MUIButton} from '@mui/material';
+import FetchCategories from "./Categories";
 
 
 
@@ -31,11 +32,11 @@ import {Button as MUIButton} from '@mui/material';
 
 
 const Address = ({ id }) => {
-  const [form] = Form.useForm();
-  const [cities, setCities] = useState("");
+  const [cities, setCities]     = useState("");
   const [pincodes, setPincodes] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [form]                  = Form.useForm();
+  const [loading, setLoading]   = useState(false);
+  const router                  = useRouter();
   const { data: business, error, mutate } = useSWR(id, get_product_by_id);
 
 
@@ -97,6 +98,7 @@ const Address = ({ id }) => {
 
     try {
       setLoading(true);
+      
       const formattedOpeningTime = values.opening_time
         ? values.opening_time.format("HH:mm")
         : null;
@@ -144,10 +146,11 @@ const Address = ({ id }) => {
         router.back();
       } else {
         // No changes, simply redirect back
-        console.log("No changes detected.");
+        // console.log("No changes detected.");
       }
     } catch (err) {
       console.error("Error updating product:", err);
+
     } finally {
       // Regardless of success or failure, set loading to false
       setLoading(false);
@@ -178,20 +181,25 @@ const Address = ({ id }) => {
         align="middle"
         gutter={[12, { xs: 0, sm: 0, lg: 24, xl: 24, xxl: 24, md: 0 }]}
       >
+
+        {/* Image Upload */}
         <Col span={24}>
           <UploadImage mutate={mutate} business={business} />
         </Col>
 
+        {/* Business Name */}
         <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
           <Form.Item name="business_name" label="Business Name">
             <Input addonBefore={<IoBusinessOutline />} />
           </Form.Item>
         </Col>
 
+        {/* Category */}
         <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
-          <Category1 label={true} required={false} />
+          <FetchCategories label={true} required={false} />
         </Col>
 
+        {/* Mobile number */}
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item name="mobile_number" label="Phone Number">
             <Input
@@ -203,6 +211,8 @@ const Address = ({ id }) => {
           </Form.Item>
         </Col>
 
+
+        {/* Whatsapp number */}
         <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
           <Form.Item
             name="whatsapp_number"
@@ -217,20 +227,19 @@ const Address = ({ id }) => {
           </Form.Item>
         </Col>
 
-        <Col sm={24} xs={24} md={23} xxl={8} xl={8} lg={8}>
-          {/* Extra mobile number */}
+        {/* Extra Mobile Number */}
+        {/* <Col sm={24} xs={24} md={23} xxl={8} xl={8} lg={8}>
           <ExtraMobile />
-        </Col>
+        </Col> */}
 
         <Col sm={24} xs={24} md={24} xxl={12} xl={12} lg={12}>
           <Form.Item
             name="email"
             label="Email"
-            // tooltip="What do you want others to call you?"
             rules={[
               {
                 type: "email",
-              },
+              }
             ]}
           >
             <Input addonBefore={<MailOutlined />} type="email" />
@@ -243,11 +252,11 @@ const Address = ({ id }) => {
           </Form.Item>
         </Col>
 
-        <Col sm={12} xs={12} md={12} xxl={12} xl={12} lg={12}>
+        {/* <Col sm={12} xs={12} md={12} xxl={12} xl={12} lg={12}>
           <Form.Item name="opening_time" label="Opening Time">
             <TimePicker
               use12Hours
-              style={{ width: "100%" }}
+              style={{ width: "100%", color:'blue' }}
               format="h:mm a"
               placeholder="Select Opening Time"
             />
@@ -258,12 +267,12 @@ const Address = ({ id }) => {
           <Form.Item name="closing_time" label="Closing Time">
             <TimePicker
               use12Hours
-              style={{ width: "100%" }}
+              style={{ width: "100%" , color:'blue'}}
               format="h:mm a"
               placeholder="Select Closing Time"
             />
           </Form.Item>
-        </Col>
+        </Col> */}
 
         <Col span={24}>
           <AddressForm handlePinCodeChange={handleCity} />
