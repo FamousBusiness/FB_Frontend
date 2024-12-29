@@ -22,7 +22,7 @@ import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { PiUserSquare } from 'react-icons/pi';
 import Category1 from '@/components/admin/Listing/CategorySelect';
-import ExtraMobile from '@/components/users/editpage/ExtraNumber';
+// import ExtraMobile from '@/components/users/editpage/ExtraNumber';
 import AddressForm from '@/components/users/editpage/ComplateAddress';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
@@ -30,6 +30,9 @@ import zxcvbn from 'zxcvbn';
 import Title from 'antd/es/typography/Title';
 
 const { Text } = Typography
+
+
+
 
 const PasswordStrengthMeter = ({ password }) => {
 
@@ -68,6 +71,8 @@ const PasswordStrengthMeter = ({ password }) => {
     return <Text type={color}>{text}</Text>;
 };
 
+
+
 const PasswordInput = ({ value, onChange, placeholder }) => {
     return (
         <>
@@ -82,6 +87,8 @@ const PasswordInput = ({ value, onChange, placeholder }) => {
         </>
     );
 };
+
+
 
 
 const Address = () => {
@@ -139,7 +146,7 @@ const Address = () => {
     };
 
     const onFinish = (values) => {
-        console.log(values)
+        // console.log(values)
         registerUser(values);
 
     };
@@ -149,16 +156,20 @@ const Address = () => {
           {required ? <Tag color="error">Required</Tag> : <Tag color="warning">Optional</Tag>}
           {label}
         </>
-      );
+    );
+
+
     return (<>
         <Row justify='center' gutter={[0,24]}>
-        <Col span={22} className=' top-6'>
+            <Col span={22} className=' top-6'>
               <Link className="text-lg sm:text-3xl font-bold" href="/"  >
                 <span className='text-blue-600'>Famous </span>
                 <span className='text-green-700'>Business</span>
               </Link>
+
               <hr className=' my-2' />
             </Col>
+
             <Col sm={24} xs={24} lg={15} xl={15} xxl={15}>
                 <Card title={<Title className=' py-2' level={2}>Register As Business</Title>} style={{borderRadius:0}}>
                     <Form
@@ -174,7 +185,6 @@ const Address = () => {
                         scrollToFirstError
                     >
                         <Row justify='space-between' align='middle' gutter={[12, { xs: 0, sm: 0, lg: 24, xl: 24, xxl: 24, md: 0 }]}>
-
                             <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
                                 <Form.Item
                                     name="name"
@@ -188,8 +198,8 @@ const Address = () => {
                                 >
                                     <Input  placeholder='Rajiv'  prefix={<UserOutlined />} />
                                 </Form.Item>
-
                             </Col>
+
                             <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
                                 <Form.Item
                                     name="business_name"

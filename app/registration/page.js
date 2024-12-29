@@ -9,10 +9,15 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { BsBookmarkCheck, BsCheckCircle } from 'react-icons/bs';
 
+
+
+// Business Registration Mobile Number Step
 function Page() {
     const [mobileNumber, setMobileNumber] = useState('');
     const [isFieldEmpty, setIsFieldEmpty] = useState(true);
     const router = useRouter()
+
+
     const handleMobileNumberChange = (event) => {
         const { value } = event.target;
         setMobileNumber(value);
@@ -24,8 +29,9 @@ function Page() {
         // console.log('Start Now button clicked');
         router.push(`/registration/${mobileNumber}`)
     };
-    return (
 
+
+    return (
         <Row justify='center' gutter={[0, 24]}>
             <Col xl={23} xxl={23} sm={24} xs={24} lg={23} >
                 <Row justify='center' gutter={[0, 24]}>
@@ -70,6 +76,8 @@ function Page() {
                             </div>
                         </div>
                     </Col>
+
+
                     <Col xl={10} xxl={10} sm={23} xs={23} lg={10} className=' top-20' >
                         <Row justify='end' gutter={[0, 24]}>
                             <Col span={24} >
@@ -145,7 +153,8 @@ function Page() {
                 </Row>
             </Col>
         </Row>
-    )
-}
+    );
+};
+
 
 export default Page

@@ -28,7 +28,7 @@ function Page() {
                     </div>
                 </Col>
             </Row>
-            
+
             <div className=' sm:invisible fixed w-full p-2 z-50 bottom-0 left-0'>
                 <Button block size='large' type='primary' onClick={() => setOpen(true)}>
                     Order
