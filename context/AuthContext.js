@@ -67,8 +67,11 @@ const AuthProvider = ({ children }) => {
 
 
 	const registerUser = async (values) => {
+		// console.log('values', values)
+
 		try {
 			setUseloading(true);
+
 			const response = await fetch(`${apiUrl}/register/`, {
 				method: 'POST',
 				headers: {
@@ -88,25 +91,30 @@ const AuthProvider = ({ children }) => {
 					router.push('/login');
 				} else {
 					// Handle other cases where there's no 'msg' property
-					console.error('Unexpected response:', data);
+					// console.error('Unexpected response:', data);
 					message.error('Registration failed. Please try again.');
 				}
 
-			} else {
+			} else if (response.status === 400) {
+					message.error('Registration Failed, Please Check unique Number')
+
+			}  else {
 				// Handle error response status codes
 				if (data.mobile_number && data.mobile_number[0].length > 0) {
 					// Display warning for mobile_number related errors
 					message.warning(data.mobile_number[0]);
 				} else {
 					// Display a generic error message for other cases
-					console.error('Registration failed:', data);
+					// console.error('Registration failed:', data);
 					message.error('Registration failed. Please try again.');
 				}
 			}
+
 		} catch (error) {
 			// console.error('Error during registration:', error);
 			// Handle network error or other errors
 			message.error('An error occurred. Please try again later.');
+			console.log('error', error)
 		}
 	};
 

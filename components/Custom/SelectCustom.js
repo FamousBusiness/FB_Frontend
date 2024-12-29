@@ -58,6 +58,7 @@ const CustomSelect = ({ mode, handlePinCodeChange, selectedCity, setSelectedCity
     // Generate a unique session token (you can implement as needed)
     return Math.random().toString(36).substr(2);
   };
+  
 
   return (
     <Select

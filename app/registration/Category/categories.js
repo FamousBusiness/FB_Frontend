@@ -1,17 +1,16 @@
 "use client";
+
 import React, { useState, useEffect } from 'react';
 import { Divider, Form, Select, Space } from 'antd';
-
-// import AddnewCat from './AddNewlist';
-import { get_all_categories } from '@/services/Admin/category';
+import { get_all_categories } from "@/services/Admin/category";
 
 
 
 
 
-const Category1 = ({ label, tooltip, required, size, category_id, setCategoryId }) => {
+const FetchAllCategories = ({ label, required }) => {
   const [items, setItems] = useState([]);
-  // const [name, setName] = useState('');
+  const [categoryID, setCategoryId] = useState(0);
 
 
   useEffect(() => {
@@ -28,6 +27,7 @@ const Category1 = ({ label, tooltip, required, size, category_id, setCategoryId 
     fetchData();
   }, []); // Run only on component mount
 
+
   const onNameChange = (value) => {
     setCategoryId(value);
   };
@@ -36,12 +36,11 @@ const Category1 = ({ label, tooltip, required, size, category_id, setCategoryId 
 
 
   return (
-    <Form.Item required={required} tooltip={tooltip} name='category' label={label && 'Category'}>
+    <Form.Item required={required} tooltip='Category' name='category' label={label && 'Category'}>
       <Select
         showSearch
-        size={size}
         onChange={onNameChange}
-        value={category_id}
+        value={categoryID}
         style={{
           width: "100%",
         }}
@@ -59,4 +58,4 @@ const Category1 = ({ label, tooltip, required, size, category_id, setCategoryId 
 };
 
 
-export default Category1;
+export default FetchAllCategories;

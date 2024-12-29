@@ -1,10 +1,12 @@
 
+
 import "./globals.css";
 import Navbar from "@/components/users/Navbar";
 import Footer from "@/components/users/UserProfile.js/Footer";
 import BottomNav from "@/components/users/home/MobileComponent/BottomNav";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalStateProvider } from "@/services/LocationDetector/GlobalState";
+
 
 
 

@@ -21,13 +21,14 @@ import { MdOutlineNature } from 'react-icons/md';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { PiUserSquare } from 'react-icons/pi';
-import Category1 from '@/components/admin/Listing/CategorySelect';
+// import Category1 from '@/components/admin/Listing/CategorySelect';
 // import ExtraMobile from '@/components/users/editpage/ExtraNumber';
 import AddressForm from '@/components/users/editpage/ComplateAddress';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import zxcvbn from 'zxcvbn';
 import Title from 'antd/es/typography/Title';
+import FetchAllCategories from '../Category/categories';
 
 const { Text } = Typography
 
@@ -128,7 +129,8 @@ const Address = () => {
             try {
                 const response = await axios.get(`https://api.postalpincode.in/pincode/${value}`);
                 const data = response.data;
-                console.log(data);
+                // console.log(data);
+
                 if (data && data.length > 0 && data[0].Status === 'Success') {
                     const placeData = data[0].PostOffice[0];
                     form.setFieldsValue({
@@ -148,7 +150,6 @@ const Address = () => {
     const onFinish = (values) => {
         // console.log(values)
         registerUser(values);
-
     };
 
     const customRequiredMark = (label, {required}) => (
@@ -196,7 +197,7 @@ const Address = () => {
                                         },
                                     ]}
                                 >
-                                    <Input  placeholder='Rajiv'  prefix={<UserOutlined />} />
+                                    <Input  placeholder='John'  prefix={<UserOutlined />} />
                                 </Form.Item>
                             </Col>
 
@@ -232,6 +233,7 @@ const Address = () => {
                                     <PasswordInput value={password} onChange={handlePasswordChange} placeholder='XXXXXXX' />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={24} xs={24} md={12} xxl={12} xl={12} lg={12}>
                                 <Form.Item
                                     required
@@ -263,7 +265,8 @@ const Address = () => {
                             </Col>
 
                             <Col sm={24} xs={24} md={24} xxl={8} xl={8} lg={8}>
-                                <Category1 required={true} label={true} />
+                                {/* <Category1 required={true} label={true} /> */}
+                                <FetchAllCategories required={true} label={true} />
                             </Col>
 
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
@@ -279,7 +282,6 @@ const Address = () => {
                                 >
                                     <Input  prefix={<MobileOutlined className="site-form-item-icon" />} placeholder="Mobile Number" />
                                 </Form.Item>
-
                             </Col>
 
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
@@ -317,6 +319,7 @@ const Address = () => {
                                     <Input placeholder='examplae@mail.com'  prefix={<MailOutlined />} />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={24} xs={24} md={24} xxl={12} xl={12} lg={12}>
                                 <Form.Item
                                     name="website_url"
@@ -325,9 +328,11 @@ const Address = () => {
                                     <Input  prefix={<GlobalOutlined />} placeholder="https://www.example.com" />
                                 </Form.Item>
                             </Col>
+
                             <Col span={24}>
                                 <AddressForm handlePinCodeChange={handlePinCodeChange} />
                             </Col>
+
                             <Col sm={24} xs={24} md={24} xxl={24} xl={24} lg={24}>
                                 <Form.Item
                                     
@@ -370,6 +375,7 @@ const Address = () => {
                                     <Input placeholder='562535xxx'  prefix={<HiDocumentText />} />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="director"
@@ -378,6 +384,7 @@ const Address = () => {
                                     <Input placeholder='Mr.Rajendra'  prefix={<PiUserSquare />} />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="RoC"
@@ -386,6 +393,7 @@ const Address = () => {
                                     <Input placeholder='Roc..' />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="DIN"
@@ -403,6 +411,7 @@ const Address = () => {
                                     <Input placeholder='12635xxx' />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="nature"
@@ -411,6 +420,7 @@ const Address = () => {
                                     <Input  prefix={<MdOutlineNature />} />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="turn_over"
@@ -419,6 +429,7 @@ const Address = () => {
                                     <Input  prefix={<FaIndianRupeeSign />} />
                                 </Form.Item>
                             </Col>
+
                             <Col sm={12} xs={12} md={12} xxl={8} xl={8} lg={8}>
                                 <Form.Item
                                     name="employee_count"
@@ -427,6 +438,7 @@ const Address = () => {
                                     <Input placeholder='1000'  prefix={<BsPersonArmsUp />} />
                                 </Form.Item>
                             </Col>
+
                             <Col span={24}>
                                 <Row justify='center'>
                                     <Col>
@@ -446,15 +458,14 @@ const Address = () => {
                                     </Col>
                                 </Row>
                             </Col>
+
                             <Col xl={24} sm={24} xs={24} md={24} xxl={24} lg={24} >
                                 <Form.Item >
                                     <Button loading={useloading} block  style={{background:'#3c89d0',color:'white'}} htmlType="submit">
                                         Register
                                     </Button>
                                 </Form.Item>
-
                             </Col>
-
                         </Row>
                     </Form>
                 </Card>
