@@ -12,8 +12,8 @@ import HomeLeadFormModal from "./FormModal";
 ////// Lead Form Tag Card
 export default function LeadFormTagCard({item}) {
     const [mediaUrl, setMediaUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? true : false);
-    const [open, setOpen] = useState(false)
-    
+    const [open, setOpen]         = useState(false);
+
 
     return (
         <>
@@ -23,7 +23,7 @@ export default function LeadFormTagCard({item}) {
                     borderWidth: 0.5,
                     borderColor: "slategray",
                 }}
-                className=" w-full"
+                // className="w-full"
                 // hoverable
                 >
                 <Box
@@ -33,7 +33,7 @@ export default function LeadFormTagCard({item}) {
                         height: '250px',
                         backgroundImage: `url(${mediaUrl ? 'http://127.0.0.1:8000/' + item?.background_img : item?.background_img || 'default image'})`,
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                        backgroundPosition: 'center'
                     }}
                 >
                     <Box

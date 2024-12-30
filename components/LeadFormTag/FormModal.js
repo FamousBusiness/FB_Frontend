@@ -1,11 +1,12 @@
 import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
-import { Box,Typography, TextField, Button, styled, Card, CardContent, Select, MenuItem } from '@mui/material';
+import { Box,Typography, TextField, Button, styled, Card, CardContent, Select, MenuItem, useTheme, useMediaQuery } from '@mui/material';
 import axios from 'axios';
 import { Button as  JoyButton} from '@mui/joy';
 import SellIcon from '@mui/icons-material/Sell';
 import { Spin, message } from 'antd';
+
 
 
 
@@ -16,8 +17,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: {xs: 100, sm: 600},
-    height: {xs: 500, sm: 600}, // Set a fixed height
+    width: {xs: '55vh', sm: '80vh'},
+    height: {xs: '80vh', sm: 600}, // Set a fixed height
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -52,6 +53,9 @@ const BackgroundWrapper = styled(Box)({
 
 //////// Home page Lead forms according to tag wise
 export default function HomeLeadFormModal({open, setOpen, item}) {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     const handleClose = () => setOpen(false); ////// Close the Modal
     const [countryCode, setCountryCode]        = React.useState('+91');  //// Country Code in form
     const [inValicategory, setInvalidcategory] = React.useState(false);
@@ -62,8 +66,8 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
     const [disableButton, setDisableButton]    = useState(false); ///// Disable button
     const [loading, setLoading]                = useState(true);  //// API data fetch loading
     const [questionForm, setQuestionForm]      = useState(false);
-    const [messageApi, contextHolder] = message.useMessage();  ////// Success Message
-    const [sentence, updateSentence] = useState(''); /////// Requirement Questions
+    const [messageApi, contextHolder]          = message.useMessage();  ////// Success Message
+    const [sentence, updateSentence]           = useState(''); /////// Requirement Questions
     const [apiURL, setAPIUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in');
     const [mediaUrl, setMediaUrl] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? true : false);
     const [formData, updateFormData] = useState({
@@ -110,8 +114,10 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
         updateSentence(sentenceParts.join(','))
       }
     }, [questionFormData]);
-  
-    
+
+
+
+    ///// Country Code Change
     const handleCountryCodeChange = (event) => {
       setCountryCode(event.target.value);
     };
@@ -123,15 +129,15 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
           lead_form_id: item.id
 
       }).then((res)=> {
-        // console.log(res)
+        //// console.log(res)
         if (res.status === 200 && res.data.success === true) {
-           setLeadFormData(res.data.lead_form_data)
-           setLoading(false)
+            setLeadFormData(res.data.lead_form_data)
+            setLoading(false)
         }
 
       }).catch((error)=> {
-          // console.log(error)
-          setLoading(false)
+          //// console.log(error)
+          setLoading(false);
       })
    }, [apiURL, item.id]);
 
@@ -160,13 +166,16 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
     const handleSubmitLeadGenerateFormData = ()=> {
 
          if (!formData.full_name) {
-            setError('Please fill your Full Name')
+            setError('Please fill your Full Name');
+
          } else if (!formData.number) {
-            setError('Please fill your Mobile Number')
+            setError('Please fill your Mobile Number');
+
          } else if (formData.number.length < 10) {
-            setError('Phone Number can not be less than 10 digit')
+            setError('Phone Number can not be less than 10 digit');
+
          } else if (formData.full_name.length > 40) {
-            setError('Name should not greater than 40 Letter ')
+            setError('Name should not greater than 40 Letter ');
 
          } else {
             setError('');
@@ -189,9 +198,9 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
             }).catch((error)=> {
               //  console.log(error)
                 if (error.response.status === 400) {
-                    setError('Something went wrong Please try after sometime')
-                    setInvalidcategory(true)
-                    setDisableButton(false)
+                    setError('Something went wrong Please try after sometime');
+                    setInvalidcategory(true);
+                    setDisableButton(false);
                 }
             })
          }
@@ -204,11 +213,14 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
   const handleSubmitQuestionForm = () => {
 
       if (!sentence) {
-        setError('Please fill up the questions')
+        setError('Please fill up the questions');
+
       } else if (LeadFormData.city_required && !questionFormData.city) {
-        setError('Pleas fil your city')
+        setError('Pleas fil your city');
+
       } else if (LeadFormData.state_required && !questionFormData.state) {
-        setError('Please Fill your State')
+        setError('Please Fill your State');
+
       } else {
         setError('')
         setDisableButton(true);
@@ -279,18 +291,17 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                     marginTop:-10
                   }}
                 >
-              <BackgroundWrapper />
+                <BackgroundWrapper />
 
               <Card
                 sx={{
-                  width: 500,
+                  width: 600,
                   boxShadow: '0px 4px 10px rgba(0,0,0,0.2)',
                   borderRadius: 3,
                   overflow: 'hidden',
                   position: 'relative',
                 }}
               >
-
                 <Box
                   sx={{
                     position: 'relative',
@@ -363,7 +374,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='question_1'
                           value={questionFormData.question_1}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -375,7 +386,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='question_2'
                           value={questionFormData.question_2}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -387,7 +398,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='question_3'
                           value={questionFormData.question_3}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -399,7 +410,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='question_4'
                           value={questionFormData.question_4}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -411,7 +422,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='city'
                           value={questionFormData.city}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -423,7 +434,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           fullWidth
                           name='state'
                           value={questionFormData.state}
-                          onChange={handleChangeFormData}
+                          onChange={(e)=> handleChangeFormData(e)}
                           sx={{ mt: 2 }}
                         />
                       }
@@ -444,7 +455,8 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                       <Box sx={{ display: 'flex', mt: 2 }}>
                         <Select
                           value={countryCode}
-                          onChange={handleCountryCodeChange}
+                          size='small'
+                          onChange={(event)=> handleCountryCodeChange(event)}
                           sx={{
                             width: '30%',
                             mr: 1,
@@ -462,7 +474,7 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                           variant="outlined"
                           fullWidth
                           name='number'
-                          placeholder="Phone number for Famous Business"
+                          placeholder={isSmallScreen ? "Phone number" : "Phone number for Famous Business"}
                           value={formData.number}
                           onChange={(e) => handleChangeForm(e)}
                         />
@@ -475,26 +487,22 @@ export default function HomeLeadFormModal({open, setOpen, item}) {
                   {disableButton ?
                     <JoyButton fullWidth loading sx={{mt:3}}>Loading</JoyButton>
                     :
-
                     <Button
                       variant="contained"
                       fullWidth
                       color="primary"
                       sx={{ mt: 3, height: 48, backgroundColor: '#3b82f6' }}
-                      onClick={ questionForm ? handleSubmitQuestionForm : handleSubmitLeadGenerateFormData
-                        
-                      }
+                      onClick={()=> {questionForm ? handleSubmitQuestionForm() : handleSubmitLeadGenerateFormData() }}
                     >
                       Continue
                     </Button>
                   }
-                  
                 </CardContent>
 
                 <p style={{color:'red'}}>{error && error}</p>
               </Card>
             </Box>
-            </Box>
+        </Box>
           }
         </Modal>
 

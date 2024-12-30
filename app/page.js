@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Carousel, Col, Row, Space, Spin, Typography } from "antd";
+import { Carousel, Col, Row, Space, Spin } from "antd";
+// import Typography from "antd";
 import Top from "@/components/users/home/TopSection/Top";
 import TrendingBusiness from "@/components/users/home/BusinessCategoryNearme/TrendingBusiness";
 import VerifyBusiness from "@/components/users/home/VerifyBusinessNearMe/VerifyBusiness";
@@ -29,7 +30,7 @@ const poppinss = Poppins({
 });
 
 
-const { Text, Title } = Typography;
+// const { Text, Title } = Typography;
 
 
 // Home Page
@@ -74,7 +75,6 @@ function Page() {
       transition={{ duration: 0.5 }}
     >
       <div className=" relative overflow-hidden dark:text-black">
-        
         {/* <ProfilePop /> */}
         <Row
           justify="center"
