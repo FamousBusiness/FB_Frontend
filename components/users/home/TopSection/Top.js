@@ -113,9 +113,11 @@ function Top() {
             src='/CategoryNearMe/Invoice.json'
             loop
             autoplay />
+
           <div className=' text-lg font-sans font-semibold mt-2 px-2 '>
             <div onClick={() => router.push('/invoice-generator')} className=' cursor-pointer border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>Get Started</div>
           </div>
+          
         </div>
       </Col>
      

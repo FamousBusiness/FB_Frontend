@@ -21,6 +21,7 @@ function SoftwareComponent() {
     const [data, setData] = useState([])
     const carouselRefOne = useRef();
     const array = [1, 2, 3, 4]
+
     // Functions to handle next and previous for the first carousel
     const handleNextOne = () => {
         carouselRefOne.current.next();
@@ -37,6 +38,7 @@ function SoftwareComponent() {
     }, []);
 
 
+    
     return (
         <div style={{
             padding: '24px 0',

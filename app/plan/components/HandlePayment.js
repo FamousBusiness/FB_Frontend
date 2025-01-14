@@ -73,7 +73,7 @@ function HandlePayment({ id, amount }) {
                 
             }
             catch (error) {
-                console.log(error);
+                // console.log(error);
                 setDisableButton(false);
             }
         }

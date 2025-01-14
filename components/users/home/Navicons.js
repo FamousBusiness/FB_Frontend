@@ -53,7 +53,7 @@ const MenuBar = () => {
           </Col>
 
           <Col>
-            <Link className=' text-center items-center flex flex-col' href='https://store.famousbusiness.in/'>
+            <Link className=' text-center items-center flex flex-col' href='#'>
               <StoreIcon color='primary' sx={{fontSize:'3.2rem'}} />
               <div className='font-bold text-black'>Store</div>
             </Link>

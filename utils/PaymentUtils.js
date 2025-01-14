@@ -27,6 +27,7 @@ const createRazorpayOrder = async (amout) => {
   }
 };
 
+
 const handleRazorpaySuccess = async (response) => {
   try {
     const requestData = {
@@ -67,6 +68,7 @@ const loadRazorpayScript = () => {
   });
 };
 
+
 const showRazorpay = async (amout) => {
   await loadRazorpayScript();
 
@@ -80,6 +82,7 @@ const showRazorpay = async (amout) => {
       description: 'Test transaction',
       image: '', // Add image URL
       order_id: orderData.data.data.id,
+
       handler: function (response) {
         handleRazorpaySuccess(response);
       },
@@ -88,6 +91,7 @@ const showRazorpay = async (amout) => {
         email: "User's email",
         contact: "User's phone",
       },
+
       notes: {
         address: 'Razorpay Corporate Office',
       },

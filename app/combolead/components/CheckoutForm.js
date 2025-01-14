@@ -32,9 +32,8 @@ function CheckoutForm({ data }) {
             combo_lead_id: data ? data.data.id : null,
             cities: locate,
             ...values
-
         }
-        console.log('Receive', comdata)
+        // console.log('Receive', comdata)
 
         try {
             setCheckOut(false);

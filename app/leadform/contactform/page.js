@@ -29,6 +29,8 @@ const BackgroundWrapper = styled(Box)({
   
 
 
+
+
 function ContactInformation() {
     const [countryCode, setCountryCode] = React.useState('+91');
     const [inValicategory, setInvalidcategory] = React.useState(false);
@@ -47,9 +49,19 @@ function ContactInformation() {
         number: ''
     });
 
-    const url          = new URL(window.location.href);
-    const query_params = url.searchParams
-    const query_category = query_params.get("category")
+
+    //// Assign a query category
+    let query_category = '';
+
+    try{ 
+      const url          = new URL(window.location.href);
+      const query_params = url.searchParams
+      query_category = query_params.get("category")
+
+    } catch (error) {
+        console.log('URL Params Not Found')
+    }
+    
   
 
     const handleCountryCodeChange = (event) => {
@@ -106,6 +118,7 @@ function ContactInformation() {
             window.location.href = `/leadform/?category=${query_category}&lead=${leadId}&form_id=${leadFormID}`
         }
     }, [LeadGenereted, leadId, query_category, leadFormID]);
+
 
 
    // Submit form data
@@ -165,7 +178,7 @@ function ContactInformation() {
     // };
 
 
-    console.log('Page found')
+
     return (
       <>
         <Box
