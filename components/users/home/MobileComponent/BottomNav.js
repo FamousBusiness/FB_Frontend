@@ -92,7 +92,7 @@ function BottomNav() {
 
               {/* Marketing Button */}
               <Link
-                href={`/store`}
+                href={`/orders`}
                 className={`inline-flex flex-col  rounded-md  items-center justify-center px-5  group`}
               >
                 {pathname == "/plan" ? (
@@ -103,7 +103,7 @@ function BottomNav() {
                   <StorefrontRoundedIcon color="primary" />
                 )}
                 <span className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">
-                  Store
+                  Orders
                 </span>
               </Link>
 

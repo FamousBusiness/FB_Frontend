@@ -23,22 +23,12 @@ function Top() {
   const { locationState } = useGlobalState()
   const [leadsCount, setLeadsCount] = useState(0)
   const { homedata, isLoading, isError } = useHomeData();
-  const [apiUrl, setApiURL]              = useState('');
+  const [apiUrl, setApiURL]              = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in');
   const router = useRouter()
 
   const city = locationState.city;
   const state = locationState.state;
 
-  
-  useEffect(()=> {
-    const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
-    
-    if (is_development === 'True') {
-      setApiURL('http://127.0.0.1:8000')
-    } else {
-      setApiURL('https://api.famousbusiness.in')
-    }
-  }, []);
 
   // console.log('apiURL', environmentMode())
 
@@ -96,8 +86,9 @@ function Top() {
     </Row>
   }
 
+
   if (isError) {
-    return <p>Error loading data.</p>;
+      return <p>Error loading data.</p>;
   }
 
 
@@ -123,25 +114,27 @@ function Top() {
      
       {/* Carousel */}
       <Col xs={23} sm={23} md={12} lg={12} xl={12} xxl={12} >
-        {homedata.Carousel.length > 0 ? <Carousel1 data={homedata.Carousel} /> : null}
+          {homedata.Carousel.length > 0 ? <Carousel1 data={homedata.Carousel} /> : null}
       </Col>
 
-       {/* Online Tender */}
+      {/* Online Tender */}
       <Col xs={0} sm={0} md={4} lg={4} xl={4}  >
         <div className=' bg-green-600 rounded-lg relative flex flex-col justify-center items-center w-full h-60  py-2'>
           <div className=' flex flex-col items-center'>
-            <div className=' text-2xl font-bold text-white'>ONLINE</div>
-            <div className=' text-base  font-bold text-white'>OREDERS</div>
+            <div className='text-2xl font-bold text-white'>ONLINE</div>
+            <div className='text-base  font-bold text-white'>OREDERS</div>
             {/* <div className=' text-white font-bold absolute top-24'>Bid The Projects</div> */}
           </div>
+
           <Player
             style={{ width: '50%', marginTop: '-10px ' }}
             src='/Lotties/Cart1.json'
             loop
             autoplay
           />
+          
           <div className=' text-lg font-sans font-semibold px-2 '>
-            <Link href='/store' ><div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View Orders</div></Link>
+            <Link href='/orders' ><div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View Orders</div></Link>
           </div>
         </div>
       </Col>
@@ -149,6 +142,7 @@ function Top() {
       {/* Live Leads */}
       {/* Free live leads */}
       <Col xs={0} sm={0} md={4} lg={4} xl={4} >
+      
         <div style={{ height: '100%', width:'100%' }}>
           <Badge count={leadsCount} overflowCount={99}>
             <div className=' bg-cyan-800 relative rounded-lg w-full  flex flex-col justify-center items-center  max-full h-60'>

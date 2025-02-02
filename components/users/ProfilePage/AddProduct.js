@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Drawer, Form, Input, Row, Upload, message } from 'antd';
 import Cookies from 'js-cookie';
+
+
+
+
 const AddProduct = ({ business, brand }) => {
 
     const Url = brand ? 'https://api.famousbusiness.in/brand-api/brand-product-create/' : `${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/listings/product-services/`
@@ -114,8 +118,79 @@ const AddProduct = ({ business, brand }) => {
                                 />
                             </Form.Item>
                         </Col>
+
+                        <Col span={12}>
+                            <Form.Item
+                                name="discount_price"
+                                label="Discount Price"
+                                rules={[
+                                    {
+                                        // required: true,
+                                        message: 'Please enter price',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                    addonBefore="Rs."
+                                    placeholder="Please enter Discount price"
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={12}>
+                            <Form.Item
+                                name="off"
+                                label="Percentage Off"
+                                rules={[
+                                    {
+                                        // required: true,
+                                        message: 'Please Percentage Off',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    style={{
+                                        width: '100%',
+                                    }}
+                                    addonBefore="Rs."
+                                    placeholder="Please enter Discount price"
+                                />
+                            </Form.Item>
+                        </Col>
                     </Row>
+
                     <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                name="brand_name"
+                                label="Brand Name"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter Brand Name',
+                                    },
+                                ]}>
+                                <Input size="default size" maxLength={200} placeholder="Enter Brand Name" prefix='Brand' />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={12}>
+                            <Form.Item
+                                name="small_description"
+                                label="Small Description"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter url description',
+                                    },
+                                ]}>
+                                <Input size="default size" maxLength={200} placeholder="Enter Small Description" prefix='' />
+                            </Form.Item>
+                        </Col>
+
                         <Col span={24}>
                             <Form.Item
                                 name="description"
@@ -123,21 +198,117 @@ const AddProduct = ({ business, brand }) => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'please enter url description',
+                                        message: 'please enter full product description',
                                     },
                                 ]}>
                                 <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
                             </Form.Item>
                         </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="offers"
+                                label="Offers"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter full product description',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="category"
+                                label="Category"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter full product description',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="specification"
+                                label="Specification"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter Product Specification',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="return_period"
+                                label="Return Period"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter Product Specification',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="return_policy"
+                                label="Return Policy"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter Product Specification',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={24}>
+                            <Form.Item
+                                name="pincode"
+                                label="Pincode"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'please enter Pincode',
+                                    },
+                                ]}>
+                                <Input.TextArea rows={4} maxLength={200} count={true} placeholder="please enter url description" />
+                            </Form.Item>
+                        </Col>
+
                         <Col span={24}>
                             <Form.Item name='picture' valuePropName="fileList" getValueFromEvent={(e) => e && e.fileList}>
                                 <Upload >
                                     <Button>
-                                        Upload Image
+                                        Upload Default Image
                                     </Button>
                                 </Upload>
                             </Form.Item>
                         </Col>
+
+                        <Col span={24}>
+                            <Form.Item name='picture' valuePropName="fileList" getValueFromEvent={(e) => e && e.fileList}>
+                                <Upload >
+                                    <Button>
+                                        Upload Multiple Image
+                                    </Button>
+                                </Upload>
+                            </Form.Item>
+                        </Col>
+
                         <Col span={12}>
                             <Form.Item>
                                 <Button  style={{background:'#3c89d0'}} loading={loading} disabled={loading} block type='primary' htmlType='submit'>Submit</Button>

@@ -13,6 +13,7 @@ import ProfilePop from '@/utils/ProfilePop';
 import Footer from '@/components/users/ProfilePage/Footer';
 import EmailPass from '@/utils/EmailPasswordSet';
 
+
 function Page() {
     const [open, setOpen] = useState(false)
     const searchParam = useSearchParams()
@@ -98,14 +99,16 @@ function Page() {
     const averageRating = calculateAverageRating(business.ReviewRatings);
 
     return (
-        <div className=' overflow-hidden'>
+        <div className='overflow-hidden'>
             <Row>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                     <MobileView brand={false} refresh={handleRefresh} averageRating={averageRating} handleShareClick={handleShareClick} business={business} categoryName={CategoryName} />
                 </Col>
+
                 <Col xs={0} sm={0} md={0} xl={24} xxl={24} lg={24}>
                     <DesktopView brand={false} refresh={handleRefresh} averageRating={averageRating} handleShareClick={handleShareClick} business={business} categoryName={CategoryName} />
                 </Col>
+                
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                     <Footer BusinessName={business} />
                 </Col>

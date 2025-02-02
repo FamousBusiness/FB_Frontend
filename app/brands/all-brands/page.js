@@ -10,7 +10,7 @@ import useSWR from 'swr';
 const poppins = Poppins({
   weight: '600',
   subsets: ['latin'],
-  display: 'swap'
+  // display: 'swap'
 })
 
 const fetcher = async (url) => {

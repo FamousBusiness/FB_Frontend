@@ -53,9 +53,9 @@ const MenuBar = () => {
           </Col>
 
           <Col>
-            <Link className=' text-center items-center flex flex-col' href='#'>
+            <Link className=' text-center items-center flex flex-col' href='/orders'>
               <StoreIcon color='primary' sx={{fontSize:'3.2rem'}} />
-              <div className='font-bold text-black'>Store</div>
+              <div className='font-bold text-black'>Orders</div>
             </Link>
           </Col>
 
@@ -67,7 +67,7 @@ const MenuBar = () => {
           </Col>
 
           <Col>
-            <Link className=' text-center items-center flex flex-col' href='/'>
+            <Link className=' text-center items-center flex flex-col' href='https://wallet.famousbusiness.in/'>
               <Image src="/HomeNavbar/wallet.svg" width={50} height={50} alt='wallet' />
               <div className=' font-bold text-black'>Wallet</div>
             </Link>

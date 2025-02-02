@@ -25,6 +25,10 @@ import ModelProduct from './ModelProduct'
 import GetCategory from '@/utils/GetCategory'
 import { useGlobalState } from '@/services/LocationDetector/GlobalState'
 import Enquiry from './Enquiry'
+
+
+
+
 function DesktopView({ business, handleShareClick, categoryName, refresh, averageRating, brand }) {
     const carouselRefOne = useRef()
     const { user, userdata } = useAuth()
@@ -49,12 +53,14 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
             <Col span={24}>
                 <NextBreadcrumb separator='>' capitalizeLinks={true} />
             </Col>
+
             <Col span={24}>
                 <Card className=' shadow-md'>
                     <Row justify='space-between' align='top' gutter={[12, 24]}>
                         <Col span={22}>
                             {/* Brands Fetch */}
                         </Col>
+
                         <Col span={8}>
                             {business.business_images && <div className=' border border-1 relative overflow-hidden '>
                                 {business.business_images.length > 0 && <NewSlider img={business.business_images[0].image} />}
@@ -63,6 +69,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                                 <Image src={business.icons} alt='brandsIcon' fill sizes='100%' className=' object-contain' />
                             </div>}
                         </Col>
+
                         <Col span={16}>
                             <Row justify='start' gutter={[12, 24]}>
                                 <Col span={23}>
@@ -82,6 +89,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                                                 </Col>}
                                             </Row>
                                         </Col>
+                                        
                                         <Col>
                                             <Space size={10} direction=' horizontal'>
                                                 {isProfileOwner && !brand && <AiFillEdit onClick={EditHandle} className=' text-blue-800 hover:bg-slate-200 rounded-full p-1 cursor-pointer text-3xl ' />}

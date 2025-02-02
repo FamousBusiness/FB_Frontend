@@ -24,6 +24,8 @@ import ModelProduct from './ModelProduct';
 import GetCategory from '@/utils/GetCategory';
 const { Text, Paragraph, Title } = Typography
 
+
+
 function MobileView({ business, handleShareClick, categoryName, refresh, averageRating, brand }) {
     const { user, userdata } = useAuth()
     const router = useRouter()

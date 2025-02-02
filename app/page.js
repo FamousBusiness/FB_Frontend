@@ -209,7 +209,7 @@ function Page() {
               </Col>
 
               <Col span={7}>
-                <Link href="/tender">
+                <Link href="/orders">
                   <div
                     style={{ background: "rgba(245, 40, 145, 0.8)" }}
                     className=" w-full text-xs p-1 py-1 relative  font-semibold rounded-lg border border-1 flex flex-col justify-center h-28 items-center text-center"
@@ -250,7 +250,7 @@ function Page() {
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
-                      Live Orders
+                      Live Leads
                     </div>
                   </div>
                 </Link>
