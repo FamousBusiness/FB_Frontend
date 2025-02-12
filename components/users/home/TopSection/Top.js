@@ -122,7 +122,7 @@ function Top() {
         <div className=' bg-green-600 rounded-lg relative flex flex-col justify-center items-center w-full h-60  py-2'>
           <div className=' flex flex-col items-center'>
             <div className='text-2xl font-bold text-white'>ONLINE</div>
-            <div className='text-base  font-bold text-white'>OREDERS</div>
+            <div className='text-base  font-bold text-white'>ORDERS</div>
             {/* <div className=' text-white font-bold absolute top-24'>Bid The Projects</div> */}
           </div>
 

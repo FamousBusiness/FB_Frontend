@@ -217,6 +217,8 @@ const Navbar = () => {
                           <FaUser style={{ color: 'green', fontSize: 30 }} />
                           <div><CountUp start={878774} end={100000} style={{ fontWeight: 'bold', fontSize: '18px', color: 'red' }} duration={27} /></div>
                         </div> */}
+
+                        {/* Top bar in large screen (Home, Orders, Technical Support, Wallet) */}
                         <MenuBar />
                       </Col>
                     </Row>
