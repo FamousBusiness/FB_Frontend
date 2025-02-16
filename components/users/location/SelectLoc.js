@@ -9,30 +9,43 @@ import { MdMyLocation } from 'react-icons/md';
 
 const LocAuto = () => {
   const { updateLiveLocation, locationState, handleButtonClick, updateCallCount } = useGlobalState(); // Access liveLocation from context
+
   const [options, setOptions] = useState([
-    { value: 'Mumbai', label: 'Mumbai' },
-    { value: 'New Delhi', label: 'New Delhi' },
-    { value: 'Bangalore', label: 'Bangalore' },
-    { value: 'Kolkata', label: 'Kolkata' },
-    { value: 'Chennai', label: 'Chennai' },
-    { value: 'Hyderabad', label: 'Hyderabad' },
-    { value: 'Pune', label: 'Pune' },
-    { value: 'Ahmedabad', label: 'Ahmedabad' },
-    { value: 'Jaipur', label: 'Jaipur' },
-    { value: 'Surat', label: 'Surat' },
+        { value: 'Mumbai', label: 'Mumbai' },
+        { value: 'New Delhi', label: 'New Delhi' },
+        { value: 'Delhi', label: 'Delhi' },
+        { value: 'Bangalore', label: 'Bangalore' },
+        { value: 'Kolkata', label: 'Kolkata' },
+        { value: 'Hyderabad', label: 'Hyderabad' },
+        { value: 'Pune', label: 'Pune' },
+        { value: 'Jaipur', label: 'Jaipur' },
+        { value: 'Surat', label: 'Surat' },
+        { value: 'Lucknow', label: 'Lucknow' },
+        { value: 'Ahmedabad', label: 'Ahmedabad' },
+        { value: 'Chennai', label: 'Chennai' },
+        { value: 'Kanpur', label: 'Kanpur' },
+        { value: 'Agra', label: 'Agra' },
+        { value: 'Amritsar', label: 'Amritsar' },
+        { value: 'Ghaziabad', label: 'Ghaziabad' },
+        { value: 'Chandigarh', label: 'Chandigarh' },
+        { value: 'Patna', label: 'Patna' },
+        { value: 'Thiruvananthapuram', label: 'Thiruvananthapuram' }
   ]);
+
   const [defaultOptions, setDefaultOptions] = useState('');
   const [sessionToken, setSessionToken] = useState(null);
 
   const handleSearch = async (value) => {
     if (value.length >= 1) {
       try {
-        console.log("sessionToken", sessionToken);
+        // console.log("sessionToken", sessionToken);
         const response = await axios.get(
           `https://api.mapbox.com/search/searchbox/v1/suggest?q=${value}&language=en&country=in&types=city&access_token=${process.env.NEXT_PUBLIC_GEO_API_KEY}&session_token=${sessionToken}`
         );
         const data = response.data;
+        // console.log('data', data)
         updateCallCount()
+
         const cities = data.suggestions.map((feature) => ({
           value: feature.name,
           label: feature.name,
@@ -40,6 +53,7 @@ const LocAuto = () => {
         }));
 
         setOptions(cities);
+
       } catch (error) {
         console.error('Error fetching data from Mapbox:', error);
       }
@@ -106,6 +120,7 @@ const LocAuto = () => {
         >
         </AutoComplete>
       </Col>
+
       <Col xl={0} xxl={0} lg={0} xs={24} sm={24} md={24}>
         <Select
           showSearch

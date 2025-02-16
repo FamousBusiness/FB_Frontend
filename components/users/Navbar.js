@@ -121,11 +121,16 @@ const Navbar = () => {
             <Col sm={24} xs={24} md={19} lg={19} xl={19} xxl={19}>
               <Row justify='start' gutter={4} align='middle'>
                 <Col xs={0} sm={0} md={4} lg={4} xl={4} xxl={4} >
+
+                {/* Location Search Component */}
                   <LocAuto />
+
                 </Col>
 
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+                {/* Search bar (Long) */}
                   <AutoCom handle={handle} search={search} handleSubmit={handleSubmit} />
+                  
                 </Col>
 
                 <Col xs={24} sm={24} lg={0} xl={0} xxl={0} md={0} >
