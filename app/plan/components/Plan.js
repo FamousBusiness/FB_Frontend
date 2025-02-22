@@ -65,7 +65,7 @@ function Plan() {
           } catch (error) {
             console.log("Error", error);
           }
-    }, [])
+    }, [apiUrl])
 
     // const array = ['/plans/rocket.svg', '/plans/crown (1).svg', '/plans/business-award.svg', '/plans/silver-medal.svg']
 
