@@ -11,6 +11,9 @@ import HandlePayment from './HandlePayment'
 import { GetAllPlans } from '@/services/Admin/Premium'
 import { BsInfoCircle } from "react-icons/bs";
 import TrialPlan from './TrialPlan';
+import axios from 'axios';
+import { Player } from "@lottiefiles/react-lottie-player";
+
 
 const { Text } = Typography
 
@@ -19,18 +22,52 @@ const { Text } = Typography
 function Plan() {
     const [data, setData] = useState({});
     const [plan, setPlan] = useState('Yearly');
+    const [notAvailable, setNotAvailable] = useState(false); //// Premium plan not available
+    const apiUrl = process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in';
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await GetAllPlans();
-            // console.log("All Plans", response);
-            setData(response);
-        };
-        // console.log("Plan", plan)
-        fetchData();
-    }, [plan]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await GetAllPlans();
+    //         // console.log("All Plans", response);
+    //         setData(response);
+    //     };
+    //     // console.log("Plan", plan)
+    //     fetchData();
+    // }, [plan]);
 
-    const array = ['/plans/rocket.svg', '/plans/crown (1).svg', '/plans/business-award.svg', '/plans/silver-medal.svg']
+
+    // Fetch Premium plans
+    useEffect(()=> {
+        try {
+            axios.get(`${apiUrl}/premium-plan-api/`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                  if (res.status === 200) {
+                    setData(res.data.data)
+                  }
+              })
+              
+              .catch((error) => {
+                console.error("Error fetching plans:", error.response ? error.response.data : error.message);
+
+                if (error.response.status === 404) {
+                    setNotAvailable(true)
+                } else {
+                    setNotAvailable(true)
+                }
+              });
+
+        
+          } catch (error) {
+            console.log("Error", error);
+          }
+    }, [])
+
+    // const array = ['/plans/rocket.svg', '/plans/crown (1).svg', '/plans/business-award.svg', '/plans/silver-medal.svg']
 
     const planOrder = {
         'Starter': 1,
@@ -43,6 +80,23 @@ function Plan() {
 
     const sortedYearlyPlans = data.Yearly && data.Yearly.length > 0 ? data.Yearly.sort((a, b) => planOrder[a.plan.name] - planOrder[b.plan.name]) : [];
 
+
+    ///// Plan not available
+    if (notAvailable) {
+        return (
+            <Player
+                style={{
+                width: "40%",
+                marginTop: "-10px ",
+                objectFit: "cover",
+                padding: 5,
+                }}
+                src="/NoData/no_data.json"
+                loop
+                autoplay
+            />
+        )
+    }
   
 
     return (

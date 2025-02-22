@@ -13,6 +13,8 @@ import { IoBusiness } from 'react-icons/io5';
 import { motion } from 'framer-motion';
 import MenuBar1 from './MenuBar';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import LoginForm from '@/utils/LandingPageModel';
+import axios from 'axios';
 
 
 
@@ -21,11 +23,40 @@ const Navbar = () => {
   const pathName = usePathname()
   const router = useRouter();
   const { user, userdata, authTokens } = useAuth();
+  const [login, setLogin]       = useState(false);  /// Login State (false no need to Login) (True Need to Login)
   const [location, setLocation] = useState('');
-  const [search, setSearch] = useState('');
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [search, setSearch]     = useState('');
+  const [isScrolled, setIsScrolled] = useState(false); 
   const [focus, setFous] = useState(false);
   const [removePlan, setRemovePlan] = useState(false);
+  const [apiUrl, setApiURL] = useState(
+            process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
+        );
+
+
+ 
+    ///// Login of user for Premium plan access
+    const handleCheckPremiumPlanLogin = async () => {
+      if (!authTokens) {
+        setLogin(true);
+        return;
+      }
+    
+      try {
+        const response = await axios.post(`${apiUrl}/api/token/verify/`, {
+          token: authTokens.access
+        });
+    
+        if (response.status === 200) {
+          setLogin(false);
+          window.location.href = '/plan'; // Redirect after successful verification
+        }
+
+      } catch (error) {
+        console.error('Token verification failed:', error.response ? error.response.data : error.message);
+        setLogin(true);
+      }
+    };
 
 
   // chek whether the path starts with store or not 
@@ -172,7 +203,7 @@ const Navbar = () => {
 
                     ) : ( 
                       <Col span={7}>
-                        <Link href="/plan">
+                        <Link href="#" onClick={(e) => { e.preventDefault(); handleCheckPremiumPlanLogin(); }}>
                           <div className=' border-2 border-orange-300 hover:border-2  hover:border-black hover:text-white duration-300 hover:bg-gradient-to-r from-zinc-300 to-orange-400 cursor-pointer font-bold flex flex-row items-center justify-center  dark:text-gray-600 px-1 py-2 text-center  '>
                             <Image src='/plans/premium.svg' width={20} height={20} alt='plan' /> <span className=' ml-1'>Plan</span>
                           </div>
@@ -180,7 +211,7 @@ const Navbar = () => {
                       </Col>
                     )}
 
-                      
+
                     {/* <Col span={4}>
                         <a href={'/Download/Famous_Business (1).apk'} download>
                           <Image src="/app-download.svg" width={60} height={60} alt='' />
@@ -233,6 +264,8 @@ const Navbar = () => {
             </motion.div>
           )}
         </div>}
+
+      <LoginForm visible={login} onClose={() => setLogin(false)} />
 
     </>
   );
