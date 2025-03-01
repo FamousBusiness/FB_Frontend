@@ -15,12 +15,18 @@ import GetCategory from '@/utils/GetCategory';
 import Enquiry1 from '../EnquiryForm/Enquiry1';
 import { AspectRatio } from '@mui/joy';
 
+
+
+
 function BusinessCard({ items, index, category }) {
     // const { user } = useAuth();
     const router = useRouter();
+
+    //// Redirect to Business page
     const handleNext = () => {
-        router.push(`/userprofile/${items.business_name}?z_id=${items.id}&Cate=${category}`)
+        router.push(`/userprofile/${items.business_name.replace(/\s+/g, '-')}?z_id=${items.id}&Cate=${category}`)
     }
+    
     const stopPropagation = (e) => {
         e.stopPropagation();
     };

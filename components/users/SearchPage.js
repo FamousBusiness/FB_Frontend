@@ -63,7 +63,7 @@ function SearchPage({ CatName }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('page', page);
+                // console.log('page', page);
                 const response = await get_product_by_category_id(CatName, City, page);
                 setData(response.results);
                 setCount(response.count);
@@ -145,6 +145,7 @@ function SearchPage({ CatName }) {
             <Col sm={24} xs={24} md={24} lg={23} xl={23} xxl={23}>
                 {data.category_wise_banner && data.category_wise_banner.length > 0 || data.side_images && data.side_images.length > 0 ? <Banner side={data.side_images} banner={data.category_wise_banner} /> : null}
             </Col>
+
             <Col sm={0} xs={0} md={0} lg={23} xl={23} xxl={23}>
                 <Row  gutter={7} align='middle'>
                     <Col >
@@ -155,14 +156,17 @@ function SearchPage({ CatName }) {
                     </Col>
                 </Row>
             </Col>
+
             <Col span={23}>
                 <p className=" xl:text-2xl sm:text-lg md:text-xl font-semibold ">Verified {category} in {city}</p>
             </Col>
+
             <Col sm={0} xs={0} md={0} lg={23} xl={23} xxl={23} >
                 <div>
                     <CategoryFilter onFilterChange={handleFilterChange} />
                 </div>
             </Col>
+
             <Col span={24}>
                 <Row gutter={12} justify='space-between'>
                     <Col sm={24} xs={24} md={18} lg={18} xl={18} xxl={18} className=' overflow-hidden'>
@@ -200,6 +204,7 @@ function SearchPage({ CatName }) {
                                     </Row>
                                 </Card>
                             }>
+
                             <Row justify='center' className=' p-1' gutter={[0, { xs: 8, sm: 8, md: 24, lg: 24, xl: 24, xxl: 24 }]}>
                                 {filteredData && Array.isArray(filteredData) && filteredData.slice(0, visibleItems).map((item, index) => (
                                     <Col span={24} key={item.id}>
@@ -209,11 +214,13 @@ function SearchPage({ CatName }) {
                             </Row>
                         </InfiniteScroll>
                     </Col>
+
                     <Col sm={0} xs={0} md={0} lg={6} xl={6} xxl={6} >
                         <div className=' w-full sticky top-28'>
                             <Enquiry1 getRequire={`Verified ${category} in ${city}`} />
                         </div>
                     </Col>
+                    
                 </Row>
             </Col>
         </Row>

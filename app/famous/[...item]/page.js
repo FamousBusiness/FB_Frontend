@@ -9,7 +9,7 @@ import { useGlobalState } from "@/services/LocationDetector/GlobalState";
 export default function Page() {
     const searchParams = useSearchParams();
     const param = useParams()
-    console.log("params:", param.item[0]);
+    // console.log("params:", param.item[0]);
     const category = searchParams.get('cat_id');
     const categoryName = decodeURIComponent(searchParams.get('cat_name'));
 
