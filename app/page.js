@@ -279,8 +279,8 @@ function Page() {
                   </div>
                 </Link>
               </Col>
-
-
+              
+              
               <Col span={7}>
                 <Link href="/enquiry">
                   <div

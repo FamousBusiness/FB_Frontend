@@ -25,7 +25,6 @@ function VerifyBusiness() {
                 {[...Array(3)].map((_, index) => (
                     <Col key={index} lg={7} xxl={7} sm={0} md={0} xs={0} xl={7}>
                         <Card loading={true} >
-
                         </Card>
                     </Col>
                 ))}

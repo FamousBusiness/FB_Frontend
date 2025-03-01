@@ -30,15 +30,17 @@ import Enquiry from './Enquiry'
 
 
 function DesktopView({ business, handleShareClick, categoryName, refresh, averageRating, brand }) {
-    const carouselRefOne = useRef()
+    const carouselRefOne     = useRef()
     const { user, userdata } = useAuth()
-    const router = useRouter()
-    const { locationState } = useGlobalState()
+    const router             = useRouter()
+    const { locationState }  = useGlobalState()
     const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const isProfileOwner = (userdata && userdata.business === business.id) || (user && user.user_id === 1) || (user && user.user_id === 2);
-    const handleNextOne = () => {
+
+    const handleNextOne  = () => {
         carouselRefOne.current.next();
     };
+    
     const handlePrevOne = () => {
         carouselRefOne.current.prev();
     };

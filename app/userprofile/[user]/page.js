@@ -14,12 +14,14 @@ import Footer from '@/components/users/ProfilePage/Footer';
 import EmailPass from '@/utils/EmailPasswordSet';
 
 
+
+
 function Page() {
     const [open, setOpen] = useState(false)
     const searchParam = useSearchParams()
-    const id = searchParam.get('z_id');
-    const mail = searchParam.get('mail')
-    const uuid = searchParam.get('uuid')
+    const id    = searchParam.get('z_id');
+    const mail  = searchParam.get('mail')
+    const uuid  = searchParam.get('uuid')
     const token = searchParam.get('token');
     const CategoryName = decodeURIComponent(searchParam.get('Cate'));
 
@@ -33,7 +35,7 @@ function Page() {
                 setOpen(true);
             }, 2000)
         }
-    }, [mail])
+    }, [mail]);
 
     const { data: business, error, mutate } = useSWR(id, get_product_by_id);
 
@@ -59,6 +61,7 @@ function Page() {
             } catch (error) {
                 console.error('Share API error:', error);
             }
+            
         } else {
             // Fallback for browsers that don't support the Web Share API
             const shareText = `Check out this link: ${currentUrl}`;

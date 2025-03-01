@@ -19,10 +19,13 @@ import { AspectRatio } from "@mui/joy";
 
 function CardVerify({ item }) {
   const router = useRouter();
+
   const { data, error } = useSWR(item.category, get_category_by_id);
+
   if (!data) {
     return <Skeleton.Input active />;
   }
+
   if (error) return <div>Fetching data error</div>;
   // Function to prevent event propagation for call and whatsapp buttons
   const stopPropagation = (e) => {
@@ -31,9 +34,10 @@ function CardVerify({ item }) {
 
   const handleNaxt = () => {
     router.push(
-      `/userprofile/${item.business_name}?z_id=${item.id}&Cate=${data}`
+      `/userprofile/${item.business_name.replace(/\s+/g, '-')}?z_id=${item.id}&Cate=${data}`
     );
   };
+
 
   return (
     <Card
