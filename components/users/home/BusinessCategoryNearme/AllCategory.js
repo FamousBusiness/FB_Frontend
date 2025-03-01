@@ -81,7 +81,7 @@ const AllCategory = ({ categories }) => {
                                 <Col xl={8} xxl={8} lg={8} sm={22} md={22} xs={22} key={item.id}>
                                     <Link
                                         href={`/famous/[locationName]/[type]`}
-                                        as={`/famous/${locationState.city}/${item.type}?cat_id=${item.id}&cat_name=${item.type}`}
+                                        as={`/famous/${locationState.city.replace(/\s+/g, '-')}/${item.type.replace(/\s+/g, '-')}?cat_id=${item.id}&cat_name=${item.type}`}
                                     >
                                         <Row justify='start' align='middle' gutter={[{ xs: 12, sm: 12, md: 12, lg: 8, xl: 8, xxl: 8 }, 0]}>
                                             <Col>
@@ -123,7 +123,7 @@ const AllCategory = ({ categories }) => {
                                 <Col xl={8} xxl={8} lg={8} sm={22} md={22} xs={22} key={item.id}>
                                     <Link
                                         href={`/famous/[locationName]/[type]`}
-                                        as={`/famous/${locationState.city}/${item.type}?cat_id=${item.id}&cat_name=${item.type}`}
+                                        as={`/famous/${locationState.city.replace(/\s+/g, '-')}/${item.type.replace(/\s+/g, '-')}?cat_id=${item.id}&cat_name=${item.type}`}
                                     >
                                         <Row justify='start' align='middle' gutter={[{ xs: 12, sm: 12, md: 12, lg: 8, xl: 8, xxl: 8 }, 0]}>
                                             <Col>

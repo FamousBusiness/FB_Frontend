@@ -98,14 +98,16 @@ function TrendingBusiness() {
     if (error) {
         return <div>Error loading data</div>;
     }
+
     const trendingCategories = categories.filter(c => c.trending === true);
+
     return (
         <Row gutter={[24, 24]}>
             {trendingCategories.slice(0, 11).map((item, index) => (
                 <Col key={item.id} xs={0} sm={0} md={4} lg={4} xl={4} xxl={4}>
                     <Link
                         href={`/famous/[locationName]/[type]`}
-                        as={`/famous/${locationState.city}/${item.type}?cat_id=${item.id}&cat_name=${item.type}`}
+                        as={`/famous/${locationState.city.replace(/\s+/g, '-')}/${item.type.replace(/\s+/g, '-')}?cat_id=${item.id}&cat_name=${item.type}`}
                     >
                         <div className=' flex flex-col justify-center items-center'>
                             <div className=' flex flex-col h-32 w-32 overflow-hidden  p-4 hover:shadow-2xl duration-100 bg-white hover:bg-green-500 rounded-full border border-1 items-center justify-center'>
@@ -129,7 +131,7 @@ function TrendingBusiness() {
                 <Col key={item.id} xs={8} sm={8} md={0} lg={0} xl={0} xxl={0}>
                     <Link
                         href={`/famous/[locationName]/[type]`}
-                        as={`/famous/${locationState.city}/${item.type}?cat_id=${item.id}&cat_name=${item.type}`}
+                        as={`/famous/${locationState.city.replace(/\s+/g, '-')}/${item.type.replace(/\s+/g, '-')}?cat_id=${item.id}&cat_name=${item.type}`}
                     >
                         <div className=' w-full shadow-md border border-1 rounded-md flex flex-col justify-center items-center'>
                             <div className=' h-24 w-24 '>
