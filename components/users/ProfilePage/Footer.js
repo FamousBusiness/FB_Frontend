@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import React from 'react'
 import { FaSquareFacebook } from 'react-icons/fa6';
+
+
+
+
 function Footer({ BusinessName }) {
 
     const pathName = usePathname()

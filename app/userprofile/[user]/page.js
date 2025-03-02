@@ -42,6 +42,7 @@ function Page() {
     if (!business) {
         return <div><SearchPageSkeleton /></div>
     }
+    
     if (error) {
         // Handle error, e.g., display an error message
         return <Result status='500' subTitle={error} />;
@@ -100,6 +101,7 @@ function Page() {
 
 
     const averageRating = calculateAverageRating(business.ReviewRatings);
+
 
     return (
         <div className='overflow-hidden'>

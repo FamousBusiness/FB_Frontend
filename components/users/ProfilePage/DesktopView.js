@@ -29,7 +29,255 @@ import Enquiry from './Enquiry'
 
 
 
+
 function DesktopView({ business, handleShareClick, categoryName, refresh, averageRating, brand }) {
+
+    const BreadcrumbSchemaData = {
+        ...(business.brad_crumb_schema_item_list && {
+            "@context": "http://schema.org",
+            "@graph": [
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": business.brad_crumb_schema_item_list?.map((item)=> ({
+                        "@type": item?.type,
+                        "position": item.id,
+                        "item": {
+                            "@id": item?.item_id,
+                            "name": item?.item_name
+                        }
+                    }))
+                }
+            ]
+        })
+    }
+
+    const LocalBusinessSchema = {
+        "@context": "http://schema.org",
+        "@graph": [
+            {
+                "@type": "LocalBusiness",
+                "name": `${business.business_name}`,
+                "mobileNumber": "+91XXXXXXXXXX",
+                "whatsappNumber": "+91XXXXXXXXXX",
+                "email": `${business?.email}`,
+                "category": `${business?.category?.type}`,
+                "state": `${business?.state}`,
+                "city": `${business?.city}`,
+                "pincode": `${business?.pincode}`,
+                "locality": `${business?.locality}`,
+                "address": `${business?.address}`,
+                "website": `${business?.website_url}`,
+                "gstNumber": "24XXXXXXXXXX",
+                "cinNumber": "UXXXXXXXXXX",
+                "dinNumber": "XXXXXXXXXX",
+                "companyNumber": "XXXXXXXXXX",
+                "roc": "XXXXXXXXXX",
+                "director": `${business?.director}`,
+                "about": `${business?.business_info}`,
+                "establishmentYear": `${business?.established_on}`,
+                "productAndService": [`${business?.products.map((item)=> (
+                    item.name
+                ))}`],
+                // "priceRange": "₹2,000 - ₹50,000",
+                "paymentAccepted": ["UPI", "Credit Card", "Net Banking", "COD"],
+
+                // "serviceArea": {
+                //   "@type": "GeoShape",
+                //   "circle": "28.347471, 77.319557 20km"
+                // },
+
+                // "hasOfferCatalog": {
+                //   "@type": "OfferCatalog",
+                //   "name": "CCTV Product Catalog",
+                //   "itemListElement": [
+                //     {
+                //       "@type": "Offer",
+                //       "name": "Hikvision 2MP CCTV Camera",
+                //       "price": "₹3,999",
+                //       "priceCurrency": "INR",
+                //       "url": "https://www.famousbusiness.in/products/hikvision-2mp"
+                //     },
+                //     {
+                //       "@type": "Offer",
+                //       "name": "CP Plus 4 Channel DVR",
+                //       "price": "₹5,500",
+                //       "priceCurrency": "INR",
+                //       "url": "https://www.famousbusiness.in/products/cp-plus-dvr"
+                //     }
+                //   ]
+                // },
+
+                "profilePic": `${business?.picture}`,
+                "verified": business?.verified,
+                "trusted": business?.trusted,
+                "trending": business?.trending,
+                "likes": business?.like,
+
+                ...(business.local_schema_reviews && {
+                    "reviews": business.local_schema_reviews.map((review) => ({
+                      "@type": "Review",
+                      "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": review?.reviewRatingValue,
+                        "bestRating": review?.bestRating,
+                        "worstRating": review?.worstRating
+                      },
+                      "author": {
+                        "@type": "Person",
+                        "name": review?.author?.name
+                      },
+                      "reviewCount": review?.reviewCount
+                    }))
+                  }),
+
+                "searchKeywords": business?.local_schema_search_keyword.map((item)=> (item?.keyword_name)),
+
+                "openingTime": business?.opening_time,
+                "closingTime": business?.closing_time,
+                "natureOfBusiness": business?.nature,
+                "annualTurnover": business?.turn_over,
+                "numberOfEmployees": business?.employee_count,
+                "authorizedDealer": business?.authorized,
+                "industryLeader": business?.industry_leader,
+                "sponsorListings": business?.sponsor,
+                "superSeller": business?.super,
+                "premiumSeller": business?.premium,
+
+                "sameAs": business?.local_schema_same_as.map((item)=> (item?.url)),
+
+                // "url": "https://www.famousbusiness.in/Faridabad/Hivision-123",
+
+                "image": business?.business_images?.flatMap(item => item.image.map(image => image.image)),
+
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "28.347471",
+                  "longitude": "77.319557"
+                },
+
+                ...(business.local_schema_aggregrate_rating && {
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": business?.local_schema_aggregrate_rating?.ratingValue,
+                        "ratingCount": business?.local_schema_aggregrate_rating?.ratingCount,
+                        "bestRating": business?.local_schema_aggregrate_rating?.bestRating,
+                        "worstRating": business?.local_schema_aggregrate_rating?.worstRating
+                    }
+                }),
+
+                ...(business.local_schema_video && {
+                    "video": {
+                        "@type": "VideoObject",
+                        "interactionStatistic": business.local_schema_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+
+                        "name": business.local_schema_video?.name,
+                        "description": business.local_schema_video?.description,
+                        "thumbnailUrl": business.local_schema_video?.thumbnailUrl,
+                        "contentUrl": business.local_schema_video?.contentUrl,
+                        "embedUrl": business.local_schema_video?.embedUrl,
+                        "uploadDate": business.local_schema_video?.uploadDate
+                    }
+                }),
+
+                ...(business.local_schema_facebook_video && {
+                    "facebookVideo": {
+                        "@type": "VideoObject",
+                        "name": business.local_schema_facebook_video?.name,
+                        "description": business.local_schema_facebook_video?.description,
+                        "embedUrl": business.local_schema_facebook_video?.embedUrl,
+                        "thumbnailUrl": business.local_schema_facebook_video?.thumbnailUrl,
+                        "uploadDate": business.local_schema_facebook_video?.uploadDate,
+                        "interactionStatistic": business.local_schema_facebook_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": business.local_schema_facebook_video?.publisher_name,
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": business.local_schema_facebook_video?.publisher_logo
+                            }
+                        }
+                    }
+                }),
+
+                ...(business.local_schema_insta_video && {
+                    "instagramVideo": {
+                        "@type": "VideoObject",
+                        "name": business.local_schema_insta_video?.name,
+                        "description": business.local_schema_insta_video?.description,
+                        "embedUrl": business.local_schema_insta_video?.embedUrl,
+                        "thumbnailUrl": business.local_schema_insta_video?.thumbnailUrl,
+                        "uploadDate": business.local_schema_insta_video?.uploadDate,
+                        "interactionStatistic": business.local_schema_insta_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": business.local_schema_insta_video?.publisher_name,
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": business.local_schema_insta_video?.publisher_logo
+                            }
+                        }
+                    }
+                }),
+
+              }
+        ]
+    }
+
+    const FAQPageSchemaData = {
+         ...(business.faq_schema_mainEntity && {
+                "@context": "http://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": business.faq_schema_mainEntity?.map((item) => ({
+                    "@type": "Question",
+                    "name": item?.name,  
+                    "acceptedAnswer": {
+                        "@type": item?.acceptedAnswer_type,
+                        "text": item?.acceptedAnswer_text 
+                    }
+                }))
+            }),
+    }
+
+    const ArticleSchemaData = {
+            ...(business.article_schema && {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "headline": business.article_schema?.headline,
+                "author": {
+                    "@type": "Person",
+                    "name": business.article_schema?.author?.name
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": business.article_schema?.publisher_name,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": business.article_schema?.publisher_logo
+                        }
+                },
+                "datePublished": business.article_schema?.datePublished,
+                "dateModified": business.article_schema?.dateModified,
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": business.article_schema?.mainEntityOfPage_id
+                },
+                "image": business.article_schema?.image,
+                "articleBody": business.article_schema?.articleBody
+            })
+        }
+    
     const carouselRefOne     = useRef()
     const { user, userdata } = useAuth()
     const router             = useRouter()
@@ -50,6 +298,27 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
     }
 
     return (
+    <>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(BreadcrumbSchemaData) }}
+        />
+
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(LocalBusinessSchema) }}
+        />
+        
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQPageSchemaData) }}
+        />
+
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(ArticleSchemaData) }}
+        />
+
 
         <Row justify='space-between' className=' px-4' gutter={[12, 12]} >
             <Col span={24}>
@@ -67,6 +336,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                             {business.business_images && <div className=' border border-1 relative overflow-hidden '>
                                 {business.business_images.length > 0 && <NewSlider img={business.business_images[0].image} />}
                             </div>}
+
                             {business.icons && <div className=' h-80 flex items-center justify-center relative overflow-hidden p-2'>
                                 <Image src={business.icons} alt='brandsIcon' fill sizes='100%' className=' object-contain' />
                             </div>}
@@ -261,12 +531,14 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                                 </div>
                             </Carousel>
                         </Col>
+
                         <Col span={24}>
                             <Space direction='horizontal' value={5}>
                                 <ClockCircleOutlined className=' text-xl' /> <span className=' text-xl dark:text-gray-600'>Opening Time</span>:
                                 <Typography.Text type='secondary' className=' uppercase'> {business.opening_time} - {business.closing_time}</Typography.Text>
                             </Space>
                         </Col>
+
                         <Col span={24}>
                             <div >
                                 <p className=' text-2xl font-bold py-2'>ABOUT MY BUSINESS</p>
@@ -388,7 +660,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                 {business.ReviewRatings && <UserReview data={business.ReviewRatings} />}
             </Col>
         </Row>
-
+</>
     )
 }
 

@@ -34,6 +34,7 @@ export const update_a_product = async (formData: any, id: number) => {
 
 
 export const get_product_by_id = async (id: number) => {
+  
   try {
     const res = await fetch(`/api/common/product/get_product_id?id=${id}`, {
       method: "GET",

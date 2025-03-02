@@ -18,6 +18,7 @@ export default function Page() {
         <>
             <div className=" relative min-h-screen p-1 bg-white">
                 <SearchPage CatName={categoryName} id={category} />
+
                 <FloatButton.BackTop icon={<BsArrowUpShort />} />
             </div>
         </>

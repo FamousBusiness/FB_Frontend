@@ -27,23 +27,297 @@ const { Text, Paragraph, Title } = Typography
 
 
 function MobileView({ business, handleShareClick, categoryName, refresh, averageRating, brand }) {
-    const { user, userdata } = useAuth()
-    const router = useRouter()
-    const [url, setUrl] = useState(null);
+    const BreadcrumbSchemaData = {
+        ...(business.brad_crumb_schema_item_list && {
+            "@context": "http://schema.org",
+            "@graph": [
+                {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": business.brad_crumb_schema_item_list?.map((item)=> ({
+                        "@type": item?.type,
+                        "position": item.id,
+                        "item": {
+                            "@id": item?.item_id,
+                            "name": item?.item_name
+                        }
+                    }))
+                }
+            ]
+        })
+    }
+
+    const LocalBusinessSchema = {
+        "@context": "http://schema.org",
+        "@graph": [
+            {
+                "@type": "LocalBusiness",
+                "name": `${business.business_name}`,
+                "mobileNumber": "+91XXXXXXXXXX",
+                "whatsappNumber": "+91XXXXXXXXXX",
+                "email": `${business?.email}`,
+                "category": `${business?.category?.type}`,
+                "state": `${business?.state}`,
+                "city": `${business?.city}`,
+                "pincode": `${business?.pincode}`,
+                "locality": `${business?.locality}`,
+                "address": `${business?.address}`,
+                "website": `${business?.website_url}`,
+                "gstNumber": "24XXXXXXXXXX",
+                "cinNumber": "UXXXXXXXXXX",
+                "dinNumber": "XXXXXXXXXX",
+                "companyNumber": "XXXXXXXXXX",
+                "roc": "XXXXXXXXXX",
+                "director": `${business?.director}`,
+                "about": `${business?.business_info}`,
+                "establishmentYear": `${business?.established_on}`,
+                "productAndService": [`${business?.products.map((item)=> (
+                    item.name
+                ))}`],
+                // "priceRange": "₹2,000 - ₹50,000",
+                "paymentAccepted": ["UPI", "Credit Card", "Net Banking", "COD"],
+
+                // "serviceArea": {
+                //   "@type": "GeoShape",
+                //   "circle": "28.347471, 77.319557 20km"
+                // },
+
+                // "hasOfferCatalog": {
+                //   "@type": "OfferCatalog",
+                //   "name": "CCTV Product Catalog",
+                //   "itemListElement": [
+                //     {
+                //       "@type": "Offer",
+                //       "name": "Hikvision 2MP CCTV Camera",
+                //       "price": "₹3,999",
+                //       "priceCurrency": "INR",
+                //       "url": "https://www.famousbusiness.in/products/hikvision-2mp"
+                //     },
+                //     {
+                //       "@type": "Offer",
+                //       "name": "CP Plus 4 Channel DVR",
+                //       "price": "₹5,500",
+                //       "priceCurrency": "INR",
+                //       "url": "https://www.famousbusiness.in/products/cp-plus-dvr"
+                //     }
+                //   ]
+                // },
+
+                "profilePic": `${business?.picture}`,
+                "verified": business?.verified,
+                "trusted": business?.trusted,
+                "trending": business?.trending,
+                "likes": business?.like,
+
+                ...(business.local_schema_reviews && {
+                    "reviews": business.local_schema_reviews.map((review) => ({
+                      "@type": "Review",
+                      "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": review?.reviewRatingValue,
+                        "bestRating": review?.bestRating,
+                        "worstRating": review?.worstRating
+                      },
+                      "author": {
+                        "@type": "Person",
+                        "name": review?.author?.name
+                      },
+                      "reviewCount": review?.reviewCount
+                    }))
+                  }),
+
+                "searchKeywords": business?.local_schema_search_keyword.map((item)=> (item?.keyword_name)),
+
+                "openingTime": business?.opening_time,
+                "closingTime": business?.closing_time,
+                "natureOfBusiness": business?.nature,
+                "annualTurnover": business?.turn_over,
+                "numberOfEmployees": business?.employee_count,
+                "authorizedDealer": business?.authorized,
+                "industryLeader": business?.industry_leader,
+                "sponsorListings": business?.sponsor,
+                "superSeller": business?.super,
+                "premiumSeller": business?.premium,
+
+                "sameAs": business?.local_schema_same_as.map((item)=> (item?.url)),
+
+                // "url": "https://www.famousbusiness.in/Faridabad/Hivision-123",
+
+                "image": business?.business_images?.flatMap(item => item.image.map(image => image.image)),
+
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "28.347471",
+                  "longitude": "77.319557"
+                },
+
+                ...(business.local_schema_aggregrate_rating && {
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": business?.local_schema_aggregrate_rating?.ratingValue,
+                        "ratingCount": business?.local_schema_aggregrate_rating?.ratingCount,
+                        "bestRating": business?.local_schema_aggregrate_rating?.bestRating,
+                        "worstRating": business?.local_schema_aggregrate_rating?.worstRating
+                    }
+                }),
+
+                ...(business.local_schema_video && {
+                    "video": {
+                        "@type": "VideoObject",
+                        "interactionStatistic": business.local_schema_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+
+                        "name": business.local_schema_video?.name,
+                        "description": business.local_schema_video?.description,
+                        "thumbnailUrl": business.local_schema_video?.thumbnailUrl,
+                        "contentUrl": business.local_schema_video?.contentUrl,
+                        "embedUrl": business.local_schema_video?.embedUrl,
+                        "uploadDate": business.local_schema_video?.uploadDate
+                    }
+                }),
+
+                ...(business.local_schema_facebook_video && {
+                    "facebookVideo": {
+                        "@type": "VideoObject",
+                        "name": business.local_schema_facebook_video?.name,
+                        "description": business.local_schema_facebook_video?.description,
+                        "embedUrl": business.local_schema_facebook_video?.embedUrl,
+                        "thumbnailUrl": business.local_schema_facebook_video?.thumbnailUrl,
+                        "uploadDate": business.local_schema_facebook_video?.uploadDate,
+                        "interactionStatistic": business.local_schema_facebook_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": business.local_schema_facebook_video?.publisher_name,
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": business.local_schema_facebook_video?.publisher_logo
+                            }
+                        }
+                    }
+                }),
+
+                ...(business.local_schema_insta_video && {
+                    "instagramVideo": {
+                        "@type": "VideoObject",
+                        "name": business.local_schema_insta_video?.name,
+                        "description": business.local_schema_insta_video?.description,
+                        "embedUrl": business.local_schema_insta_video?.embedUrl,
+                        "thumbnailUrl": business.local_schema_insta_video?.thumbnailUrl,
+                        "uploadDate": business.local_schema_insta_video?.uploadDate,
+                        "interactionStatistic": business.local_schema_insta_video?.interactionStatistic.map((item)=> ({
+                            "@type": "InteractionCounter",
+                            "interactionType": item?.interactionType,
+                            "userInteractionCount": item?.userInteractionCount
+                        })),
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": business.local_schema_insta_video?.publisher_name,
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": business.local_schema_insta_video?.publisher_logo
+                            }
+                        }
+                    }
+                }),
+
+              }
+        ]
+    }
+
+    const FAQPageSchemaData = {
+         ...(business.faq_schema_mainEntity && {
+                "@context": "http://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": business.faq_schema_mainEntity?.map((item) => ({
+                    "@type": "Question",
+                    "name": item?.name,  
+                    "acceptedAnswer": {
+                        "@type": item?.acceptedAnswer_type,
+                        "text": item?.acceptedAnswer_text 
+                    }
+                }))
+            }),
+    }
+
+    const ArticleSchemaData = {
+            ...(business.article_schema && {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "headline": business.article_schema?.headline,
+                "author": {
+                    "@type": "Person",
+                    "name": business.article_schema?.author?.name
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": business.article_schema?.publisher_name,
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": business.article_schema?.publisher_logo
+                        }
+                },
+                "datePublished": business.article_schema?.datePublished,
+                "dateModified": business.article_schema?.dateModified,
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": business.article_schema?.mainEntityOfPage_id
+                },
+                "image": business.article_schema?.image,
+                "articleBody": business.article_schema?.articleBody
+            })
+        }
+
+    const { user, userdata }  = useAuth()
     const [collap, setCollap] = useState(true)
+    const router        = useRouter()
+    const [url, setUrl] = useState(null);
     const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
     useEffect(() => {
         const currentUrl = window.location.href;
         setUrl(currentUrl)
     }, []);
-    const text_initial = `Hi, I found your business on ${url}`
-    const text = encodeURIComponent(text_initial)
+
+    const text_initial   = `Hi, I found your business on ${url}`
+    const text           = encodeURIComponent(text_initial)
     const isProfileOwner = (userdata && userdata.business === business.id) || (user && user.user_id === 1) || (user && user.user_id === 2);
-    const premium = userdata && userdata.business === business.id
+    const premium        = userdata && userdata.business === business.id
+
     const EditHandle = () => {
         router.push(`/edit/${business.business_name}?id=${business.id}`)
     }
-    return (<div className=' dark:text-black'>
+
+
+
+return (
+    <>
+    <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(BreadcrumbSchemaData) }}
+        />
+
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(LocalBusinessSchema) }}
+        />
+        
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQPageSchemaData) }}
+        />
+
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(ArticleSchemaData) }}
+        />
+        
+    <div className='dark:text-black'>
         <Row justify='center' align='middle' className=" bg-white" gutter={[0, 16]}>
             <Col xs={21} md={21} lg={0} xl={0} xxl={0} >
                 <div className=' rounded-md w-full relative'>
@@ -51,6 +325,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                         <FaShare className=' h-12 w-12 p-3 border border-1 text-gray-500 hover:bg-slate-100' onClick={() => handleShareClick()} />
                         {isProfileOwner && !brand && <AiOutlineEdit className=' h-12 w-12 p-3 border border-1 text-gray-900 hover:bg-slate-100' onClick={EditHandle} />}
                     </div>
+
                     {business.business_images && Array.isArray(business.business_images) && business.business_images.length > 0 ? <Carousel slidesToScroll={true}>
                         {business.business_images.map((item, index) => (
                             item && item.image && Array.isArray(item.image) && item.image.length > 0 ? (
@@ -68,6 +343,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                                 ))
                             ) : null
                         ))}
+
                     </Carousel> : business.picture && <Image fill src={business.picture} loading='lazy' sizes='100%' className=' object-contain' alt='business' /> || business.icons && <Image fill src={business.icons} loading='lazy' sizes='100%' className=' object-contain' alt='business' />}
                 </div>
             </Col>
@@ -77,6 +353,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                     <Col>
                         <BiSolidBusiness className=' text-purple-600 text-2xl' />
                     </Col>
+
                     <Col>
                         <div className=' text-xl font-bold'>
                             {business.business_name && business.business_name.length > 24
@@ -84,6 +361,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                                 : business.business_name || ''}
                         </div>
                     </Col>
+
                     {business.verified && <Col>
                         <MdVerified className=' text-blue-600 text-2xl' />
                     </Col>}
@@ -99,6 +377,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                             Trending
                         </div>
                     </Col>}
+
                     <Col span={24}>
                         <Row justify='start' align='middle'>
                             {business.industry_leader && <Col span={5}>
@@ -112,18 +391,21 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                             </Col>}
                         </Row>
                     </Col>
+
                     <Col span={23}>
                         <Flex horizontal gap='small' >
                             <BiCategory className=' text-2xl font-semibold text-blue-600' />
                             <GetCategory business={business} />
                         </Flex>
                     </Col>
+
                     <Col span={23}>
                         <Row gutter={3}>
                             <Col><IoShieldCheckmarkSharp className=" text-2xl text-green-700" />  </Col>
                             <Col className=" text-black text-xl font-semibold">GSTIN:{business.GSTIN}</Col>
                         </Row>
                     </Col>
+
                     <Col span={22}>
                         <Text type='secondary' className='text-lg font-normal'>
                             {`${business.city || ''} ${business.pincode || ''}`}
@@ -137,15 +419,19 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                             defaultValue={4}
                             disabled />
                     </Col>
+
                     <Col>
                         {business.ReviewRatings && business.ReviewRatings.length} Ratings
                     </Col>
+
                     <Col className=' ml-16'>
                         <Like refresh={refresh} id={business.id} />
                     </Col>
+
                     <Col>
                         {business.like}
                     </Col>
+
                     <Col span={22}>
                         <Row>
                             <Col></Col>
@@ -153,6 +439,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                     </Col>
                 </Row>
             </Col>
+
             <Col xs={22} md={22} lg={0} xl={0} xxl={0} sm={22}>
                 <Row justify='space-between'>
                     <Col>
@@ -161,12 +448,14 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
                             WhatsApp
                         </Link>
                     </Col>
+
                     <Col>
                         <Link href={`mailto:${business.email}`} target='_blank' className=' flex flex-col font-semibold items-center text-black'>
                             <MdMail style={{ color: '#F05542' }} className=' text-4xl' />
                             E-Mail
                         </Link>
                     </Col>
+
                     <Col>
                         <Link href={`http://maps.google.com?q=${business.address}`} target='_blank' className=' flex flex-col font-semibold items-center text-black'>
                             <FaLocationDot style={{ color: 'green' }} className=' text-4xl' />
@@ -330,7 +619,7 @@ function MobileView({ business, handleShareClick, categoryName, refresh, average
 
         </Row>
     </div>
-
+    </>
     )
 }
 
