@@ -300,6 +300,16 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
 
     return (
     <>
+        <title>{business?.title_tag}</title>
+
+        {business?.meta_tag?.map((item, index) => (
+            <meta 
+                key={index}
+                {...(item.name ? { name: item.name } : {})}
+                {...(item.property ? { property: item.property } : {})}
+                content={item?.content} 
+            />
+        ))}
 
         <script
             type="application/ld+json"

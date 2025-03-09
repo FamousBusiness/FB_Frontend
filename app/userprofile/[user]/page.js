@@ -117,13 +117,11 @@ function Page() {
     };
 
 
-
     const averageRating = calculateAverageRating(business.ReviewRatings);
 
-
     return (
-        <>
-        
+    <>
+
         <div className='overflow-hidden'>
             <Row>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
