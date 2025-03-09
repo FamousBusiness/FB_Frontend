@@ -12,6 +12,8 @@ import CategoryFilter from './Filter/FilterComponent';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
+import Head from 'next/head';
+import Script from "next/script";
 
 
 
@@ -19,7 +21,8 @@ import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 function SearchPage({ CatName }) {
     const [businessData, setBusinessData] = useState([]);
     const [schemaData, setSchemaData] = useState({});
-
+    const [titleTag, setTitletag]     = useState('');
+    const [metaTag, setMetaTag]       = useState([]);
     
     //// Schema data update section
     useEffect(() => {
@@ -242,6 +245,8 @@ function SearchPage({ CatName }) {
                 // console.log('page', page);
                 const response = await get_product_by_category_id(CatName, City, page);
                 setData(response.results);
+                setTitletag(response.results.title_tag)
+                setMetaTag(response.results.category_meta_tag)
                 setCount(response.count);
             } catch (err) {
                 setError(err);
@@ -331,7 +336,17 @@ function SearchPage({ CatName }) {
 
     return (
 <>
+        <title>{titleTag}</title>
 
+        {metaTag.map((item, index) => (
+            <meta 
+                key={index}
+                {...(item.name ? { name: item.name } : {})}
+                {...(item.property ? { property: item.property } : {})}
+                content={item?.content} 
+            />
+        ))}
+     
         {Object.values(schemaData).map(
             (schema, index) =>
                 schema && (
@@ -342,7 +357,7 @@ function SearchPage({ CatName }) {
                     />
             )
         )}
-
+       
     
     <Row justify='center' gutter={[12, { xs: 8, sm: 8, md: 10, lg: 12, xl: 24, xxl: 24 }]} >
         <Col sm={24} xs={24} md={24} lg={23} xl={23} xxl={23}>
