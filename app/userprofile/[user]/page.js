@@ -12,17 +12,37 @@ import DesktopView from '@/components/users/ProfilePage/DesktopView';
 import ProfilePop from '@/utils/ProfilePop';
 import Footer from '@/components/users/ProfilePage/Footer';
 import EmailPass from '@/utils/EmailPasswordSet';
+import Head from 'next/head';
 
+
+
+// export async function generateMetadata({ searchParams }) {
+//     const id = searchParams.get("z_id");
+//     if (!id) return {};
+
+//     const business = await get_product_by_id(id);
+//     if (!business) return {};
+
+//     return {
+//         title: `${business.name} - Best ${business.category} Services`,
+//         description: business.description || "Find the best services here!",
+//         openGraph: {
+//             title: `${business.name} - ${business.category}`,
+//             description: business.description || "Find the best services here!",
+//             images: [business.image], // Use the correct image URL
+//         },
+//     };
+// }
 
 
 
 function Page() {
     const [open, setOpen] = useState(false)
-    const searchParam = useSearchParams()
-    const id    = searchParam.get('z_id');
-    const mail  = searchParam.get('mail')
-    const uuid  = searchParam.get('uuid')
-    const token = searchParam.get('token');
+    const searchParam  = useSearchParams()
+    const id           = searchParam.get('z_id');
+    const mail         = searchParam.get('mail')
+    const uuid         = searchParam.get('uuid')
+    const token        = searchParam.get('token');
     const CategoryName = decodeURIComponent(searchParam.get('Cate'));
 
     const handleRefresh = () => {
@@ -39,9 +59,7 @@ function Page() {
 
     const { data: business, error, mutate } = useSWR(id, get_product_by_id);
 
-    if (!business) {
-        return <div><SearchPageSkeleton /></div>
-    }
+    if (!business) {return <div><SearchPageSkeleton /></div>}
     
     if (error) {
         // Handle error, e.g., display an error message
@@ -104,14 +122,30 @@ function Page() {
 
 
     return (
+        <>
+        
         <div className='overflow-hidden'>
             <Row>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
-                    <MobileView brand={false} refresh={handleRefresh} averageRating={averageRating} handleShareClick={handleShareClick} business={business} categoryName={CategoryName} />
+                    <MobileView 
+                        brand={false} 
+                        refresh={handleRefresh} 
+                        averageRating={averageRating} 
+                        handleShareClick={handleShareClick} 
+                        business={business} 
+                        categoryName={CategoryName}
+                        />
                 </Col>
 
                 <Col xs={0} sm={0} md={0} xl={24} xxl={24} lg={24}>
-                    <DesktopView brand={false} refresh={handleRefresh} averageRating={averageRating} handleShareClick={handleShareClick} business={business} categoryName={CategoryName} />
+                    <DesktopView 
+                        brand={false} 
+                        refresh={handleRefresh} 
+                        averageRating={averageRating} 
+                        handleShareClick={handleShareClick} 
+                        business={business} 
+                        categoryName={CategoryName} 
+                        />
                 </Col>
                 
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
@@ -120,6 +154,7 @@ function Page() {
             </Row>
             {mail && uuid && <EmailPass tokens={token} uuid={uuid} visible={open} />}
         </div>
+    </>
     )
 }
 

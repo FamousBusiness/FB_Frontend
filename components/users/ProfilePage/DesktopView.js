@@ -24,7 +24,8 @@ import { RiSecurePaymentFill } from 'react-icons/ri'
 import ModelProduct from './ModelProduct'
 import GetCategory from '@/utils/GetCategory'
 import { useGlobalState } from '@/services/LocationDetector/GlobalState'
-import Enquiry from './Enquiry'
+import Enquiry from './Enquiry';
+
 
 
 
@@ -236,8 +237,8 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
     }
 
     const FAQPageSchemaData = {
-         ...(business.faq_schema_mainEntity && {
                 "@context": "http://schema.org",
+         ...(business.faq_schema_mainEntity && {
                 "@type": "FAQPage",
                 "mainEntity": business.faq_schema_mainEntity?.map((item) => ({
                     "@type": "Question",
@@ -276,7 +277,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                 "image": business.article_schema?.image,
                 "articleBody": business.article_schema?.articleBody
             })
-        }
+    }
     
     const carouselRefOne     = useRef()
     const { user, userdata } = useAuth()
@@ -299,6 +300,7 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
 
     return (
     <>
+
         <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(BreadcrumbSchemaData) }}

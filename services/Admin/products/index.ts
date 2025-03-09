@@ -66,6 +66,8 @@ export const get_product_by_category_id = async (
   // pincode: string,
   page: number
 ): Promise<any> => {
+  const apiURL = process.env.NEXT_PUBLIC_IS_DEVELOPMENT == 'True' ? 'http://127.0.0.1:8000/api' : 'https://api.famousbusiness.in/api'
+  
   try {
     console.log("Getting", page);
     const accessToken = Cookies.get("accessToken");
@@ -78,7 +80,7 @@ export const get_product_by_category_id = async (
     }
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/listings/category-wise-business/${city}/${category}/?page=${page}`,
+      `${apiURL}/listings/category-wise-business/${city}/${category}/?page=${page}`,
       {
         method: "GET",
         headers: headers,

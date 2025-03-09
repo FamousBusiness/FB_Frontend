@@ -6,6 +6,8 @@ import { BsArrowUpShort } from "react-icons/bs";
 import SearchPage from "@/components/users/SearchPage";
 import { useGlobalState } from "@/services/LocationDetector/GlobalState";
 
+
+
 export default function Page() {
     const searchParams = useSearchParams();
     const param = useParams()
@@ -13,7 +15,7 @@ export default function Page() {
     const category = searchParams.get('cat_id');
     const categoryName = decodeURIComponent(searchParams.get('cat_name'));
 
-
+    
     return (
         <>
             <div className=" relative min-h-screen p-1 bg-white">
