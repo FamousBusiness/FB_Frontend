@@ -243,7 +243,7 @@ function SearchKeywordPage() {
                 }
             })
         }
-    }, [location, keyword, apiUrl])
+    }, [location, keyword, apiUrl, formattedLocation, formattedKeyword])
 
 
     const handleFilterChange = (newFilters) => {
