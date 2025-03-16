@@ -317,21 +317,21 @@ return (
                         <NextBreadcrumb separator="/" capitalizeLinks={true} />
                     </Col>
                     
-                    <Col className=' font-semibold pb-1'>
+                    <Col className='font-semibold pb-1'>
                         &gt;{count}
                     </Col>
                 </Row>
             </Col>
 
             <Col span={23}>
-                <p className=" xl:text-2xl sm:text-lg md:text-xl font-semibold ">{bodyTag ? bodyTag : ''}</p>
+                <p className="xl:text-3xl sm:text-lg md:text-xl font-semibold">{bodyTag ? bodyTag : ''}</p>
             </Col>
 
-            <Col sm={0} xs={0} md={0} lg={23} xl={23} xxl={23} >
+            {/* <Col sm={0} xs={0} md={0} lg={23} xl={23} xxl={23} >
                 <div>
                     <CategoryFilter onFilterChange={handleFilterChange} />
                 </div>
-            </Col>
+            </Col> */}
 
             <Col span={24}>
                 <Row gutter={12} justify='space-between'>
