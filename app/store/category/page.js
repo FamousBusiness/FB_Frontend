@@ -56,7 +56,7 @@ function Category() {
 
        })
     }
-}, [catId]);
+}, [catId, apiURL]);
 
   
   

@@ -145,7 +145,7 @@ export default function StoreTopNavbar() {
         };
     
         checkAuth();
-    }, []);
+    }, [isAuthenticated]);
     
 
     //// Fetch all the Cart quantity

@@ -212,15 +212,16 @@ function SearchKeywordPage() {
     }, [locationOptions, setLocationCity]);
 
 
-    const params = new URLSearchParams({
-        city: formattedLocation,
-        keyword: formattedKeyword
-    })
-
     // console.log('params', params)
 
     useEffect(()=> {
         if (keyword && location) {
+            
+            const params = new URLSearchParams({
+                city: formattedLocation,
+                keyword: formattedKeyword
+            })
+
             axiosInstance.get(`${apiUrl}/api/listings/search/keyword/business/?${params.toString()}`).then((res)=> {
                 // console.log('res', res)
                 if (res.status === 200) {
@@ -242,7 +243,7 @@ function SearchKeywordPage() {
                 }
             })
         }
-    }, [location, keyword])
+    }, [location, keyword, apiUrl])
 
 
     const handleFilterChange = (newFilters) => {

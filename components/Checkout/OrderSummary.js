@@ -5,6 +5,7 @@ import { Box, Typography, Button, Card, CardContent } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import CircularProgress from '@mui/material/CircularProgress';
+import Image from 'next/image';
 
 
 
@@ -29,7 +30,15 @@ function OrderSummary({orderLoading, orderData}) {
                 {orderData.map((item, index)=> (
                     <Card sx={{ mb: 2 }} key={index}>
                         <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                            <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} />
+                            {/* <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} /> */}
+                            <Image 
+                                src={item?.picture || "/fallback-image.jpg"} 
+                                alt="Product" 
+                                width={100} 
+                                height={100} 
+                                style={{ marginRight: 16 }} 
+                                priority
+                            />
 
                             <Box sx={{ display:'flex', gap:1, flexDirection:'column'}}>
                                 <Typography variant="h6">{item?.product_details?.name}</Typography>

@@ -12,6 +12,7 @@ import { Carousel } from 'antd';
 import Pagination from '@mui/material/Pagination';
 import CircularProgressWithLabel from './Components/Loader';
 import CircularProgress from '@mui/material/CircularProgress';
+import Image from 'next/image';
 // import useSWR from 'swr';
 // import PincodeByCity from '@/components/users/location/PincodeByCity';
 // import PremiumMember from './Components/PremiumMember';
@@ -614,7 +615,7 @@ function Page() {
 
                             {banner.image && (
                                 <div onClick={() => window.location.href = banner.url} style={{ cursor: 'pointer' }}>
-                                    <img
+                                    {/* <img
                                         src={banner.image}
                                         alt='Image'
                                         style={{
@@ -628,6 +629,24 @@ function Page() {
                                             height: '210px',
                                             width: '90%'
                                         }}
+                                    /> */}
+                                    <Image 
+                                        src={banner.image || "/fallback-image.jpg"} 
+                                        alt="Image" 
+                                        width={900} // Adjust width as needed
+                                        height={210} 
+                                        style={{
+                                            lineHeight: "160px",
+                                            textAlign: "center",
+                                            background: "#364d79",
+                                            marginRight: "10%",
+                                            marginLeft: "10%",
+                                            borderRadius: "25px",
+                                            color: "#fff",
+                                            width: "90%", // Note: Next.js will enforce aspect ratio, so you might need to adjust this
+                                            objectFit: "cover"
+                                        }}
+                                        priority
                                     />
                                 </div>
                             )}

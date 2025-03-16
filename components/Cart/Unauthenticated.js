@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import LoginForm from '@/components/LoginForm/LoginForm';
 import axiosInstance from '@/Authentication/axios';
+import Image from 'next/image';
 
 
 
@@ -194,7 +195,15 @@ function UnAuthenticatedCartItems({ setLogin, login, isLoggedin }) {
 
                                 <Card sx={{ mb: 2 }} key={index}>
                                     <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} />
+                                        {/* <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} /> */}
+                                        <Image 
+                                            src={item?.picture} 
+                                            alt="Product" 
+                                            width={100} 
+                                            height={100} 
+                                            style={{ marginRight: 16 }} 
+                                            priority
+                                        />
 
                                         <Box sx={{ display: 'flex', gap: 1, flexDirection: 'column' }}>
 

@@ -12,12 +12,12 @@ import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import axiosInstance from '@/Authentication/axios';
-import CheckOutMobileView from '@/Component/Checkout/MobileView';
+import CheckOutMobileView from '@/components/Checkout/MobileView';
 import { useDataContext } from '../DataContext';
-import OrderSummary from '@/Component/Checkout/OrderSummary';
-import AddressForm from '@/Component/Checkout/Address';
-import PaymentOption from '@/Component/Checkout/PaymentOption';
-import { CheckOutshowRazorpay } from '@/Component/Checkout/RazorPay/payment';
+import OrderSummary from '@/components/Checkout/OrderSummary';
+import AddressForm from '@/components/Checkout/Address';
+import PaymentOption from '@/components/Checkout/PaymentOption';
+// import { CheckOutshowRazorpay } from '@/Component/Checkout/RazorPay/payment';
 
 
 

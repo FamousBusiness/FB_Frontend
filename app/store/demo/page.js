@@ -1,4 +1,4 @@
-import AllCategories from "@/Component/AllCategory/Categories"
+import AllCategories from "@/components/AllCategory/Categories";
 
 
 

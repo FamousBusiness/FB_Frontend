@@ -42,7 +42,7 @@ export const DataProvider = ({ children }) => {
     }
         
     checkAuthentication();
-    }, []);
+    }, [isAuthenticated]);
 
 
     if (isLoggedin === null) {

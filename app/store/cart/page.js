@@ -12,10 +12,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useDataContext } from '@/app/DataContext';
+import { useDataContext } from '../DataContext';
 import { useRouter } from 'next/navigation';
 import UnAuthenticatedCartItems from '@/components/Cart/Unauthenticated';
 import LoginForm from '@/components/LoginForm/LoginForm';
+import Image from 'next/image';
 
 
 
@@ -296,7 +297,15 @@ return (
                         {userCartItem.map((item, index)=> (
                                 <Card sx={{ mb: 2 }} key={index}>
                                     <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} />
+                                        {/* <img src={item?.picture} alt="Product" width={100} height={100} style={{ marginRight: 16 }} /> */}
+                                        <Image 
+                                            src={item?.picture || "/fallback-image.jpg"} 
+                                            alt="Product" 
+                                            width={100} 
+                                            height={100} 
+                                            style={{ marginRight: 16 }} 
+                                            priority
+                                        />
 
                                         <Box sx={{ display:'flex', gap:1, flexDirection:'column'}}>
                                             <Typography variant="h6">{item?.product_details?.name}</Typography>

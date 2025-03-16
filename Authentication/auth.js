@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useCallback, useContext, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
 import axios from 'axios';

@@ -74,7 +74,7 @@ function ImageGallery({Images = [], productID}) {
                 }
             }
         };
-    }, [productID, isLoggedin]);
+    }, [productID, isLoggedin, setViewCart]);
 
     
 
@@ -110,7 +110,7 @@ function ImageGallery({Images = [], productID}) {
         }
       }
 
-    }, [cartItem, productID, isLoggedin]);
+    }, [cartItem, productID, isLoggedin, setViewCart]);
 
   
 
