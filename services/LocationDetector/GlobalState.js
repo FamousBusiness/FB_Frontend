@@ -11,8 +11,10 @@ const GlobalStateContext = createContext();
 
 
 export const GlobalStateProvider = ({ children }) => {
-  const [likes, setLikes] = useState(false);
-  const [sessionToken, setSessionToken] = useState(uuidv4());
+  const [likes, setLikes]                 = useState(false);
+  const [sessionToken, setSessionToken]   = useState(uuidv4());
+  const [LocationCity, setLocationCity]   = useState(''); 
+
   const [locationState, setLocationState] = useState({
     city: "New Delhi",
     pincode: "110012",
@@ -20,8 +22,8 @@ export const GlobalStateProvider = ({ children }) => {
     state: "Delhi",
     coordinates: null,
   });
-
   const [apiCallCount, setApiCallCount] = useState(0);
+  
   const updateLiveLocation = (newLocation) => {
     setLocationState(newLocation);
   }
@@ -33,6 +35,7 @@ export const GlobalStateProvider = ({ children }) => {
   const liveLocation = useCallback(async (position) => {
     try {
       const { latitude, longitude } = position.coords;
+
       const res = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.NEXT_PUBLIC_GEO_API_KEY}&country=IN`, {
         method: 'GET',
         headers: {
@@ -41,13 +44,14 @@ export const GlobalStateProvider = ({ children }) => {
       });
       const data = await res.json();
 
-      if (data.features && data.features.length > 0) {
-        const city = getPlaceContext(data.features[0], 'place');
-        const pincode = getPlaceContext(data.features[0], 'postcode');
-        const locality = data.features[0].place_name;
-        const state = getPlaceContext(data.features[0], 'region');
+      // console.log('live data', data)
 
-        console.log("From live ", city, pincode, locality, state);
+      if (data.features && data.features.length > 0) {
+        const city     = getPlaceContext(data.features[0], 'place');
+        const pincode  = getPlaceContext(data.features[0], 'postcode');
+        const locality = data.features[0].place_name;
+        const state    = getPlaceContext(data.features[0], 'region');
+        // console.log("From live ", city, pincode, locality, state);
 
         const newLocationState = {
           coordinates: `${latitude}, ${longitude}`,
@@ -131,7 +135,7 @@ export const GlobalStateProvider = ({ children }) => {
   }
 
   return (
-    <GlobalStateContext.Provider value={{ locationState, likes, updateLikes, updateLiveLocation, handleButtonClick, updateCallCount }}>
+    <GlobalStateContext.Provider value={{ locationState, likes, updateLikes, updateLiveLocation, handleButtonClick, updateCallCount, LocationCity, setLocationCity }}>
       {children}
     </GlobalStateContext.Provider>
   );

@@ -1,29 +1,37 @@
+"use client";
+
 import "./globals.css";
 import Navbar from "@/components/users/Navbar";
 import Footer from "@/components/users/UserProfile.js/Footer";
 import BottomNav from "@/components/users/home/MobileComponent/BottomNav";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalStateProvider } from "@/services/LocationDetector/GlobalState";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
-export const metadata = {
-  title: "Famous Business",
-  description: "Developed By WBFS PVT LTD",
-  creator: "Arshad",
-  authors: [{ name: "Arshad Iqbal" }],
-  verification: {
-    google: "Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw",
-    facebook: "8hhzgny6wxz91vzeqa61rmobj6tbim",
-  },
-};
+// export const metadata = {
+//   title: "Famous Business",
+//   description: "Developed By WBFS PVT LTD",
+//   creator: "Famous Business",
+//   authors: [{ name: "Famous Business" }],
+//   verification: {
+//     google: "Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw",
+//     facebook: "8hhzgny6wxz91vzeqa61rmobj6tbim",
+//   },
+// };
+
+
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  const hideNavbar = pathname.startsWith("/store") || pathname.startsWith("/wallet");
+
   return (
     <html lang="en">
       <head>
-        <meta
-          name="facebook-domain-verification"
-          content="8hhzgny6wxz91vzeqa61rmobj6tbim"
-        />
+        <meta name="google-site-verification" content="Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw" />
+        <meta name="facebook-domain-verification" content="8hhzgny6wxz91vzeqa61rmobj6tbim"/>
 
         <meta name="google-adsense-account" content="ca-pub-3619066091276324" />
 
@@ -51,12 +59,20 @@ export default function RootLayout({ children }) {
         />
 
         <noscript>
-          <img
+          {/* <img
             height="1"
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=1114902456896553&ev=PageView&noscript=1"
             alt="Facebook Pixel"
+          /> */}
+          <Image
+            src="https://www.facebook.com/tr?id=1114902456896553&ev=PageView&noscript=1"
+            alt="Facebook Pixel"
+            width={1}
+            height={1}
+            style={{ display: "none" }}
+            unoptimized
           />
         </noscript>
       </head>
@@ -64,10 +80,9 @@ export default function RootLayout({ children }) {
       <body className="bg-slate-100 dark:text-gray-800">
         <AuthProvider>
           <GlobalStateProvider>
-            <Navbar />
-            {children}
-            <Footer />
-
+              {!hideNavbar && <Navbar />}
+                {children}
+              {!hideNavbar && <Footer />}
             <BottomNav />
           </GlobalStateProvider>
         </AuthProvider>

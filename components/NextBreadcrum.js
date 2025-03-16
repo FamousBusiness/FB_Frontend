@@ -6,6 +6,8 @@ import { ImHome } from "react-icons/im";
 
 import Link from 'next/link';
 
+
+
 const NextBreadcrumb = ({ separator, capitalizeLinks }) => {
   const paths = usePathname();
   const router = useRouter()
@@ -25,7 +27,7 @@ const NextBreadcrumb = ({ separator, capitalizeLinks }) => {
         {paths === href ? (
           <span>{itemLink}</span>
         ) : (
-          <span className=' cursor-pointer text-blue-500' onClick={() => router.back()}>{itemLink}</span>
+          <span className='cursor-pointer text-blue-500' onClick={() => router.back()}>{itemLink}</span>
         )}
       </Breadcrumb.Item>
     );

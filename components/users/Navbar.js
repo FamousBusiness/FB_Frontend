@@ -21,25 +21,25 @@ import axios from 'axios';
 
 const Navbar = () => {
   const pathName = usePathname()
-  const router = useRouter();
+  const router   = useRouter();
   const { user, userdata, authTokens } = useAuth();
-  const [login, setLogin]       = useState(false);  /// Login State (false no need to Login) (True Need to Login)
-  const [location, setLocation] = useState('');
-  const [search, setSearch]     = useState('');
-  const [isScrolled, setIsScrolled] = useState(false); 
-  const [focus, setFous] = useState(false);
-  const [removePlan, setRemovePlan] = useState(false);
-  const [apiUrl, setApiURL] = useState(
+  const [login, setLogin]              = useState(false);  /// Login State (false no need to Login) (True Need to Login)
+  const [location, setLocation]        = useState('');
+  const [search, setSearch]            = useState('');
+  const [isScrolled, setIsScrolled]    = useState(false); 
+  const [focus, setFous]               = useState(false);
+  const [removePlan, setRemovePlan]    = useState(false);
+  const [apiUrl, setApiURL]            = useState(
             process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
-        );
+      );
 
 
  
     ///// Login of user for Premium plan access
     const handleCheckPremiumPlanLogin = async () => {
       if (!authTokens) {
-        setLogin(true);
-        return;
+          setLogin(true);
+          return;
       }
     
       try {
@@ -70,7 +70,7 @@ const Navbar = () => {
 
   }, []);
 
-  
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -94,7 +94,7 @@ const Navbar = () => {
 
   const handleSearch = (value) => {
     setLocation(value);
-  }
+  };
 
 
   const handleSubmit = (value) => {
@@ -120,13 +120,26 @@ const Navbar = () => {
 
   return (
     <>
-      {pathName.includes('/failure') || pathName.includes('/success') || pathName.includes('/admin') || pathName.includes('/login') || pathName.includes('/about') || pathName === '/job/employerdash' || pathName === '/job/employeedash' || pathName == '/tender' || pathName.includes('/registration') || pathName.includes('/passwordChange') || pathName.includes('/enquiry') ? null :
+      {
+      pathName.includes('/failure') || 
+      pathName.includes('/success') || 
+      pathName.includes('/admin') || 
+      pathName.includes('/login') || 
+      pathName.includes('/about') || 
+      pathName === '/job/employerdash' || 
+      pathName === '/job/employeedash' || 
+      pathName == '/tender' || 
+      pathName.includes('/registration') || 
+      pathName.includes('/passwordChange') || 
+      pathName.includes('/enquiry') ? null :
+
         <div className=" px-2 py-2 sm:py-3  mb-4 sticky top-0 z-20 w-full bg-white" style={{ boxShadow: 'rgba(33, 35, 38, 0.1) 0px 10px 10px -10px' }} >
 
           <Row align='middle' gutter={[0, 10]}>
 
             <Col xs={24} sm={24} xl={0} lg={0} xxl={0}>
               <Row justify='space-between' gutter={4} align='middle'>
+
                 <Col span={6}>
                   <Link href='/' className=' text-base'><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></Link></Col>
                     {!pathName.includes('/job') && <Col span={10}>
@@ -225,7 +238,7 @@ const Navbar = () => {
           </Row>
 
         
-          {(pathName === '/brands' || pathName !== '/') ? null : (
+          {(pathName === '/brands' || pathName !== '/' || pathName.match(/^\/[^/]+$/)) ? null : (
             <motion.div className=' relative' animate={{
               visibility: isScrolled ? 'hidden' : 'visible', height: isScrolled ? 0 : 'auto',
               // transition: { duration: 0.5 }

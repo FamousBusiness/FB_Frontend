@@ -46,29 +46,26 @@ axiosInstance.interceptors.request.use((config) => {
 
 })
 
-
 // If the user is Unauthorize then redirect to Signin page
-axiosInstance.interceptors.response.use(
-    (res) => {
-        return res
-    },
+// axiosInstance.interceptors.response.use(
+//     (res) => {
+//         return res
+//     },
 
-    async function (error) {
-        // const originalRequest = error.config;
+//     async function (error) {
+//         // const originalRequest = error.config;
 
-        if (error.response) {
-            if (error.response.statusText === 'Unauthorized') {
-                window.location.href = '/login/';
-            }
-            return Promise.reject(error);
-        } else {
-            // console.error('Network Error or other issue:', error);
-            return Promise.reject(error);
-        }
-    }
-);
-
+//         if (error.response) {
+//             if (error.response.statusText === 'Unauthorized') {
+//                 window.location.href = '/signin/';
+//             }
+//             return Promise.reject(error);
+//         } else {
+//             console.error('Network Error or other issue:', error);
+//             return Promise.reject(error);
+//         }
+//     }
+// );
 
 
 export default axiosInstance;
-

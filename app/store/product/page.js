@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
 import React from 'react'; 
-import ProductDetails from './ProductDetails';
-import ImageGallery from './ProductImage';
 import { useEffect, useState } from 'react';
 import { Paper, Box } from '@mui/material';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import Grid from '@mui/material/Grid2';
-import BottomProductNav from '../Navbar/ProductBottomNav';
+import axios from 'axios';
+import ImageGallery from '@/components/Product/ProductImage';
+import ProductDetails from '@/components/Product/ProductDetails';
+import BottomProductNav from '@/components/Navbar/ProductBottomNav';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
 
 
-function Page() {
+function Product() {
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true);
     const [error, setError]             = useState('');
@@ -32,22 +32,22 @@ function Page() {
     }, []);
 
 
+
     ///// Fetch the product details when page loads
     useEffect(()=> {
       if (productID) {
+          axios.get(`${apiURL}/api/ecom/v1/product/?product_id=${productID}`).then((res)=> {
+              if (res.status === 200) {
+                setLoading(false)
+                setProductData(res.data.results)
+                setImages(res.data.results[0].multiple_img);
+              }
 
-        axios.get(`${apiURL}/api/ecom/v1/product/?product_id=${productID}`).then((res)=> {
-            if (res.status === 200) {
-              setLoading(false)
-              setProductData(res.data.results)
-              setImages(res.data.results[0].multiple_img);
-            }
+          }).catch((error)=> {
+              setLoading(false);
+              setError('Something went wrong');
 
-        }).catch((error)=> {
-            setLoading(false);
-            setError('Something went wrong');
-
-        });
+          });
       }
     }, [productID, apiURL]);
 
@@ -63,6 +63,7 @@ function Page() {
               <Box sx={{ marginTop: 2 }}>
                   <ImageGallery 
                     Images={Images} 
+                    productID={productID}
                     />
               </Box>
             </Grid>
@@ -79,6 +80,7 @@ function Page() {
 
         <BottomProductNav 
             productData={productData}
+            productID={productID}
           />
       </Paper>
 
@@ -87,4 +89,4 @@ function Page() {
 }
 
 
-export default Page;
+export default Product;

@@ -1,5 +1,6 @@
 "use client";
 
+
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Card, CardContent, Box, Stack,
 } from "@mui/material";
@@ -14,13 +15,16 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
 ///// Category wise product page
-function Page() { 
+function Category() { 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading]         = useState(true); //// Loading 
     const [error, setError]             = useState(''); //// Error Message
     const [productID, setProductID]     = useState('');  //// Selected Product
     const [catId, setCatId] = useState('');
+    const [productCount, setProductCount] = useState(0); /// Product Count
+    const [categoryName, setCategoryName] = useState(''); //// Category Name
     const [subCat, setSubCat] = useState('');
+    const [apiURL, setAPIURL] = useState(process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? 'http://127.0.0.1:8000' : 'https://api.famousbusiness.in')
 
     
     ////// Get the data from query params
@@ -28,21 +32,22 @@ function Page() {
       if (typeof window !== 'undefined') {  // Ensure code runs only on the client side
         const params = new URLSearchParams(window.location.search);
         setCatId(params.get('cat_id'));
-        setSubCat(params.get('sub_cat'));
+        setCategoryName(params.get('cat_name'))
+        // setSubCat(params.get('sub_cat'));
       }
     }, []);
 
 
   //// Fetch all Category wise product
   useEffect(()=> {
-    if (catId && subCat) {
+    if (catId) {
       const category_id = parseInt(catId);
-      const subcategory = subCat;
 
-       axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/ecom/v1/category/product/?category_id=${category_id}&subcategory=${subcategory}`).then((res)=> {
+       axios.get(`${apiURL}/api/ecom/v1/category/product/?category_id=${category_id}`).then((res)=> {
             if (res.status === 200) {
               setProductData(res.data.results);
               setLoading(false);
+              setProductCount(res.data.count);
             }
 
        }).catch((error)=> {
@@ -51,7 +56,7 @@ function Page() {
 
        })
     }
-}, [catId, subCat]);
+}, [catId]);
 
   
   
@@ -91,7 +96,7 @@ function Page() {
       >
         {/* Header Breadcrumb */}
         <Typography variant="h6" color="textSecondary" gutterBottom>
-            Showing 1 40 of 13,818 results for &quot;cctv camera set&quot;
+            Showing {productCount} of 13,818 results for &quot;{categoryName} Item&quot;
         </Typography>
 
         <Box
@@ -106,13 +111,14 @@ function Page() {
           {/* Sort options can be a dropdown */}
         </Box>
 
+
         {loading ? (
-          <CircularProgress style={{display:'flex', justifyContent:'center'}} />
+            <CircularProgress style={{display:'flex', justifyContent:'center'}} />
 
         ) : (
           <>
 
-            {/* Product Grid */}
+          {/* Product Grid */}
             <Grid container spacing={{ xs: 1, sm: 3 }}>
               {productData.map((product) => (
                 <Grid size={{ xs: 6, sm: 6, md: 4, lg: 3 }} key={product.id}>
@@ -204,4 +210,5 @@ function Page() {
   );
 }
 
-export default Page;
+
+export default Category;

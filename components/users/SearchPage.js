@@ -12,8 +12,6 @@ import CategoryFilter from './Filter/FilterComponent';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
-import Head from 'next/head';
-import Script from "next/script";
 
 
 
@@ -273,7 +271,8 @@ function SearchPage({ CatName }) {
 
     }, [visibleItems])
 
-
+    
+    //// Filter business data
     useEffect(() => {
         if (data) {
             // Apply filters here to the 'data' state
@@ -346,17 +345,19 @@ function SearchPage({ CatName }) {
                 content={item?.content} 
             />
         ))}
-     
-        {Object.values(schemaData).map(
-            (schema, index) =>
-                schema && (
-                    <script
-                        key={index}
-                        type="application/ld+json"
-                        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-                    />
-            )
-        )}
+
+       {/* <head> */}
+            {Object.values(schemaData).map(
+                (schema, index) =>
+                    schema && (
+                        <script
+                            key={index}
+                            type="application/ld+json"
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                        />
+                )
+            )}
+        {/* </head> */}
        
     
     <Row justify='center' gutter={[12, { xs: 8, sm: 8, md: 10, lg: 12, xl: 24, xxl: 24 }]} >

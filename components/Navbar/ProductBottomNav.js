@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from 'react';
 import Button from '@mui/joy/Button';
 import ButtonGroup from '@mui/joy/ButtonGroup';
@@ -6,22 +8,28 @@ import { useTheme, useMediaQuery  } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Badge from '@mui/material/Badge';
 import { useEffect, useState } from 'react';
-import { useDataContext } from '../DataContext';
-import { useAuth } from '@/context/AuthContext';
-import LoginForm from '@/utils/LandingPageModel';
+import { useDataContext } from '@/app/store/DataContext';
+import { useAuth } from '@/Authentication/auth';
+import { useRouter } from 'next/navigation';
+import LoginForm from '../LoginForm/LoginForm';
+import axiosInstance from '@/Authentication/axios';
+import CheckIcon from '@mui/icons-material/Check';
+
+
 
 
 
 
 //// Mobile view of Product Bottom Navbar
-export default function BottomProductNav(productData=[]) {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const [addedToCart, setAddedToCart]     = useState(false);
-    const [productDetail, setProductDetail] = useState(0);
-    const [productID, setProductID]         = useState(0);
+export default function BottomProductNav({productData=[], productID}) {
+    const theme  = useTheme();
+    const router = useRouter();
+    const isSmallScreen  = useMediaQuery(theme.breakpoints.down('sm'));
+    const { isLoggedin } = useDataContext();
+    const { viewCart, setViewCart } =  useDataContext();
+
     const [login, setLogin]                 = useState(false);  //// Open Login Modal state
-    const { authTokens }                    = useAuth(); 
+    const { authTokens }                    = useAuth();
     const [storageProduct, setStorageProduct] = useState(() => {
         // Initialize state with data from localStorage
         if (typeof window !== 'undefined') {
@@ -31,41 +39,49 @@ export default function BottomProductNav(productData=[]) {
         return [];
     });
 
-    const { viewCart } =  useDataContext();
-    // console.log('viewCart', viewCart)
 
-
-    /// Set product id if productdata is availabel
-    useEffect(()=> {
-        if (productData.length > 0) {  
-            setProductID(productData[0].id);
-        }
-    }, [productData]);
-
-    
 
     ///// Clicked on Add to cart buttons
     const handleClickCart = ()=> {
-        setAddedToCart(true);
-        setProductDetail(productData);
-        const newProduct = { id: productID };
-        const isExistingProduct = storageProduct.some((product) => product.id === productID);
+        setViewCart(true);
 
-        if (!isExistingProduct) {
-        setStorageProduct((prev) => [...prev, newProduct]); // Add the new product to the existing array
+        if (isLoggedin) {
+            ////// Make API Call to update Cart Item
+            axiosInstance.post(`/api/ecom/v1/cart/`, {
+                product: parseInt(productID),
+                quantity: 1
+
+            }).then((res)=> {
+                //  console.log(res)
+                 if (res.status === 200) {
+                    setViewCart(true)
+                 }
+
+            }).catch((error)=> {
+                // console.log(error);
+            })
+
         } else {
-        // console.log('Product is already in the cart');
-        }
+            ///// If not Authenticated
+            try {
+                if (typeof window !== 'undefined') {
+                    const existingCart = JSON.parse(localStorage.getItem('cart_items')) || [];
+                    // Add new product to the cart
+                    const newProduct = {
+                      product_id: productID,
+                      quantity: 1,
+                    };
+
+                    const updateCart = [...existingCart, newProduct]
+                    localStorage.setItem('cart_items', JSON.stringify(updateCart));
+                }
+
+            } catch {
+                console.log('Product Added to Cart Problem')
+            }
+        };
     };
 
-
-    ///// Store the cart product in Local storage
-    useEffect(()=> {
-        if (storageProduct) {
-            if (typeof window !== 'undefined' && storageProduct.length > 0) {
-                localStorage.setItem('cart_products', JSON.stringify(storageProduct))
-        }}
-    }, [storageProduct]);
 
 
      //// Clicked on Buy on EMI 
@@ -106,10 +122,9 @@ return (
 
             {viewCart ? (
                 <IconButton sx={{p:1}}>
-                    <Badge badgeContent={1} color="primary">
+                    <Badge badgeContent={<CheckIcon sx={{ fontSize:'10px'}}/>} color="success">
                         <AddShoppingCartIcon sx={{fontSize:'40px'}}/>
                     </Badge>
-                    {console.log('viewCart', viewCart)}
                 </IconButton>
             ) : (
                 <IconButton sx={{p:1}} onClick={handleClickCart}>
@@ -123,7 +138,11 @@ return (
                 From 2,000/m
             </Button>
 
-            <Button sx={{backgroundColor:'black', color:'white'}} onClick={handleBuyOnEMIClicked}>
+            <Button 
+                variant='contained' 
+                sx={{ backgroundColor:'black', color:'white'}} 
+                onClick={()=> {isLoggedin ? router.push('/cart') : handleBuyOnEMIClicked()}}
+                >
                 Buy Now
             </Button>
 
@@ -131,6 +150,6 @@ return (
     )}
 
     <LoginForm visible={login} onClose={() => setLogin(false)} />
-
 </>
+
 )};

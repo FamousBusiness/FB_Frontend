@@ -7,6 +7,8 @@ import { MdVerified } from 'react-icons/md';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import axios from 'axios';
 
+
+
 function CategoryFilter({ onFilterChange }) {
   const [options, setOptions] = useState([])
   const { locationState } = useGlobalState()

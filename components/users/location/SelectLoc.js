@@ -3,12 +3,13 @@ import { AutoComplete, Button, Col, Row, Select } from 'antd';
 import axios from 'axios';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { MdMyLocation } from 'react-icons/md';
+import { useMapboxLocation } from '@/lib/location';
 
 
 
 
 const LocAuto = () => {
-  const { updateLiveLocation, locationState, handleButtonClick, updateCallCount } = useGlobalState(); // Access liveLocation from context
+  const { updateLiveLocation, locationState, handleButtonClick, updateCallCount, LocationCity } = useGlobalState(); // Access liveLocation from context
 
   const [options, setOptions] = useState([
         { value: 'Mumbai', label: 'Mumbai' },
@@ -34,6 +35,7 @@ const LocAuto = () => {
 
   const [defaultOptions, setDefaultOptions] = useState('');
   const [sessionToken, setSessionToken] = useState(null);
+
 
   const handleSearch = async (value) => {
     if (value.length >= 1) {
@@ -71,11 +73,14 @@ const LocAuto = () => {
 
 
   useEffect(() => {
-    if (locationState.city) {
-      console.log("live location selected", locationState.city)
+    if (LocationCity) {
+      setDefaultOptions(LocationCity)
+
+    } else if (locationState.city) {
       setDefaultOptions(locationState.city);
     }
-  }, [locationState.city])
+  }, [locationState.city, LocationCity])
+
 
   useEffect(() => {
     // Retrieve or generate session token
@@ -94,6 +99,8 @@ const LocAuto = () => {
     // Generate a unique session token (you can implement as needed)
     return Math.random().toString(36).substr(2);
   };
+
+  // console.log('LocationCity', LocationCity)
 
   return (
     <Row>

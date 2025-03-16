@@ -9,6 +9,7 @@ function GetCategory({ business }) {
   // console.log(business);
 
   const { data, error } = useSWR(business.category, get_category_by_id)
+  
   if (!data) {
     return <><Skeleton.Button active block/></>
   }

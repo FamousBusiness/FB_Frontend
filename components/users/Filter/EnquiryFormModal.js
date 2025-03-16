@@ -7,6 +7,8 @@ import { EnquiryIndivisual } from '@/utils/Enquiry';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 
+
+
 const EnquiryFormModel = ({ businessId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     // const card = false;
