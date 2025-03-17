@@ -182,6 +182,7 @@ function SearchKeywordPage() {
     const [metaTag, setMetaTag] = useState([]);
     const [titleTag, setTitletag] = useState('');
     const [bodyTag, setBodyTag] = useState('');
+    const [linkTag, setLinkTag] = useState([]);
     const [itemListSchemaName, setItemListSchemaName] = useState('');
     const [FaqSchemaData, setFaqSchemaData] = useState([]);
     const [articleSchemaData, setArticleSchemaData] = useState({});
@@ -233,6 +234,7 @@ function SearchKeywordPage() {
                     setFaqSchemaData(res.data.results.faq_schema)
                     setArticleSchemaData(res.data.results.article_schema)
                     setBodyTag(res.data.results.body_tag)
+                    setLinkTag(res.data.results.link_tag)
                 }
 
             }).catch((error)=> {
@@ -283,6 +285,15 @@ return (
                 {...(item.name ? { name: item.name } : {})}
                 {...(item.property ? { property: item.property } : {})}
                 content={item?.content} 
+            />
+        ))}
+
+        {linkTag.map((item, index) => (
+            <link 
+                key={index}
+                {...(item.type ? { rel: item.type } : {})}
+                {...(item.href ? { href: item.href } : {})}
+                rel={item?.rel} 
             />
         ))}
     
