@@ -138,7 +138,7 @@ function Top() {
           </div>
 
           <Player
-            ref={playerRef}
+            // ref={playerRef}
             style={{ width: '50%', marginTop: '-10px ' }}
             src='/Lotties/Cart1.json'
             // loop
@@ -162,7 +162,7 @@ function Top() {
                 <div className='text-lg text-white font-bold'>LIVE Leads</div>
               </div>
               <Player
-                ref={playerRef}
+                // ref={playerRef}
                 style={{ width: '50%', marginTop: '-10px ' }}
                 src='/Lotties/Database.json'
                 // loop
