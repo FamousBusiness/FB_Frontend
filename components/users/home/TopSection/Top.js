@@ -21,7 +21,7 @@ const Carousel1 = dynamic(()=> import ('./Carousel'), { ssr: false })
 
 function Top() {
   const { user } = useAuth()
-  const playerRef = useRef(null);
+  // const playerRef = useRef(null);
 
   const { locationState } = useGlobalState()
   const [leadsCount, setLeadsCount] = useState(0)
@@ -32,11 +32,11 @@ function Top() {
   const city = locationState.city;
   const state = locationState.state;
 
-  useEffect(() => {
-    if (playerRef.current) {
-      playerRef.current.goToAndStop(0, true); // Stops at the first frame
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (playerRef.current) {
+  //     playerRef.current.goToAndStop(0, true); // Stops at the first frame
+  //   }
+  // }, []);
 
 
   // console.log('apiURL', environmentMode())
@@ -109,7 +109,7 @@ function Top() {
             <div className=' text-3xl font-bold text-white'>GST</div>
             <div className=' text-xl font-bold text-white'>INVOICE MAKER</div></div>
           <Player
-            ref={playerRef}
+            // ref={playerRef}
             style={{ width: '50%', marginTop: '-10px ' }}
             src='/CategoryNearMe/Invoice.json'
             // loop

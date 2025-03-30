@@ -199,7 +199,8 @@ function Page() {
                   >
                     <Player
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,
@@ -223,7 +224,8 @@ function Page() {
                   >
                     <Player
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,
@@ -247,7 +249,8 @@ function Page() {
                   >
                     <Player
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,
@@ -271,14 +274,15 @@ function Page() {
                   >
                     <Player
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,
                       }}
                       src="/Lotties/List.json"
                       // loop
-                      autoplay
+                      autoplay={false}
                     />
                     <div className=" static bottom-0 text-white font-bold">
                       List Business
@@ -299,7 +303,8 @@ function Page() {
                       // loop
                       autoplay
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,
@@ -320,7 +325,8 @@ function Page() {
                   >
                     <Player
                       style={{
-                        width: "80%",
+                        width: "95%",
+                        height: "100%",
                         marginTop: "-10px ",
                         objectFit: "cover",
                         padding: 5,

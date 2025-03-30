@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 // export const metadata = {
-//   title: "Famous Business",
+//   title: "Find Business Near you",
 //   description: "Developed By WBFS PVT LTD",
 //   creator: "Famous Business",
 //   authors: [{ name: "Famous Business" }],
@@ -31,6 +31,7 @@ export default function RootLayout({ children }) {
 
     <html lang="en">
       <head>
+        <title>Find Business Near you</title>
         {/* <meta name="google-site-verification" content="Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw" />
         <meta name="facebook-domain-verification" content="8hhzgny6wxz91vzeqa61rmobj6tbim"/>
 
