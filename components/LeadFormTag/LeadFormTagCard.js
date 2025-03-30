@@ -1,12 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { Box, Typography, CardContent, Card, Button  } from "@mui/material";
-// import HomeLeadFormModal from "./FormModal";
+import HomeLeadFormModal from "./FormModal";
 
 
-const HomeLeadFormModal = dynamic(()=> import ('./FormModal'), { ssr: false })
+// const HomeLeadFormModal = dynamic(()=> import ('./FormModal'), { ssr: false })
 
 
 
