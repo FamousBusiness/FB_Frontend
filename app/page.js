@@ -9,16 +9,16 @@ import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 import { Poppins } from "next/font/google";
 import axios from "axios";
+import HomeLeadFormTagWise from "@/components/LeadFormTag/LeadFormTag";
 // import Typography from "antd";
 // import TrendingBusiness from "@/components/users/home/BusinessCategoryNearme/TrendingBusiness";
 // import VerifyBusiness from "@/components/users/home/VerifyBusinessNearMe/VerifyBusiness";
-// import HomeLeadFormTagWise from "@/components/LeadFormTag/LeadFormTag";
 // import Brands from '@/components/users/home/Brands/Brands';
 // import Index from '@/components/users/home/Combo';
 // import ProfilePop from '@/utils/ProfilePop';
 // import SoftwareComponent from '@/components/users/home/SoftwareSection/SoftwareComponent';
 
-const HomeLeadFormTagWise = dynamic(()=> import ('@/components/LeadFormTag/LeadFormTag'), { ssr: false })
+// const HomeLeadFormTagWise = dynamic(()=> import ('@/components/LeadFormTag/LeadFormTag'), { ssr: false })
 const VerifyBusiness = dynamic(()=> import ('@/components/users/home/VerifyBusinessNearMe/VerifyBusiness'), { ssr: false })
 const TrendingBusiness = dynamic(()=> import ('@/components/users/home/BusinessCategoryNearme/TrendingBusiness'), { ssr: false })
 
