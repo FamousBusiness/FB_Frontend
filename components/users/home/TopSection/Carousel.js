@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Carousel, Skeleton } from 'antd';
+import { Carousel } from 'antd';
 import Image from 'next/image';
 // import { useHomeData } from '@/services/Commondata/HomeData';
 

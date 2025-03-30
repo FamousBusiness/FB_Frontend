@@ -1,11 +1,13 @@
 "use client"
 
-import React, { useState, useRef } from 'react';
+import dynamic from 'next/dynamic';
+import React, { useRef } from 'react';
 import { Carousel, Col, Empty, Row } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import LeadFormTagCard from './LeadFormTagCard';
+// import LeadFormTagCard from './LeadFormTagCard';
 
 
+const LeadFormTagCard = dynamic(()=> import ('./LeadFormTagCard'), { ssr: false })
 
 
 

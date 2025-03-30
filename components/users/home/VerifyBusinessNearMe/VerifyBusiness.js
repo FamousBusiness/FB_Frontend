@@ -1,13 +1,16 @@
-// Import necessary libraries and components
 "use client";
-import { Button, Card, Carousel, Col, Empty, Row, Skeleton } from 'antd';
+
+import dynamic from 'next/dynamic';
+import { Card, Carousel, Col, Empty, Row } from 'antd';
 import React, { useRef } from 'react';
-import CardVerify from '../../CardVerify';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { useHomeData } from '@/services/Commondata/HomeData';
-import MobileCard from './mobileCard';
+// import MobileCard from './mobileCard';
+// import CardVerify from '../../CardVerify';
 
 
+const CardVerify = dynamic(()=> import ('../../CardVerify'), { ssr: false })
+const MobileCard = dynamic(()=> import ('./mobileCard'), { ssr: false })
 
 
 // VerifyBusiness functional component

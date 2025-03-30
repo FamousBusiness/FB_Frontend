@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+
+
 module.exports = {
+
+  reactStrictMode: true,
 
   typescript: {
     // Will use the specified TypeScript version to check your code.
@@ -10,9 +15,11 @@ module.exports = {
   // experimental: {
   //   appDir: true
   // }
+
   env: {
     SERVER_API_SECRET: process.env.SERVER_API_SECRET,
   },
+
   images: {
     domains: ['https://api.famousbusiness.in','https://mdwebzotica.famousbusiness.in','https://images.unsplash.com', 'http://127.0.0.1:8000'],
 

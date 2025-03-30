@@ -1,16 +1,18 @@
-
 "use client"
+
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { Col, Row, Skeleton } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import AllCategory from './AllCategory';
 import useSWR from 'swr';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { useState, useEffect } from 'react';
+// import AllCategory from './AllCategory';
 // import { EnvironmentMode } from '@/components/environment';
 
 
+const AllCategory = dynamic(()=> import ('./AllCategory'), { ssr: false })
 
 
 

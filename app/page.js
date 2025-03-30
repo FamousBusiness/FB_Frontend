@@ -1,21 +1,26 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from "react";
-import { Carousel, Col, Row, Space, Spin } from "antd";
-// import Typography from "antd";
+import { Carousel, Col, Row, Spin } from "antd";
 import Top from "@/components/users/home/TopSection/Top";
-import TrendingBusiness from "@/components/users/home/BusinessCategoryNearme/TrendingBusiness";
-import VerifyBusiness from "@/components/users/home/VerifyBusinessNearMe/VerifyBusiness";
 import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
 import { motion, useAnimation } from "framer-motion";
 import { Poppins } from "next/font/google";
 import axios from "axios";
-import HomeLeadFormTagWise from "@/components/LeadFormTag/LeadFormTag";
+// import Typography from "antd";
+// import TrendingBusiness from "@/components/users/home/BusinessCategoryNearme/TrendingBusiness";
+// import VerifyBusiness from "@/components/users/home/VerifyBusinessNearMe/VerifyBusiness";
+// import HomeLeadFormTagWise from "@/components/LeadFormTag/LeadFormTag";
 // import Brands from '@/components/users/home/Brands/Brands';
 // import Index from '@/components/users/home/Combo';
 // import ProfilePop from '@/utils/ProfilePop';
 // import SoftwareComponent from '@/components/users/home/SoftwareSection/SoftwareComponent';
+
+const HomeLeadFormTagWise = dynamic(()=> import ('@/components/LeadFormTag/LeadFormTag'), { ssr: false })
+const VerifyBusiness = dynamic(()=> import ('@/components/users/home/VerifyBusinessNearMe/VerifyBusiness'), { ssr: false })
+const TrendingBusiness = dynamic(()=> import ('@/components/users/home/BusinessCategoryNearme/TrendingBusiness'), { ssr: false })
 
 
 const poppins = Poppins({
@@ -70,7 +75,7 @@ function Page() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      // initial={{ opacity: 0 }}
       animate={controls}
       transition={{ duration: 0.5 }}
     >
@@ -200,7 +205,7 @@ function Page() {
                         padding: 5,
                       }}
                       src="/CategoryNearMe/Invoice.json"
-                      loop
+                      // loop
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
@@ -224,7 +229,7 @@ function Page() {
                         padding: 5,
                       }}
                       src="/Lotties/Cart1.json"
-                      loop
+                      // loop
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
@@ -248,7 +253,7 @@ function Page() {
                         padding: 5,
                       }}
                       src="/Lotties/Database.json"
-                      loop
+                      // loop
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
@@ -272,7 +277,7 @@ function Page() {
                         padding: 5,
                       }}
                       src="/Lotties/List.json"
-                      loop
+                      // loop
                       autoplay
                     />
                     <div className=" static bottom-0 text-white font-bold">
@@ -291,7 +296,7 @@ function Page() {
                   >
                     <Player
                       src="/Lotties/ads.json"
-                      loop
+                      // loop
                       autoplay
                       style={{
                         width: "80%",
@@ -321,7 +326,7 @@ function Page() {
                         padding: 5,
                       }}
                       src="/Lotties/manage-order.json"
-                      loop
+                      // loop
                       autoplay
                     />
                     <div className=" static bottom-0  text-white font-bold">

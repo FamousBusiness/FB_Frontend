@@ -1,19 +1,20 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 import { Player } from '@lottiefiles/react-lottie-player'
 import { Badge, Col, Row, Skeleton } from 'antd'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import Carousel1 from './Carousel'
+import React, { useState } from 'react'
 import { useHomeData } from '@/services/Commondata/HomeData';
-// import { get_all_leads } from '@/services/Admin/Leads';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
 import { useRouter } from 'next/navigation';
+// import Carousel1 from './Carousel'
+// import { get_all_leads } from '@/services/Admin/Leads';
 // import { EnvironmentMode } from '@/components/environment';
 
 
-
+const Carousel1 = dynamic(()=> import ('./Carousel'), { ssr: false })
 
 
 
