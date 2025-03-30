@@ -28,14 +28,15 @@ export default function RootLayout({ children }) {
   const hideNavbar = pathname.startsWith("/store") || pathname.startsWith("/wallet");
 
   return (
+
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw" />
+        {/* <meta name="google-site-verification" content="Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw" />
         <meta name="facebook-domain-verification" content="8hhzgny6wxz91vzeqa61rmobj6tbim"/>
 
-        <meta name="google-adsense-account" content="ca-pub-3619066091276324" />
+        <meta name="google-adsense-account" content="ca-pub-3619066091276324" /> */}
 
-        <script
+        {/* <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3619066091276324"
           crossOrigin="anonymous"
@@ -56,16 +57,9 @@ export default function RootLayout({ children }) {
               fbq('track', 'PageView');
             `,
           }}
-        />
+        /> */}
 
         <noscript>
-          {/* <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1114902456896553&ev=PageView&noscript=1"
-            alt="Facebook Pixel"
-          /> */}
           <Image
             src="https://www.facebook.com/tr?id=1114902456896553&ev=PageView&noscript=1"
             alt="Facebook Pixel"
@@ -88,5 +82,6 @@ export default function RootLayout({ children }) {
         </AuthProvider>
       </body>
     </html>
+
   );
 }

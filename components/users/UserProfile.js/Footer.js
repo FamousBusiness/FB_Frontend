@@ -15,10 +15,10 @@ function Footer({ BusinessName }) {
 
   return (
   <>
-    {
+  {
     pathName.includes('/failure') || pathName.includes('/success') || pathName.includes('/admin') || pathName.includes('/userprofile') || pathName.includes('/brands/Branddeatails') || pathName.includes('/login') || pathName.includes('/registration') || pathName.includes('/job/employerdash') || pathName.includes('/job/employeedash') ? null :
     
-      <div className=" relative dark:text-black sm:rounded-2xl shadow-sm m-0 sm:m-4 bg-white pt-6 pb-6">
+      <div className="relative dark:text-black sm:rounded-2xl shadow-sm m-0 bg-white pt-6 pb-6" style={{minHeight:'150px', paddingInline:'1rem'}}>
         <Row justify='center' align='middle'>
           <Col span={23}>
             <Row justify='start' align='top'>
@@ -29,13 +29,11 @@ function Footer({ BusinessName }) {
                     <div className=" text-3xl text-start font-extrabold text-blueGray-700">{BusinessName ? `${BusinessName.business_name}` : (<><span className=' text-blue-600'>Famous </span><span className=' text-green-700'>Business</span></>)}</div>
                   </Col>
 
-
                   <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0}>
                     {BusinessName ? <div className=" text-lg font-bold text-blueGray-700">{BusinessName.business_name}</div> :
                       <div><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></div>}
                     <div className=" text-sm font-medium  text-blueGray-600">Thank you for being a valued customer!</div>
                   </Col>
-
 
                   <Col xs={0} sm={0} md={0} lg={24} xl={24} xxl={24}>
                     <Row align='middle' gutter={[{ xs: 8, sm: 8, md: 8, lg: 24, xl: 24 }, 12]}>
@@ -45,27 +43,27 @@ function Footer({ BusinessName }) {
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/visa.svg' width={200} height={200} alt='visa' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/visa.webp' width={200} height={200} alt='visa' priority />
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/payment.svg' width={200} height={200} alt='paytm' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/payment.webp' width={200} height={200} alt='paytm' priority />
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/mastercard.svg' width={200} height={200} alt='master' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/mastercard.webp' width={200} height={200} alt='master' priority />
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/upi.svg' width={200} height={200} alt='upi' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/upi.webp' width={200} height={200} alt='upi' priority />
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/paytm.svg' width={100} height={100} alt='paytm' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/paytm.webp' width={100} height={100} alt='paytm' priority />
                       </Col>
 
                       <Col span={3}>
-                        <Image src='/payments/google-pay.svg' width={100} height={100} alt='gpay' />
+                        <Image src='https://mdwebzotica.famousbusiness.in/Payment_Image/google-pay.webp' width={100} height={100} alt='gpay' priority />
                       </Col>
 
                     </Row>
@@ -78,7 +76,7 @@ function Footer({ BusinessName }) {
                   <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
                     <Player src='/Footer/main.json' autoplay loop />
                   </Col>
-                  <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} ><div className=' font-semibold  '>Make In India</div></Col>
+                  <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} ><div className=' font-semibold'>Make In India</div></Col>
                 </Row>
               </Col>
             </Row>
@@ -89,24 +87,31 @@ function Footer({ BusinessName }) {
               <Col span={3}  >
                 <Player src='/Footer/secure.json' autoplay loop />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/visa.svg' width={200} height={200} alt='visa' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/visa.webp' width={200} height={200} alt='visa' />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/payment.svg' width={200} height={200} alt='paytm' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/payment.webp' width={200} height={200} alt='paytm' />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/mastercard.svg' width={200} height={200} alt='master' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/mastercard.webp' width={200} height={200} alt='master' />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/upi.svg' width={200} height={200} alt='upi' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/upi.webp' width={200} height={200} alt='upi' />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/paytm.svg' width={100} height={100} alt='paytm' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/paytm.webp' width={100} height={100} alt='paytm' />
               </Col>
+
               <Col span={3}>
-                <Image priority src='/payments/google-pay.svg' width={100} height={100} alt='gpay' />
+                <Image priority src='https://mdwebzotica.famousbusiness.in/Payment_Image/google-pay.webp' width={100} height={100} alt='gpay' />
               </Col>
+
               <Col span={3}>
                 <a href={'/Download/Famous_Business (1).apk'} download>
                   <Image src="/app-download.svg" width={60} height={60} alt='' />

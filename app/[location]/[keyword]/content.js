@@ -303,7 +303,7 @@ export default function KeywordPage({ params }) {
             <Col sm={0} xs={0} md={0} lg={23} xl={23} xxl={23}>
                 <Row  gutter={7} align='middle'>
                     <Col >
-                        <NextBreadcrumb separator="/" capitalizeLinks={true} />
+                        <NextBreadcrumb separator=">" capitalizeLinks={true} />
                     </Col>
                     
                     <Col className='font-semibold pb-1'>

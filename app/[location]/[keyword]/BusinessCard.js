@@ -47,14 +47,18 @@ function SearchKeyBusinessCard({ items, index }) {
                                                 item.image.map((imageItem, imageIndex) => (
                                                     <AspectRatio variant="outlined"
                                                         ratio="4/3" objectFit='contain' key={imageItem.id} minHeight="120px" maxHeight="200px">
-                                                        <Image
-                                                            fill
-                                                            src={imageItem.image}
-                                                            loading='lazy'
-                                                            sizes='100%'
-                                                            className=' object-contain'
-                                                            alt={`business-${index}-${imageIndex}`}
-                                                        />
+                                                        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9" }}>
+                                                            <Image
+                                                                fill
+                                                                src={imageItem.image}
+                                                                alt={`business-${index}-${imageIndex}`}
+                                                                width={800}
+                                                                height={600}
+                                                                priority
+                                                                quality={80}
+                                                                format="webp"
+                                                            />
+                                                        </div>
                                                     </AspectRatio>
                                                 ))
                                             ) : null

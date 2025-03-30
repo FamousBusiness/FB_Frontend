@@ -37,18 +37,20 @@ const fetcher = async (url, csrftoken) => {
 export const useHomeData = () => {
   const { locationState } = useGlobalState();
   const { csrftoken } = useAuth()
-  const [apiUrl, setApiURL] = useState('');
+  const [apiUrl, setApiURL] = useState(
+            process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
+        );
 
   //// Modify API URL According to the api Url
-  useEffect(()=> {
-    const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
+  // useEffect(()=> {
+  //   const is_development = process.env.NEXT_PUBLIC_IS_DEVELOPMENT
 
-    if (is_development === 'True') {
-      setApiURL('http://127.0.0.1:8000')
-    } else {
-      setApiURL('https://api.famousbusiness.in')
-    }
-  }, []);
+  //   if (is_development === 'True') {
+  //     setApiURL('http://127.0.0.1:8000')
+  //   } else {
+  //     setApiURL('https://api.famousbusiness.in')
+  //   }
+  // }, []);
 
 
    // Fetch data only when apiUrl is set
@@ -57,8 +59,7 @@ export const useHomeData = () => {
 
   const { data: homedata, error } = useSWR(
     shouldFetch ?
-      [`${apiUrl}/api/listings/?city=${locationState?.city}&state=${locationState?.state}`, csrftoken]
-      : null,
+      [`${apiUrl}/api/listings/?city=${locationState?.city}&state=${locationState?.state}`, csrftoken] : null,
     fetcher,
     {
       // revalidateOnMount: true,

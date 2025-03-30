@@ -112,6 +112,7 @@ function Page() {
                           Marketplace!
                         </p>
                       </div>
+
                       <div className=" sm:px-2  flex justify-center">
                         <p
                           className={` ${poppinss.className} text-sm dark:text-black sm:text-2xl text-black  `}
@@ -121,6 +122,7 @@ function Page() {
                           <span className=" text-green-500">Business</span>
                         </p>
                       </div>
+                      
                       <div className=" sm:px-2  flex justify-center">
                         <p
                           className={` ${poppinss.className} text-sm dark:text-black sm:text-2xl text-black  `}
