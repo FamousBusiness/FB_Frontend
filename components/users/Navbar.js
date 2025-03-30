@@ -1,5 +1,5 @@
 "use client";
-import { Button, Col, Flex, Modal, Row, Tooltip, Typography } from 'antd';
+import { Button, Col, Modal, Row, Tooltip } from 'antd';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import AutoCom from "./AutoComplete";

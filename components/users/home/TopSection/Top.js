@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { Player } from '@lottiefiles/react-lottie-player'
 import { Badge, Col, Row, Skeleton } from 'antd'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useHomeData } from '@/services/Commondata/HomeData';
 import { useAuth } from '@/context/AuthContext';
 import { useGlobalState } from '@/services/LocationDetector/GlobalState';
@@ -21,6 +21,8 @@ const Carousel1 = dynamic(()=> import ('./Carousel'), { ssr: false })
 
 function Top() {
   const { user } = useAuth()
+  const playerRef = useRef(null);
+
   const { locationState } = useGlobalState()
   const [leadsCount, setLeadsCount] = useState(0)
   const { homedata, isLoading, isError } = useHomeData();
@@ -29,6 +31,12 @@ function Top() {
 
   const city = locationState.city;
   const state = locationState.state;
+
+  useEffect(() => {
+    if (playerRef.current) {
+      playerRef.current.goToAndStop(0, true); // Stops at the first frame
+    }
+  }, []);
 
 
   // console.log('apiURL', environmentMode())
@@ -101,10 +109,12 @@ function Top() {
             <div className=' text-3xl font-bold text-white'>GST</div>
             <div className=' text-xl font-bold text-white'>INVOICE MAKER</div></div>
           <Player
+            ref={playerRef}
             style={{ width: '50%', marginTop: '-10px ' }}
             src='/CategoryNearMe/Invoice.json'
-            loop
-            autoplay />
+            // loop
+            autoplay={false}
+            />
 
           <div className=' text-lg font-sans font-semibold mt-2 px-2 '>
             <div onClick={() => router.push('/invoice-generator')} className=' cursor-pointer border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>Get Started</div>
@@ -128,10 +138,11 @@ function Top() {
           </div>
 
           <Player
+            ref={playerRef}
             style={{ width: '50%', marginTop: '-10px ' }}
             src='/Lotties/Cart1.json'
-            loop
-            autoplay
+            // loop
+            autoplay={false}
           />
           
           <div className=' text-lg font-sans font-semibold px-2 '>
@@ -151,10 +162,11 @@ function Top() {
                 <div className='text-lg text-white font-bold'>LIVE Leads</div>
               </div>
               <Player
+                ref={playerRef}
                 style={{ width: '50%', marginTop: '-10px ' }}
                 src='/Lotties/Database.json'
-                loop
-                autoplay />
+                // loop
+                autoplay={false} />
               <div className=' text-lg font-sans font-semibold mt-2 px-2  '>
                 <Link href='/leads' >
                   <div className=' border border-1 text-center border-white rounded-full py-1 px-2 hover:px-4 duration-300 text-white'>View Leads</div>

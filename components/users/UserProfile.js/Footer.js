@@ -39,7 +39,11 @@ function Footer({ BusinessName }) {
                     <Row align='middle' gutter={[{ xs: 8, sm: 8, md: 8, lg: 24, xl: 24 }, 12]}>
 
                       <Col span={3}  >
-                        <Player src='/Footer/secure.json' autoplay loop />
+                        <Player 
+                          src='/Footer/secure.json' 
+                          autoplay={false}
+                          // loop 
+                          />
                       </Col>
 
                       <Col span={3}>
@@ -74,7 +78,11 @@ function Footer({ BusinessName }) {
               <Col xs={6} sm={6} md={6} lg={6} xl={6} xxl={6} className=' relative'>
                 <Row justify='center' >
                   <Col xs={16} sm={16} md={16} lg={16} xl={16} xxl={16}>
-                    <Player src='/Footer/main.json' autoplay loop />
+                    <Player 
+                      src='/Footer/main.json' 
+                      autoplay={false}
+                      // loop 
+                      />
                   </Col>
                   <Col xs={24} sm={24} md={24} lg={0} xl={0} xxl={0} ><div className=' font-semibold'>Make In India</div></Col>
                 </Row>
@@ -85,7 +93,11 @@ function Footer({ BusinessName }) {
           <Col xs={24} md={24} sm={24} lg={0} xl={0} xxl={0}>
             <Row align='middle' justify='space-around'>
               <Col span={3}  >
-                <Player src='/Footer/secure.json' autoplay loop />
+                <Player 
+                  src='/Footer/secure.json' 
+                  autoplay={false}
+                  // loop
+                  />
               </Col>
 
               <Col span={3}>
@@ -181,7 +193,7 @@ function Footer({ BusinessName }) {
               <Link href='/about/policy' className=' mx-1'>Privacy</Link> | <Link href='/about/Terms-Condition' className=' mx-1'>Terms</Link>
 
               <Link href='https://www.facebook.com/profile.php?id=61555443724142'>
-                <FaSquareFacebook className=' text-lg hover:translate-y-1 duration-100' />
+                <FaSquareFacebook className='text-lg hover:translate-y-1 duration-100' />
               </Link>
             </Flex>
           </Col>
