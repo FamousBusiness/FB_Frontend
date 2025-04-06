@@ -247,7 +247,7 @@ export default function KeywordPage({ params }) {
 
         try {
             setLoading(true);
-            const response = await fetch('http://127.0.0.1:8000/lead-api/create/search/keyword/lead/', {
+            const response = await fetch(`${apiUrl}/lead-api/create/search/keyword/lead/`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
