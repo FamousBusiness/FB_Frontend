@@ -1,17 +1,18 @@
 "use client";
 
 // import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axiosInstance from "@/Authentication/axios";
 import { useGlobalState } from "@/services/LocationDetector/GlobalState";
 import { useMapboxLocation } from "@/lib/location";
-import { Card, Col, Flex, Row, Skeleton, Typography } from 'antd';
+import { Card, Col, Flex, Row, Skeleton, Typography, Modal, Input, Button, message } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 import InfiniteScroll from 'react-infinite-scroll-component';
 // import { useSchema } from "@/context/SchemaContext";
 // import Banner from "@/components/users/home/leads/Banner";
 import NextBreadcrumb from "@/components/NextBreadcrum";
 import SearchKeyBusinessCard from "./BusinessCard";
-import Enquiry1 from "@/components/users/EnquiryForm/Enquiry1";
+// import Enquiry1 from "@/components/users/EnquiryForm/Enquiry1";
 // import CategoryFilter from "@/components/users/Filter/FilterComponent";
 // import Head from "next/head";
 
@@ -188,8 +189,93 @@ export default function KeywordPage({ params }) {
     const [visibleItems, setVisibleItems] = useState(10);
     const apiUrl = process.env.NEXT_PUBLIC_IS_DEVELOPMENT === 'True' ? "http://127.0.0.1:8000" : 'https://api.famousbusiness.in'
 
-    // console.log('location', location)
-    // console.log('keyword', keyword)
+    // Antd Modal section
+    //////////////////////////
+    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [showCount, setShowCount] = useState(0);
+    const secondTimerRef = useRef(null);
+    const [mobile, setMobile] = useState('');
+    const [name, setName] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    useEffect(() => {
+        // First modal appearance after 8 seconds
+        const firstTimer = setTimeout(() => {
+          setIsModalOpen(true);
+          setShowCount(1);
+        }, 8000);
+    
+        return () => clearTimeout(firstTimer);
+      }, []);
+    
+      const handleClose = () => {
+        setIsModalOpen(false);
+    
+        // If this was the first modal close, schedule the second appearance
+        if (showCount === 1 && !isSubmitted) {
+          secondTimerRef.current = setTimeout(() => {
+            setIsModalOpen(true);
+            setShowCount(2);
+          }, 20000); // 20 seconds after first close
+        }
+      };
+    
+      useEffect(() => {
+        return () => {
+          if (secondTimerRef.current) {
+            clearTimeout(secondTimerRef.current);
+          }
+        };
+      }, []);
+
+      const handleSubmit = async ()=> {
+        if (!name  || !mobile || !location || !keyword) {
+            message.warning('Please fill in all the fields.');
+            return
+        };
+
+        const cleanLocation = location.replaceAll('-', ' ').trim();
+        const cleanKeyword = keyword.replaceAll('-', ' ').trim();
+
+        const payload = {
+            mobile_number: mobile,
+            name: name,
+            city: cleanLocation,
+            keyword: cleanKeyword,
+        };
+
+        try {
+            setLoading(true);
+            const response = await fetch('http://127.0.0.1:8000/lead-api/create/search/keyword/lead/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(payload),
+            });
+      
+            const data = await response.json();
+      
+            if (response.status == 201) {
+              message.success('Lead submitted successfully!');
+              handleClose();
+              setName('');
+              setMobile('');
+              setCity('');
+              setIsSubmitted(true)
+
+            } else {
+              message.error(data.error || 'Failed to submit lead.');
+            }
+          } catch (error) {
+            message.error('Something went wrong!');
+          } finally {
+            setLoading(false);
+          }
+      }
+
+    ///////////////////
 
     const formattedLocation = location.replace(/-/g, ' ');
     const formattedKeyword  = keyword.replace(/-/g, ' ');
@@ -325,8 +411,9 @@ export default function KeywordPage({ params }) {
             </Col> */}
 
             <Col span={24}>
-                <Row gutter={12} justify='space-between'>
-                    <Col sm={24} xs={24} md={18} lg={18} xl={18} xxl={18} className=' overflow-hidden'>
+                <Row gutter={12} justify='space-around'>
+                    {/* <Col sm={24} xs={24} md={18} lg={18} xl={18} xxl={18} className=' overflow-hidden'> */}
+                    <Col sm={24} xs={24} md={23} className='overflow-hidden'>
                         <InfiniteScroll
                             dataLength={visibleItems}
                             next={fetchMoreData}
@@ -371,18 +458,63 @@ export default function KeywordPage({ params }) {
                                     </Col>
                                 ))}
                             </Row>
+
                         </InfiniteScroll>
                     </Col>
 
-                    <Col sm={0} xs={0} md={0} lg={6} xl={6} xxl={6} >
+
+                    {/* Enquiry Form */}
+                    {/* <Col sm={0} xs={0} md={0} lg={6} xl={6} xxl={6} >
                         <div className=' w-full sticky top-28'>
                             <Enquiry1 getRequire={`Verified Category in City`} />
                         </div>
-                    </Col>
+                    </Col> */}
+                    {/* Enquiry Form */}
                     
                 </Row>
             </Col>
         </Row>
+
+        
+
+        <Modal 
+            title="Enquire for the product" 
+            open={isModalOpen} 
+            onOk={handleClose} 
+            onCancel={handleClose} 
+            destroyOnClose
+            footer={null} 
+            >
+            <Input 
+                placeholder="Type your name" 
+                prefix={<UserOutlined />}  
+                style={{margin:10}} 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+
+            <Input 
+                placeholder="Your Mobile Number" 
+                prefix={<UserOutlined />} 
+                style={{margin:10}}  
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+            />
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button onClick={handleClose} style={{ marginRight: 8 }}>
+                    Cancel
+                </Button>
+
+                <Button 
+                    style={{color:'black', backgroundColor:'greenYellow'}} 
+                    onClick={handleSubmit}
+                    loading={loading}
+                    >
+                    Submit
+                </Button>
+            </div>
+        </Modal>
     </>
     )
 }
