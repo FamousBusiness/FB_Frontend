@@ -22,18 +22,18 @@ import Image from "next/image";
 //   },
 // };
 
-function HeadSchemaInjector() {
-  const { schema } = useSchema();
+// function HeadSchemaInjector() {
+//   // const { schema } = useSchema();
 
-  if (!schema) return null;
+//   if (!schema) return null;
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
+//   return (
+//     <script
+//       type="application/ld+json"
+//       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+//     />
+//   );
+// }
 
 
 
