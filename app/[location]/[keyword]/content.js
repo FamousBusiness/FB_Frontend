@@ -65,7 +65,7 @@ const generateItemListSchema =(businessData, itemListSchemaName)=> {
                 "name": itemListSchemaName,
                 "itemListElement": businessData.map((item)=> ({
                     "@type": "ListItem",
-                    "position": item?.id,
+                    "position": index + 1,
                     "item": {
                         "@type": "LocalBusiness",
                         "name": item?.business_page?.business_name,
