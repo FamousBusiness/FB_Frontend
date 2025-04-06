@@ -63,7 +63,7 @@ const generateItemListSchema =(businessData, itemListSchemaName)=> {
             {
                 "@type": "ItemList",
                 "name": itemListSchemaName,
-                "itemListElement": businessData.map((item)=> ({
+                "itemListElement": businessData.map((item, index)=> ({
                     "@type": "ListItem",
                     "position": index + 1,
                     "item": {
