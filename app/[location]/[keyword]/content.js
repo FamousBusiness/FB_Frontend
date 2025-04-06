@@ -1,18 +1,19 @@
 "use client";
 
-import { useParams } from "next/navigation";
+// import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/Authentication/axios";
 import { useGlobalState } from "@/services/LocationDetector/GlobalState";
 import { useMapboxLocation } from "@/lib/location";
 import { Card, Col, Flex, Row, Skeleton, Typography } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Banner from "@/components/users/home/leads/Banner";
+// import { useSchema } from "@/context/SchemaContext";
+// import Banner from "@/components/users/home/leads/Banner";
 import NextBreadcrumb from "@/components/NextBreadcrum";
 import SearchKeyBusinessCard from "./BusinessCard";
 import Enquiry1 from "@/components/users/EnquiryForm/Enquiry1";
-import CategoryFilter from "@/components/users/Filter/FilterComponent";
-import Head from "next/head";
+// import CategoryFilter from "@/components/users/Filter/FilterComponent";
+// import Head from "next/head";
 
 
 
@@ -170,17 +171,17 @@ const generateArticleSchema = (articleSchemaData)=> {
 }
 
 export default function KeywordPage({ params }) {
-    const {location, keyword} = useParams()
-    const { setLocationCity } = useGlobalState()
-    const { locationOptions } = useMapboxLocation(location)
+    const {location, keyword} = params;
+    const { setLocationCity } = useGlobalState();
+    const { locationOptions } = useMapboxLocation(location);
     const [businessData, setBusinessData] = useState([]);
     const [count, setCount] = useState(0);  //// Pagination Count
     const [noDataFound, setNoDataFound]   = useState(false);
     const [filters, setFilters] = useState({});
     const [metaTag, setMetaTag] = useState([]);
     const [titleTag, setTitletag] = useState('');
-    const [bodyTag, setBodyTag] = useState('');
     const [linkTag, setLinkTag] = useState([]);
+    const [bodyTag, setBodyTag] = useState('');
     const [itemListSchemaName, setItemListSchemaName] = useState('');
     const [FaqSchemaData, setFaqSchemaData] = useState([]);
     const [articleSchemaData, setArticleSchemaData] = useState({});
@@ -198,6 +199,7 @@ export default function KeywordPage({ params }) {
     const itemListSchema   = generateItemListSchema(businessData, itemListSchemaName)
     const FaqSchema        = generateFaqSchema(FaqSchemaData ? FaqSchemaData : [])
     const ArticleSchema    = generateArticleSchema(articleSchemaData)
+
 
     /// Set the location according to the path
     useEffect(()=> {
@@ -275,7 +277,7 @@ export default function KeywordPage({ params }) {
 <>
 
 
-        <head>
+        <section>
             <script 
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadCrumbSchema) }}
@@ -296,7 +298,7 @@ export default function KeywordPage({ params }) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(ArticleSchema) }}
             />
 
-        </head>
+        </section>
 
         <Row justify='center' gutter={[12, { xs: 8, sm: 8, md: 10, lg: 12, xl: 24, xxl: 24 }]} >
 

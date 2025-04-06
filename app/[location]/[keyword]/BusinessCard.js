@@ -11,7 +11,7 @@ import MultiNumber from '@/components/users/Filter/MultiNumber';
 import Whatsapp from '@/components/users/Filter/Whatsapp';
 import EnquiryFormModel from '@/components/users/Filter/EnquiryFormModal';
 import MobileCard from '@/components/users/home/VerifyBusinessNearMe/mobileCard';
-import GetCategory from '@/utils/GetCategory';
+// import GetCategory from '@/utils/GetCategory';
 import Enquiry1 from "@/components/users/EnquiryForm/Enquiry1";
 import { AspectRatio } from '@mui/joy';
 

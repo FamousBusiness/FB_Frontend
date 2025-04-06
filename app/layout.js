@@ -8,8 +8,10 @@ import { AuthProvider } from "@/context/AuthContext";
 import { GlobalStateProvider } from "@/services/LocationDetector/GlobalState";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+// import { SchemaProvider, useSchema } from "@/context/SchemaContext";
 
 // export const metadata = {
+
 //   title: "Find Business Near you",
 //   description: "Developed By WBFS PVT LTD",
 //   creator: "Famous Business",
@@ -19,6 +21,19 @@ import Image from "next/image";
 //     facebook: "8hhzgny6wxz91vzeqa61rmobj6tbim",
 //   },
 // };
+
+function HeadSchemaInjector() {
+  const { schema } = useSchema();
+
+  if (!schema) return null;
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
 
 
 
@@ -75,9 +90,9 @@ export default function RootLayout({ children }) {
       <body className="bg-slate-100 dark:text-gray-800">
         <AuthProvider>
           <GlobalStateProvider>
-              {!hideNavbar && <Navbar />}
-                {children}
-              {!hideNavbar && <Footer />}
+                {!hideNavbar && <Navbar />}
+                  {children}
+                {!hideNavbar && <Footer />}
             <BottomNav />
           </GlobalStateProvider>
         </AuthProvider>

@@ -7,6 +7,7 @@ export async function generateMetadata({ params }) {
     const formattedLocation = location.replace(/-/g, ' ');
     const formattedKeyword = keyword.replace(/-/g, ' ');
 
+
     const queryParams = new URLSearchParams({
         city: formattedLocation,
         keyword: formattedKeyword
@@ -19,6 +20,8 @@ export async function generateMetadata({ params }) {
         }
     })
     const data = await response.json();
+
+    // console.log('meta data', data.results)
 
     const metaTags   = (data?.results?.meta_tag || []).flat();
 
@@ -37,6 +40,7 @@ export async function generateMetadata({ params }) {
     return {
         title: data.results?.title_tag || "",
         description: descriptions,
+
         alternates: {
             canonical: data?.results?.canonical_url
         },
@@ -53,7 +57,7 @@ export async function generateMetadata({ params }) {
         },
         openGraph: {
             title: data?.results?.open_graph?.og_title || "Default Title",
-            description: data?.results?.open_graph?.og_description || "Default Description",
+            description: data?.results?.open_graph?.og_description || "Default og Description",
             url: data?.results?.open_graph?.og_url || "https://famousbusiness.in",
             siteName: 'famousbusiness.in',
             images: [{
@@ -71,17 +75,20 @@ export async function generateMetadata({ params }) {
             // creator: '@nextjs',
             // creatorId: '1467726470533754880',
             images: [data?.results?.twitter_card?.twitter_image]
-        }
+        },
+    
     }
 }
 
 
 
 
-
 function SearchKeywordPage({ params }) {
+
     // console.log('params', params)
-    return <KeywordPage params={params} />
+    return( 
+        <KeywordPage params={params} />
+)
     
 };
 
