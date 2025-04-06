@@ -191,7 +191,7 @@ export default function KeywordPage({ params }) {
 
     // Antd Modal section
     //////////////////////////
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [showCount, setShowCount] = useState(0);
     const secondTimerRef = useRef(null);
     const [mobile, setMobile] = useState('');

@@ -169,18 +169,26 @@ function SearchKeyBusinessCard({ items, index }) {
                                 </Row>
                             </Col>
                         </Row>
-                        <div className=' absolute w-1/3 bottom-2 right-0'>
+
+                        <div className='absolute w-1/3 bottom-2 right-20'>
                             <Row justify='end' gutter={10} align='middle'>
-                                {items.industry_leader && <Col>
-                                    <Image src='/profile/tags/Industry.png' alt='Industry Leader' width={70} height={70} />
-                                </Col>}
-                                {items.super && <Col>
-                                    <Image src='/profile/tags/SupperSeller.png' alt='superseller' width={70} height={70} />
-                                </Col>}
-                                {items.premium && <Col>
-                                    <Image src='/profile/tags/Premium.png' alt='superseller' width={70} height={70} />
-                                </Col>}
+                                {items.industry_leader && 
+                                    <Col>
+                                        <Image src='/profile/tags/Industry.png' alt='Industry Leader' width={50} height={50} />
+                                    </Col>
+                                }
+                                {items.super && 
+                                    <Col>
+                                        <Image src='/profile/tags/SupperSeller.png' alt='superseller' width={50} height={50} />
+                                    </Col>
+                                }
+                                {items.premium && 
+                                    <Col>
+                                        <Image src='/profile/tags/Premium.png' alt='superseller' width={50} height={50} />
+                                    </Col>
+                                }
                             </Row>
+
                             <div className=' flex  justify-end items-end'>
                                 <Image src='/barcode/xyz.png' width={200} height={100} className=' w-full' alt='barcode' />
                             </div>
