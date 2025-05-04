@@ -414,20 +414,25 @@ function DesktopView({ business, handleShareClick, categoryName, refresh, averag
                                         </Col>}
                                     </Row>
                                 </Col>
+
                                 <Col span={24}>
                                     <Row gutter={3}>
                                         <Col><IoShieldCheckmark className=" text-3xl text-green-700" /></Col>
                                         <Col><div className=" text-black text-2xl font-semibold">GSTIN:{business.GSTIN}</div></Col>
                                     </Row>
                                 </Col>
+
                                 {Array.isArray(business.category) && business.category.length >= 0 ? null : <Col>
-                                    <BiCategory className=' text-3xl text-blue-600' />
+                                    <BiCategory className=' text-3xl text-blue-600' /> 
                                 </Col>}
-                                {Array.isArray(business.category) && business.category.length > 0 ? null : (
+
+                                <b>{categoryName ? categoryName : 'Category'}</b>
+                                {/* {Array.isArray(business.category) && business.category.length > 0 ? null : (
                                     <div className='text-lg text-slate-800 font-semibold font-sans'>
                                         <GetCategory business={business} />
                                     </div>
-                                )}
+                                )} */}
+
                                 <Col span={24}><Space size={10} dir='horizontal'><div><FaLocationDot className=' text-sky-600 text-3xl' /></div>
                                     <p className=' text-slate-800 font-semibold font-sans text-lg'>
                                         {business.city} {business.state} {business.pincode}

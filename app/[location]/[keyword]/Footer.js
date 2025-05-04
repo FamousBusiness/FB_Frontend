@@ -49,7 +49,7 @@ export default function KeywordFooter() {
   
     fetchFooterData();
 
-  }, [formattedLocation, formattedKeyword]);
+  }, [formattedLocation, formattedKeyword, apiUrl]);
 
 
   const renderColumns = () => {

@@ -5,6 +5,7 @@ import { Skeleton } from 'antd'
 import React from 'react'
 import useSWR from 'swr'
 
+
 function GetCategory({ business }) {
   // console.log(business);
 

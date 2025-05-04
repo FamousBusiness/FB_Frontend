@@ -1,17 +1,7 @@
-
 "use client";
+
 import React, { useState } from 'react';
-import {
-    Button,
-    Col,
-    Card,
-    Form,
-    Input,
-    Row,
-    Checkbox,
-    Typography,
-    Tag
-} from 'antd';
+import { Button, Col, Card, Form, Input, Row, Checkbox, Typography,Tag } from 'antd';
 import { GlobalOutlined, LockOutlined, MailOutlined, MobileOutlined, UserOutlined, WhatsAppOutlined } from '@ant-design/icons';
 import { IoBusinessOutline } from 'react-icons/io5';
 import { HiDocumentText } from 'react-icons/hi';

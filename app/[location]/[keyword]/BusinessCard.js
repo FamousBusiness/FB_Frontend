@@ -24,7 +24,7 @@ function SearchKeyBusinessCard({ items, index }) {
 
     //// Redirect to Business page
     const handleNext = () => {
-        router.push(`/userprofile/${items.business_name.replace(/\s+/g, '-')}?z_id=${items.id}&Cate=${category}`)
+        router.push(`/userprofile/${items.business_name.replace(/\s+/g, '-')}?z_id=${items.id}&Cate=${items?.category?.type}`)
     }
     
     const stopPropagation = (e) => {

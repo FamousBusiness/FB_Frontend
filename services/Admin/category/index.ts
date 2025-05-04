@@ -41,6 +41,7 @@ interface Category {
   // Add other properties as needed
 }
 
+
 export const get_category_by_id = async (id: number): Promise<string | undefined> => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API_SECRET}/listings/category/`, {
