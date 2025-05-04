@@ -75,7 +75,6 @@ function Page() {
 
   return (
     <motion.div
-      // initial={{ opacity: 0 }}
       animate={controls}
       transition={{ duration: 0.5 }}
     >

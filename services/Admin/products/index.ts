@@ -40,11 +40,13 @@ export const get_product_by_id = async (id: number) => {
       method: "GET",
     });
     
+    
     if (!res.ok) {
       // If the response status is not within the range 200-299
       throw new Error(`Failed to fetch product (status ${res.status})`);
     }
     const data = await res.json();
+    console.log('data', data)
     const business = data.data;
     return business.Business_data;
 

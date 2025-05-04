@@ -4,7 +4,7 @@ import { Col, Row, FloatButton } from "antd";
 import { useParams, useSearchParams } from "next/navigation";
 import { BsArrowUpShort } from "react-icons/bs";
 import SearchPage from "@/components/users/SearchPage";
-import { useGlobalState } from "@/services/LocationDetector/GlobalState";
+// import { useGlobalState } from "@/services/LocationDetector/GlobalState";
 
 
 

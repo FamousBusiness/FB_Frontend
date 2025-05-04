@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 // import { SchemaProvider, useSchema } from "@/context/SchemaContext";
 
+
 // export const metadata = {
 
 //   title: "Find Business Near you",
@@ -42,11 +43,13 @@ export default function RootLayout({ children }) {
 
   const hideNavbar = pathname.startsWith("/store") || pathname.startsWith("/wallet");
 
+  const hideFooter = hideNavbar || /^\/[^/]+\/[^/]+$/.test(pathname);
+
   return (
 
     <html lang="en">
       <head>
-        <title>Find Business Near you</title>
+        {/* <title>Find Business Near you</title> */}
         {/* <meta name="google-site-verification" content="Xt1V45SKg3Q6efCGyC9wj57T49K_JEEly7-mPhhtgyw" />
         <meta name="facebook-domain-verification" content="8hhzgny6wxz91vzeqa61rmobj6tbim"/>
 
@@ -92,7 +95,7 @@ export default function RootLayout({ children }) {
           <GlobalStateProvider>
                 {!hideNavbar && <Navbar />}
                   {children}
-                {!hideNavbar && <Footer />}
+                {!hideFooter && <Footer />}
             <BottomNav />
           </GlobalStateProvider>
         </AuthProvider>

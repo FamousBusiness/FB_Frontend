@@ -138,18 +138,17 @@ const Navbar = () => {
           <Row align='middle' gutter={[0, 10]}>
 
             <Col xs={24} sm={24} xl={0} lg={0} xxl={0}>
-              <Row justify='space-between' gutter={4} align='middle'>
-
-                <Col span={6}>
-                  <Link href='/' className=' text-base'><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></Link></Col>
-                    {!pathName.includes('/job') && <Col span={10}>
-                  <LocAuto />
-                </Col>}
-                
-                <Col >
-                  <MenuBar1 />
-                </Col>
-              </Row>
+                <Row justify='space-between' gutter={4} align='middle'>
+                    <Col span={6}>
+                      <Link href='/' className=' text-base'><span className=' font-black text-blue-600'>Famous</span><span className=' font-black text-green-700'>Business</span></Link></Col>
+                        {!pathName.includes('/job') && <Col span={10}>
+                      <LocAuto />
+                    </Col>}
+                    
+                    <Col >
+                      <MenuBar1 />
+                    </Col>
+                </Row>
             </Col>
 
             <Col xs={0} sm={0} md={5} lg={5} xl={5}>
@@ -283,6 +282,7 @@ const Navbar = () => {
     </>
   );
 };
+
 
 export default Navbar;
 

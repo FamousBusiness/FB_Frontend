@@ -2,7 +2,10 @@ import Plan from '@/app/plan/components/Plan'
 import { useAuth } from '@/context/AuthContext'
 import React, { useEffect, useState } from 'react'
 import LoginForm from './LandingPageModel'
-import { Modal } from 'antd'
+import { Modal } from 'antd';
+
+
+
 function ProfilePop({ id }) {
     const { user, userdata } = useAuth()
     const [isLoggedIn, setIsLoggedIn] = useState(false)

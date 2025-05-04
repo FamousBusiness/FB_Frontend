@@ -52,11 +52,9 @@ function SearchKeyBusinessCard({ items, index }) {
                                                                 fill
                                                                 src={imageItem.image}
                                                                 alt={`business-${index}-${imageIndex}`}
-                                                                width={800}
-                                                                height={600}
                                                                 priority
                                                                 quality={80}
-                                                                format="webp"
+                                                                style={{ objectFit: 'cover' }}
                                                             />
                                                         </div>
                                                     </AspectRatio>
