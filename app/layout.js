@@ -1,12 +1,13 @@
-"use client";
+// "use client";
 
 import "./globals.css";
-import Navbar from "@/components/users/Navbar";
-import Footer from "@/components/users/UserProfile.js/Footer";
-import BottomNav from "@/components/users/home/MobileComponent/BottomNav";
+// import Navbar from "@/components/users/Navbar";
+// import Footer from "@/components/users/UserProfile.js/Footer";
+// import BottomNav from "@/components/users/home/MobileComponent/BottomNav";
 import { AuthProvider } from "@/context/AuthContext";
 import { GlobalStateProvider } from "@/services/LocationDetector/GlobalState";
-import { usePathname } from "next/navigation";
+import ClientLayoutWrapper from "./ClientLayoutWrapper";
+// import { usePathname } from "next/navigation";
 import Image from "next/image";
 // import { SchemaProvider, useSchema } from "@/context/SchemaContext";
 
@@ -39,11 +40,13 @@ import Image from "next/image";
 
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  const hideNavbar = pathname.startsWith("/store") || pathname.startsWith("/wallet");
+  // const hideNavbar = pathname.startsWith("/store") || pathname.startsWith("/wallet");
+  // const leadFormPath = pathname.startsWith('/leadform');
 
-  const hideFooter = hideNavbar || /^\/[^/]+\/[^/]+$/.test(pathname);
+  // const hideFooter = hideNavbar || /^\/[^/]+\/[^/]+$/.test(pathname);
+  // const hideBottomNav = /^\/[^/]+\/[^/]+$/.test(leadFormPath);
 
   return (
 
@@ -93,10 +96,13 @@ export default function RootLayout({ children }) {
       <body className="bg-slate-100 dark:text-gray-800">
         <AuthProvider>
           <GlobalStateProvider>
-                {!hideNavbar && <Navbar />}
+            <ClientLayoutWrapper>
+              {children}
+              </ClientLayoutWrapper>
+                {/* {!hideNavbar && <Navbar />}
                   {children}
                 {!hideFooter && <Footer />}
-            <BottomNav />
+            {hideBottomNav ? '' : <BottomNav />} */}
           </GlobalStateProvider>
         </AuthProvider>
       </body>

@@ -115,11 +115,16 @@ function BusinessCard({ items, index, category }) {
 
                                         </Row>
                                     </Col>
+
                                     <Col span={23}>
                                         <Space size={5} align='center' direction='horizontal'>
                                             <BiCategory className=' text-2xl text-blue-600' />
-                                            <div className=' text-base font-semibold'><GetCategory business={items} /></div></Space>
+                                            <div className=' text-base font-semibold'>
+                                                {/* <GetCategory business={items} /> */}
+                                                {category ? category : ''}
+                                            </div></Space>
                                     </Col>
+
                                     <Col span={23} onClick={handleNext} >
                                         <div>
                                             <Space align='baseline' size={5} direction='horizontal'>

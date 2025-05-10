@@ -232,6 +232,8 @@ function SearchPage({ CatName }) {
         }
     };
 
+    console.log('category', category)
+    
     const fetchMoreData = () => {
         // Increase the number of visible items by 10
         setVisibleItems((prevVisibleItems) => prevVisibleItems + 10);

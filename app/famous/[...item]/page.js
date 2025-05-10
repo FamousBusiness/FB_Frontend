@@ -11,10 +11,8 @@ import SearchPage from "@/components/users/SearchPage";
 export default function Page() {
     const searchParams = useSearchParams();
     const param = useParams()
-    // console.log("params:", param.item[0]);
     const category = searchParams.get('cat_id');
     const categoryName = decodeURIComponent(searchParams.get('cat_name'));
-
     
     return (
         <>
